@@ -1,4 +1,4 @@
-package vk.itmo.dws.sample;
+package vk.itmo.dws.controllers.sample;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;

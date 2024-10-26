@@ -1,2 +1,11 @@
 spring:
   application.name: "itmo-dws-se-2024"
+
+  liquibase:
+    change-log: classpath:db/changelog/db.changelog-master.yaml
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    username: myuser
+    password: secret
+    url: jdbc:postgresql://localhost:5432/mydatabase
+#    url: jdbc:postgresql://localhost:5434/mydatabase
