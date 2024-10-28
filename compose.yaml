@@ -1,9 +1,47 @@
+volumes:
+  db-data:
+
 services:
-  postgres:
+  database:
+    container_name: database
     image: 'postgres:16'
     environment:
-      - 'POSTGRES_DB=mydatabase'
-      - 'POSTGRES_PASSWORD=secret'
-      - 'POSTGRES_USER=myuser'
+      POSTGRES_USER: agregator
+      POSTGRES_PASSWORD: password
+      POSTGRES_MULTIPLE_DATABASES: keycloak_db,backend_db
     ports:
       - '5432:5432'
+    volumes:
+      - db-data:/var/lib/postgresql/data
+      - ./docker_multiple_databases:/docker-entrypoint-initdb.d
+    shm_size: 256mb
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+
+  auth_server:
+    container_name: auth_server
+    image: quay.io/keycloak/keycloak:20.0.1
+    environment:
+      KC_DB: postgres
+      KC_DB_URL: jdbc:postgresql://database:5432/keycloak_db
+      KC_DB_USERNAME: agregator
+      KC_DB_PASSWORD: password
+      KEYCLOAK_ADMIN: agregator
+      KEYCLOAK_ADMIN_PASSWORD: password
+      KC_HTTP_ENABLED: "true"
+      KC_HTTP_PORT: 8099
+      KC_HOSTNAME_STRICT: "false"
+    ports:
+      - "8099:8099"
+    command:
+      - start-dev
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+    depends_on:
+      - database
