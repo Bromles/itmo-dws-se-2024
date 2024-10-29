@@ -16,6 +16,14 @@ const get = async () => {
   <h1 class="text-3xl font-bold underline">{{ msg }}</h1>
 
   <div class="card">
+    <button
+        class="mr-15"
+        type="button"
+        title="Test persisted state"
+        @click="$store.testAction"
+    >
+      Test ({{ $store.test }})
+    </button>
     <button type="button" @click="count++">count is {{ count }}</button>
     <button type="button" @click="get">msg is {{ msg }}</button>
     <p>
