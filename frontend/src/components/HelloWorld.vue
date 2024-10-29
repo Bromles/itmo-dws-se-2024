@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import {ref} from 'vue'
+import {useAuthStore} from '@/stores/authStore.ts'
 
 defineProps<{ msg: string }>()
 
@@ -10,6 +11,8 @@ const get = async () => {
   const res = await fetch('http://localhost:8080/api/v1/sample')
   msg.value = await res.text()
 }
+
+const store = useAuthStore()
 </script>
 
 <template>
@@ -20,9 +23,9 @@ const get = async () => {
         class="mr-15"
         type="button"
         title="Test persisted state"
-        @click="$store.testAction"
+        @click="store.testAction"
     >
-      Test ({{ $store.test }})
+      Test ({{ store.test }})
     </button>
     <button type="button" @click="count++">count is {{ count }}</button>
     <button type="button" @click="get">msg is {{ msg }}</button>
