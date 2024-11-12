@@ -1,32 +1,32 @@
-<script lang="ts" setup>
-import HelloWorld from '@/components/HelloWorld.vue'
-</script>
-
 <template>
-  <div>
-    <a href="https://vitejs.dev" target="_blank">
-      <img alt="Vite logo" class="logo" src="/vite.svg"/>
-    </a>
-    <a href="https://vuejs.org/" target="_blank">
-      <img alt="Vue logo" class="logo vue" src="@assets/vue.svg"/>
-    </a>
+  <div id="app">
+    <Header />
+    <Sidebar />
+    <!-- Остальные элементы вашего приложения -->
+    <main class="ml-64 p-4"> <!-- Добавьте отступ слева для контента -->
+      <!-- Ваш контент здесь -->
+    </main>
   </div>
-  <HelloWorld msg="Vite + Vue"/>
+
 </template>
 
-<style scoped>
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
+<script>
+import Sidebar from "@/components/navigation/Sidebar.vue";
+import Header from "@/components/Header.vue"; // Adjust the path as necessary
 
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
+export default {
+  name: 'App',
+  components: {Header, Sidebar},
+};
+</script>
 
-.logo.vue:hover {
-  filter: drop-shadow(0 0 2em #42b883aa);
+<style>
+/* Глобальные стили */
+body {
+  margin: 0;
+}
+.container {
+  max-width: 1200px;
+  margin: auto;
 }
 </style>
