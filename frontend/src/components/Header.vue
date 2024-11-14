@@ -27,7 +27,7 @@
 
 <script>
 
-import router from "@/router/router";
+import router from "@/router/router.ts";
 
 export default {
   name: 'Header',
