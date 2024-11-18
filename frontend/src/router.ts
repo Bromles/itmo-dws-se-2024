@@ -1,5 +1,5 @@
-import HelloWorld from "@/components/HelloWorld.vue";
 import {createRouter, createWebHistory} from "vue-router";
+import MainPage from "@/pages/MainPage.vue";
 
 const filterPath = (to: any, _from: any, next: any) => {
     if (to.fullPath !== to.path) {
@@ -13,14 +13,14 @@ const routes = [
     {
         path: "/",
         name: "Home",
-        component: HelloWorld,
+        component: MainPage,
         beforeEnter: filterPath
     }
 ];
 
 const router = createRouter({
     history: createWebHistory(),
-    routes, // short for `routes: routes`
+    routes,
 });
 
 export default router
