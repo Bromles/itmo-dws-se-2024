@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <aside class="sidebar">
-      <Sidebar />
+      <OrganizationSidebar />
     </aside>
     <div class="user-profile">
       <div class="button-container">
@@ -20,11 +20,12 @@
 
 <script>
 import Card from "@/components/card/Card.vue";
-import Sidebar from "@/components/navigation/Sidebar.vue"; // Убедитесь, что путь к компоненту Card правильный
+import Sidebar from "@/components/navigation/Sidebar.vue";
+import OrganizationSidebar from "@/components/navigation/OrganizationSidebar.vue"; // Убедитесь, что путь к компоненту Card правильный
 
 export default {
   name: 'UserProfile',
-  components: {Sidebar, Card },
+  components: {OrganizationSidebar, Sidebar, Card },
   data() {
     return {
       cards: [
