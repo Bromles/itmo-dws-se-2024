@@ -1,5 +1,6 @@
 package vk.itmo.dws.config;
 
+import jakarta.servlet.DispatcherType;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
