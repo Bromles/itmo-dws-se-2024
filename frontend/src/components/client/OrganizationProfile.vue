@@ -1,102 +1,72 @@
 <template>
-  <div class="container">
-    <aside class="sidebar">
+  <div class="flex h-screen">
+    <aside id="default-sidebar" class="fixed top-0 left-0 z-40 w-64 h-screen bg-gray-800 transition-transform -translate-x-full sm:translate-x-0" aria-label="Sidebar">
       <OrganizationSidebar />
     </aside>
-    <div class="user-profile">
-      <div class="button-container">
-        <button class="btn-subscriptions" @click="handleButtonClick('action1')">Ваши абонементы</button>
-        <button class="btn-classes" @click="handleButtonClick('action2')">Ваши занятия</button>
-        <button class="btn-watchlist" @click="handleButtonClick('action3')">Список наблюдения</button>
+
+    <div class="flex-grow ml-64 bg-white p-4 overflow-y-auto">
+      <!-- Блок высотой 50 пикселей -->
+      <div class="h-12 bg-gray-200 flex items-center justify-center mb-4">
+        <h2 class="text-lg font-bold text-custom-green">Список клиентов</h2>
       </div>
-      <div class="card-list">
-        <Card v-for="card in cards" :key="card.id" :title="card.title" :content="card.content" />
+
+      <!-- Список карточек клиентов -->
+      <div class="flex overflow-x-auto space-x-4 mb-4">
+        <ClientCard
+            v-for="client in clients"
+            :key="client.id"
+            :client="client"
+            class="w-100"
+        />
+      </div>
+
+      <!-- Новый блок для списка карточек объявлений -->
+      <div class="h-12 bg-gray-200 flex items-center justify-center mb-4" >
+        <h2 class="text-lg font-bold text-custom-green">Список объявлений</h2>
+      </div>
+
+      <div class="flex flex-col space-y-4">
+        <AdCard
+            v-for="ad in ads"
+            :key="ad.id"
+            :ad="ad"
+        />
       </div>
     </div>
   </div>
 </template>
 
-
-
 <script>
-import Card from "@/components/card/Card.vue";
-import Sidebar from "@/components/navigation/Sidebar.vue";
-import OrganizationSidebar from "@/components/navigation/OrganizationSidebar.vue"; // Убедитесь, что путь к компоненту Card правильный
+import ClientCard from "@/components/card/ClientCard.vue";
+import OrganizationSidebar from "@/components/navigation/OrganizationSidebar.vue";
+import AdCard from "@/components/card/AdCard.vue";
 
 export default {
   name: 'UserProfile',
-  components: {OrganizationSidebar, Sidebar, Card },
+  components: { OrganizationSidebar, ClientCard, AdCard },
   data() {
     return {
-      cards: [
-        { id: 1, title: 'Карточка 1', content: 'Содержимое карточки 1' },
-        { id: 2, title: 'Карточка 2', content: 'Содержимое карточки 2' },
-        { id: 3, title: 'Карточка 3', content: 'Содержимое карточки 3' },
-        { id: 1, title: 'Карточка 1', content: 'Содержимое карточки 1' },
-        { id: 2, title: 'Карточка 2', content: 'Содержимое карточки 2' },
-        { id: 3, title: 'Карточка 3', content: 'Содержимое карточки 3' },
-        { id: 1, title: 'Карточка 1', content: 'Содержимое карточки 1' },
-        { id: 2, title: 'Карточка 2', content: 'Содержимое карточки 2' },
-        { id: 3, title: 'Карточка 3', content: 'Содержимое карточки 3' },
-        // Добавьте больше карточек по необходимости
+      clients: [
+        { id: 1, name: 'Клиент', info: 'Информация о клиенте 1' },
+        { id: 2, name: 'Иванов Залупа', info: 'Информация о клиенте 2' },
+        { id: 3, name: 'Клиент 3', info: 'Информация о клиенте 3' },
+        { id: 4, name: 'Клиент 4', info: 'Информация о клиенте 4' },
+        { id: 5, name: 'Клиент 5', info: 'Информация о клиенте 5' },
+        { id: 6, name: 'Клиент 6', info: 'Информация о клиенте 6' },
+      ],
+      ads: [
+        { id: 1, title: 'Объявление 1', description: 'Описание объявления 1' },
+        { id: 2, title: 'Объявление 2', description: 'Описание объявления 2' },
+        { id: 3, title: 'Объявление 3', description: 'Описание объявления 3' },
+        // Убедитесь, что идентификаторы уникальны
       ],
     };
   },
-  methods: {
-    handleButtonClick(action) {
-      console.log(`Кнопка ${action} нажата`);
-      // Здесь можно добавить логику для обработки нажатий кнопок
-    },
-  },
 };
 </script>
+
 <style scoped>
-.container {
-  display: flex; /* Используем flexbox для размещения элементов в строку */
-  flex-direction: row; /* Убедитесь, что элементы располагаются в строку */
-}
-
-.user-profile {
-  background-image: url('@/assets/clientProfile.jpg');
-  background-size: cover;
-  background-position: center;
-  height: 100vh;
-  width: calc(100% - 250px); /* Задаем ширину области профиля с учетом ширины сайдбара */
-  max-width: 1450px; /* Учитываем ширину сайдбара */
-  margin: 0; /* Убираем горизонтальные отступы */
-}
-
-.sidebar {
-  width: 250px; /* Ширина боковой панели */
-  background-color: #f4f4f4; /* Цвет фона боковой панели */
-}
-
-.button-container {
-  display: flex;
-  justify-content: center;
-  margin-bottom: 20px;
-}
-
-.button-container button {
-  margin-right: 10px;
-  margin-top: 10px;
-}
-
-.card-list {
-  overflow-y: auto;
-  max-height: calc(100vh - 100px);
-}
-
-.card-list > * {
-  width: calc(100% - 20px); /* Учитываем отступы между карточками */
-  margin: 10px;
-}
-
-.btn-subscriptions,
-.btn-classes,
-.btn-watchlist {
-  background-color: #267873; /* Цвет кнопок */
+.client-card {
+  width: 300px; /* Установите желаемую ширину */
 }
 </style>
-
-

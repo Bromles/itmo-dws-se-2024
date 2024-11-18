@@ -2,10 +2,13 @@
 import {createRouter, createWebHistory, RouteRecordRaw} from "vue-router";
 // @ts-ignore
 import ClientProfile from "@/components/client/ClientProfile.vue";
+import OrganizationProfile from "@/components/client/OrganizationProfile.vue";
 
 
 const routes: Array<RouteRecordRaw> = [
-    { path: '/profile/client', component: ClientProfile },
+    { path: '/client/profile', component: ClientProfile },
+    { path: '/organization/profile', component: OrganizationProfile },
+
 ];
 
 

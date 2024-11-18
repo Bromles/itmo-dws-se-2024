@@ -13,6 +13,7 @@
         <p class="text-sm text-black">Оценка:
           <span v-for="star in stars" :key="star" class="text-yellow-500">&#9733;</span>
           <span v-for="emptyStar in emptyStars" :key="emptyStar" class="text-gray-300">&#9734;</span>
+          {{this.rating}} из 5
         </p>
         <p class="text-sm text-black">Отзывов: 54</p>
         <button class="w-full p-2 text-center text-white bg-custom-button rounded-lg hover:bg-custom-button-hover focus:outline-none focus:ring focus:ring-blue-300 mb-2">
@@ -29,17 +30,6 @@
         <p class="text-sm text-black">Email: user@example.com</p>
         <p class="text-sm text-black">Телефон: +7 (123) 456-78-90</p>
       </div>
-
-      <!-- Кнопка редактирования -->
-      <button class="w-full p-2 text-center text-white bg-custom-button rounded-lg hover:bg-custom-button-hover focus:outline-none focus:ring focus:ring-blue-300 mb-2">
-        Изменить номер телефона
-      </button>
-      <button class="w-full p-2 text-center text-white bg-custom-button rounded-lg hover:bg-custom-button-hover focus:outline-none focus:ring focus:ring-blue-300 mb-2">
-        Изменить почту
-      </button>
-      <button class="w-full p-2 text-center text-white bg-custom-button rounded-lg hover:bg-custom-button-hover focus:outline-none focus:ring focus:ring-blue-300">
-        Изменить пароль
-      </button>
 
     </div>
   </aside>

@@ -1,5 +1,4 @@
 <template>
-  <aside id="default-sidebar" class="fixed top-16 left-0 z-40 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0" aria-label="Sidebar">
     <div class="h-full px-3 py-4 overflow-y-auto bg-custom flex flex-col items-center">
       <!-- Блок с фото пользователя -->
       <div class="flex items-center mb-4 w-full">
@@ -34,7 +33,6 @@
       </button>
 
     </div>
-  </aside>
 </template>
 
 <script>
