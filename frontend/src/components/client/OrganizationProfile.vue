@@ -1,6 +1,6 @@
 <template>
   <div class="flex h-screen">
-    <aside id="default-sidebar" class="fixed top-0 left-0 z-40 w-64 h-screen bg-gray-800 transition-transform -translate-x-full sm:translate-x-0" aria-label="Sidebar">
+    <aside id="default-sidebar" class="fixed top-0 left-0 z-40 w-64 h-screen bg-gray-800 transition-transform -translate-x-full sm:translate-x-0" aria-label="Sidebar ">
       <OrganizationSidebar />
     </aside>
 
@@ -11,7 +11,7 @@
       </div>
 
       <!-- Список карточек клиентов -->
-      <div class="flex overflow-x-auto space-x-4 mb-4">
+      <div class="flex overflow-x-auto space-x-4 mb-4 border-custom">
         <ClientCard
             v-for="client in clients"
             :key="client.id"
@@ -69,4 +69,10 @@ export default {
 .client-card {
   width: 300px; /* Установите желаемую ширину */
 }
+.border-custom {
+  border: 2px solid #267873; /* Цвет обводки */
+  padding: 10px; /* Отступ между контентом и границей */
+  border-radius: 8px; /* Скругление углов */
+}
+
 </style>
