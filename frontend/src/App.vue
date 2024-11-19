@@ -1,12 +1,11 @@
 <template>
-  <div>
-    <div class="flex flex-col min-h-screen absolute">
-      <Header />
-      <div class="flex flex-row relative w-full columns-12" style="margin-top: 45px">
+    <div v-if="!fullPage" class="flex flex-col min-h-screen relative">
+      <Header/>
+      <div class="flex flex-row relative w-full" :style="{ marginTop: showHeader ? '45px' : '0' }">
         <RouterView />
       </div>
     </div>
-  </div>
+    <RouterView v-else />
 </template>
 
 <script>
@@ -16,6 +15,14 @@ import "./output.css"
 export default {
   name: 'App',
   components: {Header, Sidebar},
+  computed: {
+      fullPage() {
+        return this.$route.meta.fullPage === true;
+      },
+      showHeader() {
+        return this.$route.meta.showHeader !== false && !this.fullPage;
+      }
+  }
 };
 </script>
 

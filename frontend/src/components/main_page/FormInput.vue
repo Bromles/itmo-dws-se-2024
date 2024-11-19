@@ -1,4 +1,4 @@
-<template>
+<template xmlns:height="http://www.w3.org/1999/xhtml">
   <div class="mb-4 flex flex-col" style="width: 90%;">
     <label :for="id" class="block text-lg font-medium text-gray-700 mb-1">
       {{ label }}
@@ -9,7 +9,7 @@
         :placeholder="placeholder"
         v-bind="inputAttrs"
         class="block text-lg border-gray-300  text-center rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
-        style="background-color: #d9d9d9; height: 40px"
+        :style="{ backgroundColor: backgroundColor, height: '40px' }"
     />
   </div>
 </template>
@@ -32,6 +32,10 @@ export default {
     placeholder: {
       type: String,
       default: 'text'
+    },
+    backgroundColor: {
+      type: String,
+      default: '#d9d9d9'
     },
     inputAttrs: {
       type: Object,

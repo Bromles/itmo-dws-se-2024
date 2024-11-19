@@ -2,7 +2,7 @@
 export default {
   content: [
     "./index.html",
-    "./src/**/*.{html,js,ts,jsx,tsx,vue}"
+    "./src/**/*.{html,js,ts,jsx,tsx,vue}",
   ],
   theme: {
     colors: {
@@ -10,7 +10,11 @@ export default {
       "form_grey": '#d9d9d9',
       "clear_white": '#FFFFFF'
     },
-    extend: {},
+    extend: {
+      backgroundImage: {
+        'main_background': "url('/background.jpg')"
+      },
+    },
   },
   plugins: [],
 }
