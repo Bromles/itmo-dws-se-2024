@@ -1,8 +1,8 @@
 <template>
-  <aside id="default-sidebar" class="fixed top-16 left-0 z-40 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0" aria-label="Sidebar">
+  <aside id="default-sidebar"  class="w-3/12 fixed z-20 h-screen bg-custom " aria-label="Sidebar">
     <div class="h-full px-3 py-4 overflow-y-auto bg-custom flex flex-col items-center">
       <!-- Блок с фото пользователя -->
-      <div class="flex items-center mb-4 w-full">
+      <div class="flex items-center mb-4">
         <img src="../../assets/logo.jpg" alt="Profile Photo" class="w-full h-auto rounded-full object-cover">
       </div>
 

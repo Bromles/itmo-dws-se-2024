@@ -1,22 +1,18 @@
 <template>
-  <body>
-  <header class="row-widget-container">
-    <Header />
-  </header>
-  <aside class="sidebar">
-    <Sidebar />
-  </aside>
-  <main class="content">
-    <RouterView/>
-  </main>
-  </body>
-
+  <div>
+    <div class="flex flex-col min-h-screen absolute">
+      <Header />
+      <div class="flex flex-row relative w-full columns-12" style="margin-top: 45px">
+        <RouterView />
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
 import Sidebar from "@/components/navigation/Sidebar.vue";
-import Header from "@/components/Header.vue"; // Adjust the path as necessary
-
+import Header from "@/components/Header.vue";
+import "./output.css"
 export default {
   name: 'App',
   components: {Header, Sidebar},
@@ -26,11 +22,7 @@ export default {
 <style>
 
 /* Глобальные стили */
-body {
-  margin: 0;
-  height: 100vh; /* Занять всю высоту экрана */
-  display: flex; /* Используем flexbox для вертикального расположения */
-}
+
 
 .row-widget-container {
   position: fixed; /* Фиксируем заголовок */

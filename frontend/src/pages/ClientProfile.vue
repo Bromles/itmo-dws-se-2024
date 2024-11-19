@@ -1,4 +1,5 @@
 <template>
+  <Sidebar/>
   <div class="user-profile">
     <div class="button-container">
       <button class="btn-subscriptions" @click="handleButtonClick('action1')">Ваши абонементы</button>
@@ -13,11 +14,12 @@
 
 
 <script>
-import Card from "@/components/card/Card.vue"; // Убедитесь, что путь к компоненту Card правильный
+import Card from "@/components/card/Card.vue";
+import Sidebar from "@/components/navigation/Sidebar.vue"; // Убедитесь, что путь к компоненту Card правильный
 
 export default {
   name: 'UserProfile',
-  components: { Card },
+  components: {Sidebar, Card },
   data() {
     return {
       cards: [
@@ -45,7 +47,7 @@ export default {
 
 <style scoped>
 .user-profile {
-  background-image: url('@/assets/clientProfile.jpg'); /* Укажите путь к вашему изображению */
+  background-image: url('@assets/clientProfile.jpg'); /* Укажите путь к вашему изображению */
   background-size: cover; /* Обеспечивает полное покрытие фона */
   background-position: center; /* Центрирует изображение */
   height: 100vh; /* Устанавливает высоту на весь экран */

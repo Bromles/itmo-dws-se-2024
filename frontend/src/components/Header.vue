@@ -1,23 +1,27 @@
 <template>
-  <div class="header">
-    <div class="navigation">
-      <span @click="navigateTo('link1')" class="nav-item">О компании</span>
-      <span @click="navigateTo('link2')" class="nav-item">Отзывы</span>
-      <span @click="navigateTo('link3')" class="nav-item">Связаться</span>
-    </div>
-    <div class="profile-container">
-      <div v-if="isMenuVisible" class="dropdown-menu">
-        <button @click="logout">Out</button>
+  <div class="bg-main_green fixed top-0 left-0 w-full z-20">
+    <div class="grid grid-cols-12 items-center" style="width: 95%">
+      <div class="col-span-3">
       </div>
-      <div class="icon-container">
-        <div class="icon-wrapper" @click="handleIconClick('icon1')">
-          <img src="@/assets/icons/calendar.jpg" alt="Notification" class="icon hover-effect" />
+      <div class="col-span-6 flex items-center justify-center text-lg">
+        <span @click="navigateTo('link1')" class="nav-item text-clear_white">О компании</span>
+        <span @click="navigateTo('link2')" class="nav-item text-clear_white">Отзывы</span>
+        <span @click="navigateTo('link3')" class="nav-item text-clear_white">Связаться</span>
+      </div>
+      <div class="col-span-3 flex items-center justify-end">
+        <div v-if="isMenuVisible" class="dropdown-menu">
+          <button @click="logout">Out</button>
         </div>
-        <div class="icon-wrapper" @click="handleIconClick('icon2')">
-          <img src="@/assets/icons/strelka.jpg" alt="Settings" class="icon hover-effect" />
-        </div>
-        <div class="icon-wrapper" @click="handleIconClick('icon3')">
-          <img src="@/assets/icons/korzina.jpg" alt="Profile" class="icon hover-effect" />
+        <div class="icon-container">
+          <div class="icon-wrapper" @click="handleIconClick('icon1')">
+            <img src="@/assets/icons/calendar.jpg" alt="Notification" class="icon hover-effect" />
+          </div>
+          <div class="icon-wrapper" @click="handleIconClick('icon2')">
+            <img src="@/assets/icons/strelka.jpg" alt="Settings" class="icon hover-effect" />
+          </div>
+          <div class="icon-wrapper" @click="handleIconClick('icon3')">
+            <img src="@/assets/icons/korzina.jpg" alt="Profile" class="icon hover-effect" />
+          </div>
         </div>
       </div>
     </div>
@@ -60,37 +64,15 @@ export default {
 
 
 <style scoped>
-.header {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  background-color: #267873;
-  color: white;
-  padding: 10px;
-  display: flex; /* Используем flexbox для выравнивания элементов */
-  align-items: center; /* Центрируем элементы по вертикали */
-  justify-content: space-between; /* Распределяем пространство между логотипом, навигацией и профилем */
-}
 
 .logo {
   max-height: 60px;
 }
 
-.navigation {
-  display: flex; /* Используем flexbox для навигационных элементов */
-  justify-content: center; /* Центрируем навигационные элементы */
-  flex-grow: 1; /* Позволяет навигации занимать доступное пространство */
-}
 
 .nav-item {
   padding: 0 15px; /* Отступы между словами */
   cursor: pointer; /* Указатель при наведении */
-}
-
-.profile-container {
-  display: flex; /* Используем flexbox для профиля */
-  align-items: center; /* Центрируем элементы по вертикали */
 }
 
 .icon-container {
