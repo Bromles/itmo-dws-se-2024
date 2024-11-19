@@ -1,5 +1,8 @@
 databaseChangeLog:
   - changeSet:
-      id: init
-      author: bromles
+      id: review_table
+      author: e.kolesenkova
       changes:
+        - sqlFile:
+            path: db/changelog/review/add_review_table.sql
+            relativeToChangelogFile: false
