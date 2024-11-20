@@ -1,5 +1,7 @@
 import {createRouter, createWebHistory} from "vue-router";
-import MainPage from "@/pages/MainPage.vue";
+import CartPage from "@/pages/CartPage.vue";
+import UserPage from "@/pages/UserPage.vue";
+import SectionPage from "@/pages/SectionPage.vue";
 
 const filterPath = (to: any, _from: any, next: any) => {
     if (to.fullPath !== to.path) {
@@ -11,9 +13,21 @@ const filterPath = (to: any, _from: any, next: any) => {
 
 const routes = [
     {
-        path: "/",
-        name: "Home",
-        component: MainPage,
+        path: "/cart",
+        name: "Cart",
+        component: CartPage,
+        beforeEnter: filterPath
+    },
+    {
+        path: "/user",
+        name: "User page",
+        component: UserPage,
+        beforeEnter: filterPath
+    },
+    {
+        path: "/section",
+        name: "Section selection page",
+        component: SectionPage,
         beforeEnter: filterPath
     }
 ];

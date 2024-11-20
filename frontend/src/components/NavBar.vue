@@ -1,4 +1,7 @@
 <script lang="ts" setup>
+import {useRouter} from "vue-router";
+
+const router = useRouter()
 </script>
 
 <template>
@@ -16,10 +19,10 @@
       <button class="btn btn-circle btn-primary">
         <img class="h-6 w-6" src="@/assets/calendar_icon.svg" alt="calendar icon"/>
       </button>
-      <button class="btn btn-circle btn-primary">
+      <button class="btn btn-circle btn-primary" @click="router.push('/user')">
         <img class="h-6 w-6" src="@/assets/person_icon.svg" alt="person icon"/>
       </button>
-      <button class="btn btn-circle btn-primary">
+      <button class="btn btn-circle btn-primary" @click="router.push('/cart')">
         <img class="h-6 w-6" src="@/assets/cart_icon.svg" alt="cart icon"/>
       </button>
     </div>
