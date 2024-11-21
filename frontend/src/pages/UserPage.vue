@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script lang="ts" setup>
 import SectionCardExtended from "@/components/SectionCardExtended.vue";
 </script>
 
@@ -6,7 +6,7 @@ import SectionCardExtended from "@/components/SectionCardExtended.vue";
   <div class="flex flex-row my-5 gap-2">
     <div class="flex flex-col items-center bg-primary px-7 py-5">
       <div class="h-32 w-32 mb-2 border-2 rounded-full">
-        <img class="" src="@/assets/person_icon.svg" alt="User avatar"/>
+        <img alt="User avatar" class="" src="@/assets/person_icon.svg"/>
       </div>
       <div class="text-primary-content p-7 m-3 border-2 border-base-100 rounded-lg">
         <p class="text-xl">Личная информация</p>

@@ -1,39 +1,38 @@
+<script>
+import Sidebar from "@/components/navigation/Sidebar.vue";
+import Header from "@/components/Header.vue";
+
+export default {
+  name: 'App',
+  components: {Header, Sidebar},
+  computed: {
+    fullPage() {
+      return this.$route.meta.fullPage === true;
+    },
+    showHeader() {
+      return this.$route.meta.showHeader !== false && !this.fullPage;
+    }
+  }
+};
+</script>
+
 <script lang="ts" setup>
 import NavBar from "@/components/NavBar.vue";
 </script>
 
 <template>
-    <div v-if="!fullPage" class="flex flex-col min-h-screen relative">
-      <Header/>
-      <div class="flex flex-row relative w-full" :style="{ marginTop: showHeader ? '45px' : '0' }">
-        <RouterView />
-      </div>
+  <div v-if="!fullPage" class="flex flex-col min-h-screen relative">
+    <Header/>
+    <div :style="{ marginTop: showHeader ? '45px' : '0' }" class="flex flex-row relative w-full">
+      <RouterView/>
     </div>
-    <RouterView v-else />
+  </div>
+  <RouterView v-else/>
   <NavBar/>
   <RouterView/>
 </template>
 
-<script>
-import Sidebar from "@/components/navigation/Sidebar.vue";
-import Header from "@/components/Header.vue";
-import "./output.css"
-export default {
-  name: 'App',
-  components: {Header, Sidebar},
-  computed: {
-      fullPage() {
-        return this.$route.meta.fullPage === true;
-      },
-      showHeader() {
-        return this.$route.meta.showHeader !== false && !this.fullPage;
-      }
-  }
-};
-</script>
-
 <style>
-
 /* Глобальные стили */
 
 
@@ -62,5 +61,4 @@ export default {
   max-width: 1200px;
   margin: auto;
 }
-<style scoped>
 </style>

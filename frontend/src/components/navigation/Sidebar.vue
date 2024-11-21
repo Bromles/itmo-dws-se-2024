@@ -1,9 +1,12 @@
+<script lang="ts" setup>
+</script>
+
 <template>
-  <aside id="default-sidebar"  class="w-3/12 fixed z-20 h-screen bg-custom " aria-label="Sidebar">
+  <aside id="default-sidebar" aria-label="Sidebar" class="w-3/12 fixed z-20 h-screen bg-custom ">
     <div class="h-full px-3 py-4 overflow-y-auto bg-custom flex flex-col items-center">
       <!-- Блок с фото пользователя -->
       <div class="flex items-center mb-4">
-        <img src="../../assets/logo.jpg" alt="Profile Photo" class="w-full h-auto rounded-full object-cover">
+        <img alt="Profile Photo" class="w-full h-auto rounded-full object-cover" src="@/assets/person_icon.svg">
       </div>
 
       <!-- Новый блок с ФИО пользователя -->
@@ -23,13 +26,16 @@
       </div>
 
       <!-- Кнопка редактирования -->
-      <button class="w-full p-2 text-center text-white bg-custom-button rounded-lg hover:bg-custom-button-hover focus:outline-none focus:ring focus:ring-blue-300 mb-2">
+      <button
+          class="w-full p-2 text-center text-white bg-custom-button rounded-lg hover:bg-custom-button-hover focus:outline-none focus:ring focus:ring-blue-300 mb-2">
         Изменить номер телефона
       </button>
-      <button class="w-full p-2 text-center text-white bg-custom-button rounded-lg hover:bg-custom-button-hover focus:outline-none focus:ring focus:ring-blue-300 mb-2">
+      <button
+          class="w-full p-2 text-center text-white bg-custom-button rounded-lg hover:bg-custom-button-hover focus:outline-none focus:ring focus:ring-blue-300 mb-2">
         Изменить почту
       </button>
-      <button class="w-full p-2 text-center text-white bg-custom-button rounded-lg hover:bg-custom-button-hover focus:outline-none focus:ring focus:ring-blue-300">
+      <button
+          class="w-full p-2 text-center text-white bg-custom-button rounded-lg hover:bg-custom-button-hover focus:outline-none focus:ring focus:ring-blue-300">
         Изменить пароль
       </button>
 
@@ -37,16 +43,11 @@
   </aside>
 </template>
 
-<script>
-export default {
-  name: 'Sidebar',
-};
-</script>
-
 <style scoped>
 .bg-custom {
   background-color: #F1EEEE; /* Устанавливаем цвет фона сайдбара */
 }
+
 .bg-custom-button {
   background-color: #267873; /* Цвет кнопки */
 }

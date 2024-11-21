@@ -1,3 +1,25 @@
+<script lang="ts" setup>
+import Sidebar from "@/components/navigation/Sidebar.vue";
+
+import {ref} from "vue";
+
+const cards = ref([
+  {id: 1, title: 'Карточка 1', content: 'Содержимое карточки 1'},
+  {id: 2, title: 'Карточка 2', content: 'Содержимое карточки 2'},
+  {id: 3, title: 'Карточка 3', content: 'Содержимое карточки 3'},
+  {id: 1, title: 'Карточка 1', content: 'Содержимое карточки 1'},
+  {id: 2, title: 'Карточка 2', content: 'Содержимое карточки 2'},
+  {id: 3, title: 'Карточка 3', content: 'Содержимое карточки 3'},
+  {id: 1, title: 'Карточка 1', content: 'Содержимое карточки 1'},
+  {id: 2, title: 'Карточка 2', content: 'Содержимое карточки 2'},
+  {id: 3, title: 'Карточка 3', content: 'Содержимое карточки 3'},
+])
+
+const handleButtonClick = (action: string) => {
+  console.log(`Кнопка ${action} нажата`);
+}
+</script>
+
 <template>
   <Sidebar/>
   <div class="user-profile">
@@ -7,43 +29,11 @@
       <button class="btn-watchlist" @click="handleButtonClick('action3')">Список наблюдения</button>
     </div>
     <div class="card-list">
-      <Card v-for="card in cards" :key="card.id" :title="card.title" :content="card.content" />
+      <Card v-for="card in cards" :key="card.id" :content="card.content" :title="card.title"/>
     </div>
   </div>
 </template>
 
-
-<script>
-import Card from "@/components/card/Card.vue";
-import Sidebar from "@/components/navigation/Sidebar.vue"; // Убедитесь, что путь к компоненту Card правильный
-
-export default {
-  name: 'UserProfile',
-  components: {Sidebar, Card },
-  data() {
-    return {
-      cards: [
-        { id: 1, title: 'Карточка 1', content: 'Содержимое карточки 1' },
-        { id: 2, title: 'Карточка 2', content: 'Содержимое карточки 2' },
-        { id: 3, title: 'Карточка 3', content: 'Содержимое карточки 3' },
-        { id: 1, title: 'Карточка 1', content: 'Содержимое карточки 1' },
-        { id: 2, title: 'Карточка 2', content: 'Содержимое карточки 2' },
-        { id: 3, title: 'Карточка 3', content: 'Содержимое карточки 3' },
-        { id: 1, title: 'Карточка 1', content: 'Содержимое карточки 1' },
-        { id: 2, title: 'Карточка 2', content: 'Содержимое карточки 2' },
-        { id: 3, title: 'Карточка 3', content: 'Содержимое карточки 3' },
-        // Добавьте больше карточек по необходимости
-      ],
-    };
-  },
-  methods: {
-    handleButtonClick(action) {
-      console.log(`Кнопка ${action} нажата`);
-      // Здесь можно добавить логику для обработки нажатий кнопок
-    },
-  },
-};
-</script>
 
 <style scoped>
 .user-profile {

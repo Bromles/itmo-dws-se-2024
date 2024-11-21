@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script lang="ts" setup>
 import {useRouter} from "vue-router";
 
 const router = useRouter()
@@ -7,7 +7,7 @@ const router = useRouter()
 <template>
   <div class="flex flex-col h-auto rounded-lg overflow-hidden border-2 border-base-100">
     <div class="h-40 bg-white flex flex-row items-center justify-center">
-      <img class="w-[95%] h-[95%] rounded-md" src="@assets/volleyball.jpg" alt="section poster"/>
+      <img alt="section poster" class="w-[95%] h-[95%] rounded-md" src="@assets/volleyball.jpg"/>
     </div>
     <div class="flex flex-col items-center justify-center w-full bg-main_green h-auto">
       <div class="bg-base-100 flex flex-col mx-auto px-2 py-4 text-sm">
