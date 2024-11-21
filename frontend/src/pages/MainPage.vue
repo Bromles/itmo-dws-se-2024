@@ -60,6 +60,4 @@ import FormInput from "@/components/main_page/FormInput.vue";
 </template>
 
 <style scoped>
-
-
 </style>

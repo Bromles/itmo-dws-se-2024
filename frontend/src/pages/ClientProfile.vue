@@ -36,47 +36,5 @@ const handleButtonClick = (action: string) => {
 
 
 <style scoped>
-.user-profile {
-  background-image: url('@assets/clientProfile.jpg'); /* Укажите путь к вашему изображению */
-  background-size: cover; /* Обеспечивает полное покрытие фона */
-  background-position: center; /* Центрирует изображение */
-  height: 100vh; /* Устанавливает высоту на весь экран */
-  width: 100%; /* Устанавливает ширину на 100% от родителя */
-  max-width: 1200px; /* Ограничьте максимальную ширину компонента */
-  margin: 0 auto; /* Центрирует компонент по горизонтали */
-}
-
-.button-container {
-  display: flex;
-  justify-content: center;
-  margin-bottom: 20px;
-}
-
-.button-container button {
-  margin-right: 10px;
-  margin-top: 10px;
-}
-
-.card-list {
-  overflow-y: auto;
-  max-height: calc(100vh - 100px); /* Установите максимальную высоту для прокрутки */
-}
-
-.card-list > * {
-  width: calc(100% - 0px); /* Растягиваем карточки на всю ширину с учетом отступов */
-  margin: 10px; /* Добавляем отступы между карточками */
-}
-
-.btn-subscriptions {
-  background-color: #267873; /* Синий цвет */
-}
-
-.btn-classes {
-  background-color: #267873; /* Оранжевый цвет */
-}
-
-.btn-watchlist {
-  background-color: #267873; /* Красный цвет */
-}
 </style>
 

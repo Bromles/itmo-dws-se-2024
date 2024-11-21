@@ -6,10 +6,13 @@ const router = useRouter()
 
 <template>
   <nav class="flex justify-between">
+    <!--
     <label class="input input-bordered flex items-center gap-2 bg-primary">
       <input class="grow" placeholder="Поиск" type="text"/>
       <img alt="search icon" class="h-4 w-4" src="@/assets/search_icon.svg"/>
     </label>
+    -->
+    <img class="h-12 w-32 bg-primary cursor-pointer" src="@/assets/home_icon.svg" alt="logo" @click="router.push('/')"/>
     <div class="flex justify-between gap-3 items-center">
       <RouterLink class="hover:underline text-2xl" to="">О компании</RouterLink>
       <RouterLink class="hover:underline text-2xl" to="">Отзывы</RouterLink>

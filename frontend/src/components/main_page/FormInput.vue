@@ -31,5 +31,4 @@ const {
 </template>
 
 <style scoped>
-
 </style>

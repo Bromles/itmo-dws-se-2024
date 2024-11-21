@@ -44,15 +44,4 @@
 </template>
 
 <style scoped>
-.bg-custom {
-  background-color: #F1EEEE; /* Устанавливаем цвет фона сайдбара */
-}
-
-.bg-custom-button {
-  background-color: #267873; /* Цвет кнопки */
-}
-
-.bg-custom-button-hover {
-  background-color: #1f5e5e; /* Цвет кнопки при наведении (можно настроить) */
-}
 </style>

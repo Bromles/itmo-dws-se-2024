@@ -9,20 +9,6 @@ const router = useRouter()
 const login = computed(() => {
   return route.meta.login
 })
-
-const checkFields = () => {
-  const inputs = document.querySelectorAll('input');
-
-  for (let input of inputs) {
-    if (input.value.trim() === '') {
-      console.log("All input fields must be filled!");
-
-      return false;
-    }
-  }
-
-  return true
-}
 </script>
 
 <template>
@@ -51,12 +37,9 @@ const checkFields = () => {
         </button>
         <a class="text-clear_white mb-2" style="cursor: pointer">Забыл пароль</a>
       </div>
-
     </div>
   </div>
-
 </template>
 
 <style scoped>
-
 </style>
