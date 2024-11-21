@@ -1,3 +1,7 @@
+<script lang="ts" setup>
+import NavBar from "@/components/NavBar.vue";
+</script>
+
 <template>
     <div v-if="!fullPage" class="flex flex-col min-h-screen relative">
       <Header/>
@@ -6,6 +10,8 @@
       </div>
     </div>
     <RouterView v-else />
+  <NavBar/>
+  <RouterView/>
 </template>
 
 <script>
@@ -56,4 +62,5 @@ export default {
   max-width: 1200px;
   margin: auto;
 }
+<style scoped>
 </style>
