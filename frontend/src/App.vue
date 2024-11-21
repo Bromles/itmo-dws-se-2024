@@ -1,23 +1,18 @@
-<script>
-import Sidebar from "@/components/navigation/Sidebar.vue";
-import Header from "@/components/Header.vue";
-
-export default {
-  name: 'App',
-  components: {Header, Sidebar},
-  computed: {
-    fullPage() {
-      return this.$route.meta.fullPage === true;
-    },
-    showHeader() {
-      return this.$route.meta.showHeader !== false && !this.fullPage;
-    }
-  }
-};
-</script>
-
 <script lang="ts" setup>
 import NavBar from "@/components/NavBar.vue";
+import Header from "@/components/Header.vue";
+import {computed} from "vue";
+import {useRoute} from "vue-router";
+
+const route = useRoute()
+
+const fullPage = computed(() => {
+  return route.meta.fullPage === true;
+})
+
+const showHeader = computed(() => {
+  return route.meta.showHeader !== false && !fullPage.value
+})
 </script>
 
 <template>

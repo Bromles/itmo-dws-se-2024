@@ -1,33 +1,25 @@
-<script>
-import router from "@/router.ts";
+<script lang="ts" setup>
+import {ref} from "vue";
+import {useRouter} from "vue-router";
 
-export default {
-  name: 'Header',
-  data() {
-    return {
-      isMenuVisible: false,
-    };
-  },
-  methods: {
-    toggleMenu() {
-      this.isMenuVisible = !this.isMenuVisible;
-    },
-    logout() {
-      localStorage.setItem("jwt", null);
-      localStorage.setItem("userId", null);
-      router.push("/login");
-      this.isMenuVisible = false; // Скрыть меню после выхода
-    },
-    navigateTo(link) {
-      // Логика навигации по клику на слова
-      router.push(`/${link}`);
-    },
-    handleIconClick(icon) {
-      // Логика обработки клика по иконкам
-      console.log(`Icon clicked: ${icon}`);
-    }
-  },
-};
+const router = useRouter()
+
+const isMenuVisible = ref(false)
+
+const toggleMenu = () => {
+  isMenuVisible.value = !isMenuVisible.value
+}
+
+const logout = () => {
+  localStorage.setItem('jwt', '')
+  localStorage.setItem('userId', '')
+  router.push('/login')
+  isMenuVisible.value = false
+}
+
+const handleIconClick = (icon: string) => {
+  console.log(`Icon clicked ${icon}`)
+}
 </script>
 
 <template>
@@ -36,9 +28,9 @@ export default {
       <div class="col-span-3">
       </div>
       <div class="col-span-6 flex items-center justify-center text-lg">
-        <span class="nav-item text-clear_white" @click="navigateTo('link1')">О компании</span>
-        <span class="nav-item text-clear_white" @click="navigateTo('link2')">Отзывы</span>
-        <span class="nav-item text-clear_white" @click="navigateTo('link3')">Связаться</span>
+        <span class="nav-item text-clear_white" @click="router.push('link1')">О компании</span>
+        <span class="nav-item text-clear_white" @click="router.push('link2')">Отзывы</span>
+        <span class="nav-item text-clear_white" @click="router.push('link3')">Связаться</span>
       </div>
       <div class="col-span-3 flex items-center justify-end">
         <div v-if="isMenuVisible" class="dropdown-menu">
@@ -46,13 +38,13 @@ export default {
         </div>
         <div class="icon-container">
           <div class="icon-wrapper" @click="handleIconClick('icon1')">
-            <img alt="Notification" class="icon hover-effect" src="@/assets/icons/calendar.jpg"/>
+            <img alt="Notification" class="icon hover-effect" src="@/assets/calendar_icon.svg"/>
           </div>
           <div class="icon-wrapper" @click="handleIconClick('icon2')">
-            <img alt="Settings" class="icon hover-effect" src="@/assets/icons/strelka.jpg"/>
+            <img alt="Settings" class="icon hover-effect" src="@/assets/person_icon.svg"/>
           </div>
           <div class="icon-wrapper" @click="handleIconClick('icon3')">
-            <img alt="Profile" class="icon hover-effect" src="@/assets/icons/korzina.jpg"/>
+            <img alt="Profile" class="icon hover-effect" src="@/assets/cart_icon.svg"/>
           </div>
         </div>
       </div>
