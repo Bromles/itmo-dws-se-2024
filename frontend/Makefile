@@ -16,3 +16,4 @@ deploy:
 	docker network create --driver bridge agregator-network
 	make build
 	make up
+ 
