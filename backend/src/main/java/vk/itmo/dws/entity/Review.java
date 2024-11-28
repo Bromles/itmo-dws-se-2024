@@ -8,10 +8,7 @@ import java.time.LocalDateTime;
 @Entity
 @Data
 @Table(name = "review")
-public class Review {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class Review extends CRUDEntity {
 
     @Column(name = "entity_type", nullable = false)
     @Enumerated(EnumType.STRING)
