@@ -5,7 +5,7 @@ const router = useRouter()
 </script>
 
 <template>
-  <nav class="flex justify-between">
+  <nav class="flex sticky justify-between items-center p-4">
     <label class="input input-bordered flex items-center gap-2 bg-primary">
       <input type="text" class="grow" placeholder="Поиск"/>
       <img class="h-4 w-4" src="@/assets/search_icon.svg" alt="search icon"/>

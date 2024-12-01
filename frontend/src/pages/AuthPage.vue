@@ -1,35 +1,31 @@
-<script>
-  import "../output.css"
+<script setup lang="js">
   import FormInput from "@/components/main_page/FormInput.vue";
+  import {computed} from "vue";
+  import {useRouter} from "vue-router";
 
-  export default {
-    name: 'Auth',
-    components: {FormInput},
-    computed: {
-      login() {
-        return this.$route.meta.login;
-      },
-    },
-    methods: {
-      navigateToResource(link) {
-        if (typeof link === 'string')
-          if (this.checkFields() === true) {
-            this.$router.push(link)
-          }
-      },
-      checkFields() {
-        const inputs = document.querySelectorAll('input');
-
-        for (let input of inputs) {
-          if (input.value.trim() === '') {
-            console.log("All input fields must be filled!");
-            return false;
-          }
+    const navigateToResource = (link) => {
+      if (typeof link === 'string')
+        if (checkFields() === true) {
+          router.push(link)
         }
-        return true
-      },
     }
-  }
+
+    const router = useRouter()
+
+    const checkFields = () => {
+      const inputs = document.querySelectorAll('input');
+
+      for (let input of inputs) {
+        if (input.value.trim() === '') {
+          console.log("All input fields must be filled!");
+          return false;
+        }
+      }
+      return true
+    }
+
+
+  const login =  computed(() =>  router.meta.login)
 
 </script>
 

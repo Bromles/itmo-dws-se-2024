@@ -1,14 +1,12 @@
 <template>
-  <div class="mb-4 flex flex-col" style="width: 90%">
+  <div class="mb-4 flex flex-col w-[90%]">
     <label :for="id" class="block text-lg font-medium text-gray-700 mb-1">
       {{ label }}
     </label>
     <select
-        :id="id"
-        v-bind="selectAttrs"
-        class="block text-lg border-gray-300 text-center rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
-        style="color: #9ca3af; background-color: #d9d9d9; height: 40px"
-    >
+          :id="id"
+          v-bind="selectAttrs"
+          class="select select-bordered bg-form_grey border-2 border-main_green">
       <option v-for="(option, index) in options" :key="index" :value="option.value">
         {{ option.text }}
       </option>
@@ -16,9 +14,8 @@
   </div>
 </template>
 
-<script>
-export default {
-  props: {
+<script setup lang="js">
+  defineProps({
     label: {
       type: String,
       required: true
@@ -48,8 +45,7 @@ export default {
       type: Object,
       default: () => ({})
     }
-  }
-};
+  })
 </script>
 
 <style scoped>

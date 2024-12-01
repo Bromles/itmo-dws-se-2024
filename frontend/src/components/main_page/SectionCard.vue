@@ -4,7 +4,7 @@
 
 <template>
   <div class="flex flex-col h-auto rounded-lg overflow-hidden border-2 border-main_green">
-    <div class="h-40 bg-white flex flex-row items-center justify-center">
+    <div class="h-50 bg-white flex flex-row items-center justify-center">
       <img class="w-[95%] h-[95%] rounded-md" src="@assets/icons/main_page/volleyball.jpg"/>
     </div>
     <div class="flex flex-col items-center justify-center w-full bg-main_green h-auto">
@@ -13,7 +13,7 @@
         <p class="text-clear_white">Возраст: 7-14 лет</p>
         <p class="text-clear_white">Улица: Варшавская 110</p>
       </div>
-      <button type="button" class="rounded-md text-center cursor-pointer" style="background-color: white; width: 50%; height: 20%; margin-bottom: 10px">Просмотреть</button>
+      <button class="btn btn-wide btn-sm mb-2 bg-clear_white text-main_green hover:bg-form_grey">Просмотреть</button>
     </div>
   </div>
 </template>
