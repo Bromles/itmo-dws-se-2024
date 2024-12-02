@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import CartCard from "@/components/CartCard.vue";
+import CartCard from "@/components/basket_page/CartCard.vue";
 </script>
 
 <template>
-  <div class="flex flex-col gap-2 w-full mt-10 bg-white">
+  <div class="flex flex-col gap-2 w-full mt-10 bg-clear_white">
     <div class="flex flex-row items-center justify-between mr-10 mt-10 ml-10">
       <p class="text-6xl text-secondary-content">Корзина</p>
       <div class="flex gap-5">

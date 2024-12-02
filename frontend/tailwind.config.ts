@@ -7,9 +7,14 @@ export default {
         "./src/**/*.{vue,js,ts,jsx,tsx}",
     ],
     theme: {
+        colors: {
+            "main_green": '#267873',
+            "form_grey": '#d9d9d9',
+            "clear_white": '#FFFFFF'
+        },
         extend: {
-            colors: {
-                'custom-green': '#267873',
+            backgroundImage: {
+                'main_background': "url('/background.jpg')"
             },
         },
     },
