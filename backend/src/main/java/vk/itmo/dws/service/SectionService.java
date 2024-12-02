@@ -1,6 +1,7 @@
 package vk.itmo.dws.service;
 
 import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import vk.itmo.dws.dto.request.section.SectionCreateRequest;
 import vk.itmo.dws.dto.request.section.SectionUpdateRequest;
@@ -15,7 +16,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class SectionService implements vk.itmo.dws.contracts.SectionService {
     private final SectionRepository sectionRepository;
-
+    protected ModelMapper mapper = new ModelMapper();
 
     @Override
     public Collection<Section> findAll(Map<String, String> filter) {
@@ -29,10 +30,9 @@ public class SectionService implements vk.itmo.dws.contracts.SectionService {
 
     @Override
     public Section createSection(SectionCreateRequest sectionData) {
-//        Section section = mapper.map(sectionData, Section.class);
-//        sectionRepository.save(section);
-//        return section;
-        return null;
+        Section section = mapper.map(sectionData, Section.class);
+        //sectionRepository.save(section);
+        return section;
     }
 
     @Override

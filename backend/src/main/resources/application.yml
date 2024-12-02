@@ -2,6 +2,12 @@ spring:
   application.name: "itmo-dws-se-2024"
   liquibase:
     change-log: classpath:db/changelog/db.changelog-master.yaml
+  docker:
+    compose:
+      enabled: false
+  jpa:
+    hibernate:
+      ddl-auto: update
   datasource:
     url: jdbc:postgresql://localhost:5432/postgres
     username: postgres
@@ -17,4 +23,5 @@ spring:
         hibernate:
           format_sql: true
           dialect: org.hibernate.dialect.PostgreSQLDialect
+
 
