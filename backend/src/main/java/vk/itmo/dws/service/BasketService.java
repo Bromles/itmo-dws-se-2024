@@ -93,14 +93,13 @@ public class BasketService implements vk.itmo.dws.contracts.BasketService {
         Basket basket = this.findByUserId(1L).orElseThrow();
         List<Booking> bookings = basket.getBookings();
         User user = userRepository.findById(1L).orElseThrow();
-        List<Class> allClasses = new ArrayList<>();
+        List<Class> allClasses = user.getClasses();
         for (Booking booking : bookings) {
             allClasses.add(booking.getAClass());
-            this.removeFromBasket(booking.getId());
         }
         user.setClasses(allClasses);
-
         userRepository.save(user);
+        bookings.forEach(booking -> this.removeFromBasket(booking.getId()));
     }
 
 }

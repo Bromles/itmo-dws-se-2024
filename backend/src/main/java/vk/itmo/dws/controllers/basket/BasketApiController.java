@@ -47,7 +47,10 @@ public class BasketApiController extends BaseController  implements BasketApi {
 
     @Override
     public ResponseEntity<BasketResponse> payAllBasket() {
-        basketService.payAllBasket();
+        try {
+            basketService.payAllBasket();
+        }catch (Exception e){
+        }
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }
