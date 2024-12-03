@@ -1,13 +1,24 @@
 package vk.itmo.dws.controllers.account;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import vk.itmo.dws.controllers.BaseController;
 import vk.itmo.dws.dto.account.UserResponseDto;
 import vk.itmo.dws.dto.account.UserSetEmailRequestDto;
 import vk.itmo.dws.dto.account.UserSetPasswordRequestDto;
 import vk.itmo.dws.dto.account.UserSetPhoneRequestDto;
+import vk.itmo.dws.dto.response.ListResponse;
+import vk.itmo.dws.dto.response.classes.ClassResponse;
+import vk.itmo.dws.dto.response.section.SectionCardResponse;
+import vk.itmo.dws.entity.Class;
+import vk.itmo.dws.entity.Section;
 import vk.itmo.dws.exceptions.account.PasswordsMismatchException;
+import vk.itmo.dws.repository.UserRepository;
 
 import java.time.Instant;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
 import java.util.UUID;
 import java.util.logging.Logger;
 
@@ -20,9 +31,14 @@ import java.util.logging.Logger;
 @RestController
 @CrossOrigin
 @RequestMapping("/api/v1/users")
-public class AccountApiController implements AccountApi {
+public class AccountApiController extends BaseController implements AccountApi {
 
     private final Logger logger = Logger.getLogger(this.getClass().getName());
+    private final UserRepository userRepository;
+
+    public AccountApiController(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
 
     @Override
     public UserResponseDto getUserInfo() {
@@ -56,5 +72,19 @@ public class AccountApiController implements AccountApi {
             logger.info("Get admin account info...");
             logger.info("I am sending a request to change the password for administrator rights....");
         }
+    }
+
+    @Override
+    public ResponseEntity<ListResponse<ClassResponse>> getSections() {
+        List<Class> classes = userRepository.findById(1L).orElseThrow().getClasses();
+        List<ClassResponse> classResponses;
+        if (classes != null) {
+            classResponses = classes.stream()
+                    .map(ClassResponse::new)
+                    .toList();
+        } else {
+            classResponses = Collections.emptyList();
+        }
+        return ResponseEntity.ok(new ListResponse<>(classResponses));
     }
 }

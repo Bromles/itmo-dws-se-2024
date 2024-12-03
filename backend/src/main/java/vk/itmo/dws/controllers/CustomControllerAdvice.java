@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import vk.itmo.dws.dto.exception.SimpleExceptionResponseDto;
 import vk.itmo.dws.dto.exception.ValidationExceptionDto;
 import vk.itmo.dws.dto.exception.ValidationResponseDto;
+import vk.itmo.dws.exception.ClassAlreadyBoughtException;
 import vk.itmo.dws.exceptions.account.PasswordsMismatchException;
 
 import java.util.ArrayList;
@@ -38,6 +39,12 @@ public class CustomControllerAdvice {
     @ExceptionHandler(value = PasswordsMismatchException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public SimpleExceptionResponseDto authenticationExceptionHandler(PasswordsMismatchException exception, HttpServletRequest request){
+        return new SimpleExceptionResponseDto(request.getServletPath(), HttpStatus.BAD_REQUEST.name(), HttpStatus.BAD_REQUEST.value(), exception.getMessage());
+    }
+
+    @ExceptionHandler(value = ClassAlreadyBoughtException.class)
+    @ResponseStatus(HttpStatus.CONFLICT)
+    public SimpleExceptionResponseDto authenticationExceptionHandler(ClassAlreadyBoughtException exception, HttpServletRequest request){
         return new SimpleExceptionResponseDto(request.getServletPath(), HttpStatus.BAD_REQUEST.name(), HttpStatus.BAD_REQUEST.value(), exception.getMessage());
     }
 

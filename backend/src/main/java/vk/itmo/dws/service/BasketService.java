@@ -9,6 +9,7 @@ import vk.itmo.dws.dto.request.basket.RemoveFromBasketRequest;
 import vk.itmo.dws.entity.*;
 import vk.itmo.dws.entity.Class;
 import vk.itmo.dws.enums.BookingStateEnum;
+import vk.itmo.dws.exception.ClassAlreadyBoughtException;
 import vk.itmo.dws.repository.*;
 
 import java.time.LocalDateTime;
@@ -46,9 +47,13 @@ public class BasketService implements vk.itmo.dws.contracts.BasketService {
 
         boolean classAlreadyAdded = basket.getBookings().stream()
                 .anyMatch(booking -> booking.getAClass().getId().equals(aClass.getId()));
+        User user = userRepository.findById(1L).orElseThrow();
 
+        if(user.getClasses().contains(aClass)) {
+            throw new IllegalArgumentException("Вы уже записаны на это занятие.");
+        }
         if (classAlreadyAdded) {
-            throw new IllegalArgumentException("Этот класс уже добавлен в корзину.");
+            throw new ClassAlreadyBoughtException("Этот класс уже добавлен в корзину.");
         }
 
         Booking booking = new Booking();
