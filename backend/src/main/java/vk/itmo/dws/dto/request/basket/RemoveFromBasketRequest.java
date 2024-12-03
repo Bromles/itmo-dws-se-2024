@@ -5,6 +5,6 @@ import vk.itmo.dws.entity.Booking;
 
 @Data
 public class RemoveFromBasketRequest {
-    protected Booking booking;
+    protected Long bookingId;
 
 }

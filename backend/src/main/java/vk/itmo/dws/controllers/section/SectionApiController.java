@@ -3,22 +3,16 @@ package vk.itmo.dws.controllers.section;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
-import org.apache.commons.lang3.stream.IntStreams;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import vk.itmo.dws.contracts.SectionService;
 import vk.itmo.dws.controllers.BaseController;
-import vk.itmo.dws.controllers.payment.PaymentApi;
-import vk.itmo.dws.dto.payment.MerchantCreateRequestDto;
-import vk.itmo.dws.dto.payment.OperationDto;
 import vk.itmo.dws.dto.request.section.SectionCreateRequest;
-import vk.itmo.dws.dto.request.section.SectionUpdateRequest;
 import vk.itmo.dws.dto.response.ListResponse;
-import vk.itmo.dws.dto.response.section.ingredient.SectionShortResponse;
+import vk.itmo.dws.dto.response.section.SectionCardResponse;
+import vk.itmo.dws.dto.response.section.SectionShortResponse;
 import vk.itmo.dws.entity.Section;
-import vk.itmo.dws.exception.NotFoundEntityException;
 
-import java.time.LocalDateTime;
 import java.util.*;
 import java.util.logging.Logger;
 
@@ -47,28 +41,28 @@ public class SectionApiController  extends BaseController {
     public ResponseEntity<SectionShortResponse> getSection(
             @PathVariable Long sectionId
     ) {
-        Section ingredient = sectionService.findById(sectionId).orElseThrow();
+        Section section = sectionService.findById(sectionId).orElseThrow();
 
-        return ResponseEntity.ok(mapper.map(ingredient, SectionShortResponse.class));
+        return ResponseEntity.ok(mapper.map(section, SectionShortResponse.class));
     }
 
     @GetMapping()
-    public ResponseEntity<ListResponse<SectionShortResponse>> getAllSections(
+    public ResponseEntity<ListResponse<SectionCardResponse>> getAllSections(
             @RequestParam Map<String, String> filter,
             HttpServletRequest request
     ) {
 
-        List<SectionShortResponse> ingredients;
-        Collection<Section> ingredientList = sectionService.findAll(filter);
-        if (ingredientList != null) {
-            ingredients = ingredientList.stream()
-                    .map((Section section) -> new SectionShortResponse(section))
+        List<SectionCardResponse> sections;
+        Collection<Section> sectionList = sectionService.findAll(filter);
+        if (sectionList != null) {
+            sections = sectionList.stream()
+                    .map(SectionCardResponse::new)
                     .toList();
         } else {
-            ingredients = Collections.emptyList();
+            sections = Collections.emptyList();
         }
 
-        return ResponseEntity.ok(new ListResponse<>(ingredients));
+        return ResponseEntity.ok(new ListResponse<>(sections));
     }
 
 

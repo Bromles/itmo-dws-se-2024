@@ -18,8 +18,8 @@ public class Booking extends CRUDEntity{
     private LocalDateTime date;
 
     @ManyToOne
-    @JoinColumn(name = "section_id", nullable = false)
-    private Section section;
+    @JoinColumn(name = "class_id", nullable = false)
+    private Class aClass;
 
     @ManyToOne
     @JoinColumn(name = "basket_id")

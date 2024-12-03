@@ -16,6 +16,6 @@ public interface BasketService extends SearchService<Basket> {
 
     Basket addToBasket(Long sectionId);
 
-    Basket removeFromBasket(RemoveFromBasketRequest taskData);
+    Basket removeFromBasket(Long bookingId);
 
 }

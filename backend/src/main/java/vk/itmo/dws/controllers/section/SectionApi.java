@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import vk.itmo.dws.dto.request.section.SectionCreateRequest;
 import vk.itmo.dws.dto.request.section.SectionUpdateRequest;
-import vk.itmo.dws.dto.response.section.ingredient.SectionShortResponse;
+import vk.itmo.dws.dto.response.section.SectionShortResponse;
 
 import java.util.List;
 
