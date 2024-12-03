@@ -10,7 +10,8 @@ export default {
         colors: {
             "main_green": '#267873',
             "form_grey": '#d9d9d9',
-            "clear_white": '#FFFFFF'
+            "clear_white": '#FFFFFF',
+            "stars": "#ebb31a"
         },
         extend: {
             backgroundImage: {
