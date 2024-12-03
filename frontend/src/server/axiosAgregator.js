@@ -26,6 +26,7 @@ export default {
             'Content-Type': 'application/json;charset=UTF-8',
             "Access-Control-Allow-Origin": "*",
         };
+        console.log(data);
         if (localStorage.getItem("access_token") !== null){
             headers = {
                 Authorization: `Bearer ${localStorage.getItem("access_token")}`,

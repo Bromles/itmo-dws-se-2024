@@ -6,15 +6,12 @@ import "../output.css"
 import FormInput from "@/components/main_page/FormInput.vue";
 import FormSelect from "@/components/main_page/FormSelect.vue";
 
-// Reactive state to store sections
 const sections = ref([])
 const isLoading = ref(true)
 const error = ref(null)
 
-// Function to fetch sections
 const fetchSections = async () => {
   try {
-    // Replace with your actual API endpoint
     const response = (await axiosAgregator.sendGet('/api/v1/sections', {
     })).data;
     sections.value = response.data;
@@ -25,7 +22,6 @@ const fetchSections = async () => {
   }
 }
 
-// Fetch sections when component is mounted
 onMounted(fetchSections)
 </script>
 <template>
