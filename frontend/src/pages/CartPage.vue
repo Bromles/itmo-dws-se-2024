@@ -22,6 +22,21 @@ const fetchSections = async () => {
   }
 }
 
+const payAll = async () => {
+  try {
+    console.log("sdfsdfs")
+    const response = (await axiosAgregator.sendPost('/api/v1/basket/pay-all', {
+    })).data;
+    location.reload();
+    if (response) {
+
+
+    }
+  } catch (error) {
+
+  }
+}
+
 onMounted(fetchSections)
 </script>
 
@@ -30,7 +45,7 @@ onMounted(fetchSections)
     <div class="flex flex-row items-center justify-between mr-10 mt-10 ml-10">
       <p class="text-6xl text-secondary-content">Корзина</p>
       <div class="flex gap-5">
-        <button class="btn btn-secondary">
+        <button class="btn btn-secondary" @click="payAll">
           Оплатить все
         </button>
         <button class="btn btn-secondary">
@@ -43,12 +58,10 @@ onMounted(fetchSections)
         Загрузка...
       </div>
 
-      <!-- Error state -->
       <div v-else-if="error" class="w-full flex justify-center items-center text-red-500">
         Произошла ошибка при загрузке секций
       </div>
 
-      <!-- Sections grid -->
       <div v-else-if="bookings.length" class="mt-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2">
         <CartCard
             v-for="booking in bookings"
@@ -56,7 +69,6 @@ onMounted(fetchSections)
         />
       </div>
 
-      <!-- No sections found state -->
       <div v-else class="w-full flex justify-center items-center">
         Корзина пуста
       </div>

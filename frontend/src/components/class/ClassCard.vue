@@ -22,15 +22,14 @@ const addToBasket = async () => {
       "classId": props.classInfo.id
     })).data;
 
-    if (response.bookings) { // Предполагаем, что API возвращает поле success
+    if (response.bookings) {
       showSuccessNotification.value = true;
       setTimeout(() => {
         showSuccessNotification.value = false;
-      }, 3000); // Убираем уведомление через 3 секунды
+      }, 3000);
     }
   } catch (error) {
     if (error.response) {
-      // Обработка ошибок в зависимости от статус-кода
       switch (error.response.status) {
         case 400:
           errorMessage.value = "Товар уже есть в корзине!";
@@ -48,7 +47,7 @@ const addToBasket = async () => {
     showErrorNotification.value = true;
     setTimeout(() => {
       showErrorNotification.value = false;
-    }, 3000); // Убираем уведомление через 3 секунды
+    }, 2000);
   }
 };
 </script>
@@ -57,7 +56,7 @@ const addToBasket = async () => {
   <div class="flex flex-row mt-10 bg-white">
     <div class="mt-5 w-[50%] mr-5 bg-base-200 rounded-lg p-5 shadow-lg">
       <p class="text-3xl text-primary-content">
-        {{ props.classInfo.title }} <!-- Отображение title -->
+        {{ props.classInfo.title }}
       </p>
       <p class="text-xl text-primary-content mt-5">Возраст: {{ props.classInfo.ageRange }}</p>
       <p class="text-xl text-primary-content">Преподаватель: {{ props.classInfo.teacher }}</p>
@@ -82,10 +81,5 @@ const addToBasket = async () => {
 </template>
 
 <style scoped>
-.fade-enter-active, .fade-leave-active {
-  transition: opacity 0.5s;
-}
-.fade-enter, .fade-leave-to /* .fade-leave-active в <2.1.8 */ {
-  opacity: 0;
-}
+
 </style>
