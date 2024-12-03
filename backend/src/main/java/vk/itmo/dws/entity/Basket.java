@@ -9,10 +9,9 @@ import java.util.List;
 @Data
 @Table(name = "basket")
 public class Basket extends CRUDEntity{
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
 
     @OneToMany(mappedBy = "basket", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Booking> bookings;
+
+    private Long userId;
 }

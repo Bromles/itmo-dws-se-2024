@@ -43,11 +43,11 @@ public class SectionApiController  extends BaseController {
         return ResponseEntity.ok(mapper.map(result, SectionShortResponse.class));
     }
 
-    @GetMapping("/{ingredientId}")
+    @GetMapping("/{sectionId}")
     public ResponseEntity<SectionShortResponse> getSection(
-            @PathVariable Long ingredientId
+            @PathVariable Long sectionId
     ) {
-        Section ingredient = sectionService.findById(ingredientId).orElseThrow();
+        Section ingredient = sectionService.findById(sectionId).orElseThrow();
 
         return ResponseEntity.ok(mapper.map(ingredient, SectionShortResponse.class));
     }

@@ -10,9 +10,6 @@ import java.time.LocalDateTime;
 @Data
 @Table(name = "booking")
 public class Booking extends CRUDEntity{
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
 
     @Column(name = "state", nullable = false)
     private BookingStateEnum state;

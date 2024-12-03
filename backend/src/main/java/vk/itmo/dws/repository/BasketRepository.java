@@ -7,7 +7,10 @@ import vk.itmo.dws.entity.EntityType;
 import vk.itmo.dws.entity.Review;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface BasketRepository extends JpaRepository<Basket, Long> {
+
+    Optional<Basket> findByUserId(Long userId);
 }
