@@ -5,14 +5,14 @@ import lombok.Data;
 
 @Entity
 @Data
-@Table(name = "section")
+@Table(name = "classes")
 public class Class extends CRUDEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "name", nullable = false)
-    private String name;
+    @Column(name = "title", nullable = false)
+    private String title;
 
     @ManyToOne
     @JoinColumn(name = "section_id", nullable = false)

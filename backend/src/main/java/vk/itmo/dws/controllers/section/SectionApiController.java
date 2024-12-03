@@ -62,7 +62,7 @@ public class SectionApiController  extends BaseController {
         Collection<Section> ingredientList = sectionService.findAll(filter);
         if (ingredientList != null) {
             ingredients = ingredientList.stream()
-                    .map((Section ingredient) -> mapper.map(ingredient, SectionShortResponse.class))
+                    .map((Section section) -> new SectionShortResponse(section))
                     .toList();
         } else {
             ingredients = Collections.emptyList();
