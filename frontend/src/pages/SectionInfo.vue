@@ -34,19 +34,18 @@ const toggleInfo = () => {
 </script>
 
 <template>
-  <div class="flex flex-col h-auto rounded-lg overflow-hidden border-2 border-main_green">
-    <div class="h-50 bg-white flex flex-row items-center justify-start">
+  <div class="flex flex-col h-auto rounded-lg overflow-hidden border-2 border-main_green bg-clear_white">
+    <div class="h-50 flex flex-row items-center justify-start">
       <img class="w-[40%] h-auto rounded-md" src="@assets/icons/main_page/volleyball.jpg" alt=""/>
-      <div class="flex flex-col ml-4">
-        <p class="text-clear_white">{{ section.title }}</p>
-        <p class="text-clear_white">{{ section.description }}</p>
-        <p class="text-clear_white">Адрес: </p>
+      <div class="flex flex-col rounded-lg ml-4 mt-10  bg-main_green pl-4">
+        <p class="text-xl text-clear_white mt-5">{{ section.title }}</p>
+        <p class="text-clear_white text-xl mt-5">{{ section.description }}</p>
+        <p class="text-clear_white text-xl mt-5">Адрес: </p>
       </div>
     </div>
-    <div v-if="sectionClasses.length > 0" class="bg-main_green w-full p-4">
+    <div v-if="sectionClasses.length > 0" class="w-full p-4">
       <h3 class="text-clear_white">Занятия в секции:</h3>
       <ul>
-
         <li v-for="(classItem, index) in sectionClasses" :key="index">
           <ClassCard :class-info="classItem"/>
         </li>
@@ -54,6 +53,7 @@ const toggleInfo = () => {
     </div>
   </div>
 </template>
+
 
 <style scoped>
 .info-box {
