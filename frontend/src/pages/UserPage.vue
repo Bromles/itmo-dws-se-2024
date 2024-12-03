@@ -1,5 +1,27 @@
 <script setup lang="ts">
 import SectionCardExtended from "@/components/user_page/SectionCardExtended.vue";
+import axiosAgregator from "@/server/axiosAgregator";
+import {onMounted, ref} from "vue";
+import CartCard from "@/components/basket_page/CartCard.vue";
+
+
+const cards = ref([]);
+const isLoading = ref(true);
+
+const fetchSections = async () => {
+  try {
+    const response = await axiosAgregator.sendGet('/api/v1/users/sections');
+    cards.value = response.data.data;
+    console.log(cards.value[0].section);
+  } catch (err) {
+    error.value = err;
+    console.error("Ошибка при загрузке секций:", error.value);
+  } finally {
+    isLoading.value = false;
+  }
+};
+
+onMounted(fetchSections);
 </script>
 
 <template>
@@ -32,9 +54,27 @@ import SectionCardExtended from "@/components/user_page/SectionCardExtended.vue"
         </p>
       </div>
       <div class="bg-white px-2 flex flex-col items-center">
-        <SectionCardExtended/>
-        <SectionCardExtended/>
-        <SectionCardExtended/>
+        <div v-if="isLoading" class="w-full flex justify-center items-center">
+          Загрузка...
+        </div>
+
+        <!-- Error state -->
+        <div v-else-if="error" class="w-full flex justify-center items-center text-red-500">
+          Произошла ошибка при загрузке секций
+        </div>
+
+        <!-- Sections grid -->
+        <div v-else-if="cards.length" class="mt-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2">
+          <SectionCardExtended
+              v-for="card in cards"
+              :card="card"
+          />
+        </div>
+
+        <!-- No sections found state -->
+        <div v-else class="w-full flex justify-center items-center">
+          Корзина пуста
+        </div>
       </div>
     </div>
   </div>

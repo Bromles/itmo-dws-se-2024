@@ -20,11 +20,18 @@ const props = defineProps<{
 
 }>();
 
-const handleDelete = async() => {
-  const response = (await axiosAgregator.sendPost('/api/v1/basket/remove', {
-    "bookingId" : props.bookingInfo.id
-  })).data;
+const handleDelete = async () => {
+  try {
+    const response = (await axiosAgregator.sendPost('/api/v1/basket/remove', {
+      "bookingId": props.bookingInfo.id
+    })).data;
+
+    location.reload();
+  } catch (error) {
+    console.error('Произошла ошибка при выполнении запроса:', error);
+  }
 };
+
 </script>
 
 <template>
