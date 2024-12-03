@@ -3,6 +3,7 @@ import CartPage from "@/pages/CartPage.vue";
 import UserPage from "@/pages/UserPage.vue";
 import SectionPage from "@/pages/SectionPage.vue";
 import MainPage from "@/pages/MainPage.vue";
+import OrganizationPage from "@/pages/OrganizationPage.vue";
 // import AuthPage from "@/pages/AuthPage.vue";
 
 const filterPath = (to: any, _from: any, next: any) => {
@@ -30,6 +31,12 @@ const routes = [
         path: "/section",
         name: "Section selection page",
         component: SectionPage,
+        beforeEnter: filterPath
+    },
+    {
+        path: "/org",
+        name: "Organization page",
+        component: OrganizationPage,
         beforeEnter: filterPath
     },
     {
