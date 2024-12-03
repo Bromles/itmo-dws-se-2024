@@ -7,6 +7,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
+import java.util.List;
 
 @Getter
 @Setter
@@ -34,7 +35,13 @@ public class User implements UserDetails {
     @Column(name = "avatar")
     private String avatar;
 
-
+    @ManyToMany
+    @JoinTable(
+            name = "user_classes",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "class_id")
+    )
+    private List<Class> classes;
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return null;

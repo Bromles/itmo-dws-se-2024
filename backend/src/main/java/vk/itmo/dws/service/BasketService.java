@@ -1,35 +1,26 @@
 package vk.itmo.dws.service;
 
 import lombok.RequiredArgsConstructor;
-import org.apache.catalina.User;
 import org.modelmapper.ModelMapper;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import vk.itmo.dws.dto.request.basket.AddToBasketRequest;
 import vk.itmo.dws.dto.request.basket.RemoveFromBasketRequest;
-import vk.itmo.dws.entity.Basket;
-import vk.itmo.dws.entity.Booking;
+import vk.itmo.dws.entity.*;
 import vk.itmo.dws.entity.Class;
-import vk.itmo.dws.entity.Section;
 import vk.itmo.dws.enums.BookingStateEnum;
-import vk.itmo.dws.repository.BasketRepository;
-import vk.itmo.dws.repository.BookingRepository;
-import vk.itmo.dws.repository.ClassesRepository;
-import vk.itmo.dws.repository.SectionRepository;
+import vk.itmo.dws.repository.*;
 
 import java.time.LocalDateTime;
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
 public class BasketService implements vk.itmo.dws.contracts.BasketService {
-    private final SectionRepository sectionRepository;
-    protected ModelMapper mapper = new ModelMapper();
     private final BasketRepository basketRepository;
     private final BookingRepository bookingRepository;
     private final ClassesRepository classesRepository;
+    private final UserRepository userRepository;
 
 
 
@@ -91,4 +82,20 @@ public class BasketService implements vk.itmo.dws.contracts.BasketService {
         bookingRepository.save(booking);
         return basket;
     }
+
+    @Override
+    public void payAllBasket() {
+        Basket basket = this.findByUserId(1L).orElseThrow();
+        List<Booking> bookings = basket.getBookings();
+        User user = userRepository.findById(1L).orElseThrow();
+        List<Class> allClasses = new ArrayList<>();
+        for (Booking booking : bookings) {
+            allClasses.add(booking.getAClass());
+            this.removeFromBasket(booking.getId());
+        }
+        user.setClasses(allClasses);
+
+        userRepository.save(user);
+    }
+
 }

@@ -12,7 +12,6 @@ import java.time.LocalDateTime;
 public class BaseEntityListener {
     @PrePersist
     public void prePersist(CRUDEntity model) {
-        //Use authenticatedUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         model.setCreatedAt(LocalDateTime.now());
         model.setUpdatedAt(LocalDateTime.now());
     }

@@ -18,4 +18,6 @@ public interface BasketService extends SearchService<Basket> {
 
     Basket removeFromBasket(Long bookingId);
 
+    void payAllBasket();
+
 }

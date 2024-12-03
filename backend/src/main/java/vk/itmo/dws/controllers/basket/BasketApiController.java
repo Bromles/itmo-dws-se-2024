@@ -44,4 +44,10 @@ public class BasketApiController extends BaseController  implements BasketApi {
         Basket basket = basketService.removeFromBasket(removeFromBasketRequest.getBookingId());
         return new ResponseEntity<>(mapper.map(basket, BasketResponse.class), HttpStatus.OK);
     }
+
+    @Override
+    public ResponseEntity<BasketResponse> payAllBasket() {
+        basketService.payAllBasket();
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }

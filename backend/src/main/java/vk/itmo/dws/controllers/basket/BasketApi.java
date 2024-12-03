@@ -24,6 +24,9 @@ public interface BasketApi {
     @PostMapping("/remove")
     public ResponseEntity<BasketResponse> removeFromBasket(@Valid @RequestBody RemoveFromBasketRequest merchantCreateRequestDto);
 
+    @Operation(summary = "Pay all basket")
+    @PostMapping("/pay-all")
+    public ResponseEntity<BasketResponse> payAllBasket();
 
 
 }
