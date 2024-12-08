@@ -7,10 +7,33 @@ export default {
         "./src/**/*.{vue,js,ts,jsx,tsx}",
     ],
     theme: {
-        extend: {},
+        colors: {
+            "main_green": '#267873',
+            "form_grey": '#d9d9d9',
+            "clear_white": '#FFFFFF',
+            "stars": "#ebb31a"
+        },
+        extend: {
+            backgroundImage: {
+                'main_background': "url('/background.jpg')"
+            },
+        },
     },
     plugins: [
-        daisyui
+        require('daisyui'),
     ],
+    daisyui: {
+        themes: [
+            {
+                agregator: {
+                    "primary": "#FFFFFF",
+                    "secondary": "#3FC5BC",
+                    "accent": "#00ffff",
+                    "neutral": "#ff00ff",
+                    "base-100": "#267873",
+                }
+            }
+        ]
+    }
 } satisfies Config
 
