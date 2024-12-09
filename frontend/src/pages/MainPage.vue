@@ -1,6 +1,5 @@
 <script setup lang="js">
   import SectionCard from "@/components/main_page/SectionCard.vue";
-  import "../output.css"
   import FormInput from "@/components/main_page/FormInput.vue";
   import FormSelect from "@/components/main_page/FormSelect.vue";
 </script>
