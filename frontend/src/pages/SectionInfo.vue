@@ -1,8 +1,9 @@
-<script setup lang="ts">
-import { ref, onMounted } from 'vue';
-import axiosAgregator from "@/server/axiosAgregator";
-import { useRoute } from 'vue-router';
+<script lang="ts" setup>
+import {onMounted, ref} from 'vue';
+import axiosAgregator from "@/api/axiosAgregator.ts";
+import {useRoute} from 'vue-router';
 import ClassCard from "@/components/class/ClassCard.vue";
+import {useAuth} from "@/utils/composables.ts";
 
 const section = ref({});
 const sectionClasses = ref([]); // Добавляем переменную для классов секции
@@ -10,13 +11,15 @@ const sectionClasses = ref([]); // Добавляем переменную дл�
 const route = useRoute();
 const id = route.params.id;
 
+const auth = useAuth()
+const token = await auth.getToken()
+
 const showInfo = ref(false);
 const isLoading = ref(true); // Добавляем переменную для отслеживания загрузки
 
 const fetchSection = async () => {
   try {
-    const response = (await axiosAgregator.sendGet(`/api/v1/sections/${id}`, {})).data;
-    section.value = response;
+    section.value = (await axiosAgregator.sendGet(`/api/v1/sections/${id}`, token!)).data;
     sectionClasses.value = section.value.classes; // Предполагаем, что классы приходят в ответе
     console.log(section.value);
   } catch (err) {
@@ -36,7 +39,7 @@ const toggleInfo = () => {
 <template>
   <div class="flex flex-col h-auto rounded-lg overflow-hidden border-2 border-main_green bg-clear_white">
     <div class="h-50 flex flex-row items-center justify-start">
-      <img class="w-[40%] h-auto rounded-md" src="@assets/icons/main_page/volleyball.jpg" alt=""/>
+      <img alt="" class="w-[40%] h-auto rounded-md" src="@assets/icons/main_page/volleyball.jpg"/>
       <div class="flex flex-col rounded-lg ml-4 mt-10  bg-main_green pl-4">
         <p class="text-xl text-clear_white mt-5">{{ section.title }}</p>
         <p class="text-clear_white text-xl mt-5">{{ section.description }}</p>

@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script lang="ts" setup>
 import LessonCard from "@/components/organization_page/LessonCard.vue";
 </script>
 
@@ -6,23 +6,24 @@ import LessonCard from "@/components/organization_page/LessonCard.vue";
   <div class="flex flex-row my-5 h-dvh">
     <div class="flex flex-col gap-2 basis-3/12 items-center bg-form_grey px-7 py-5 overflow-y-auto">
       <div class="h-64 w-[80%]  mt-6 mb-4 rounded-full">
-        <img class="w-full h-full" src="@/assets/org_photo.png" alt="User avatar"/>
+        <img alt="User avatar" class="w-full h-full" src="@/assets/org_photo.png"/>
       </div>
-      <div class="text-primary-content flex flex-col gap-2 w-full h-auto bg-clear_white p-5 m-3 border-2 border-base-100 rounded-lg">
+      <div
+          class="text-primary-content flex flex-col gap-2 w-full h-auto bg-clear_white p-5 m-3 border-2 border-base-100 rounded-lg">
         <p class="text-2xl">Programming school</p>
         <p>Адрес: ул. Варшавская, дом 5</p>
         <div>Оценка:
 
           <div class="rating">
-            <input type="radio" name="rating-2" class="mask mask-star-2 bg-stars" />
+            <input class="mask mask-star-2 bg-stars" name="rating-2" type="radio"/>
             <input
-                type="radio"
-                name="rating-2"
+                checked="checked"
                 class="mask mask-star-2 bg-stars"
-                checked="checked" />
-            <input type="radio" name="rating-2" class="mask mask-star-2 bg-stars" />
-            <input type="radio" name="rating-2" class="mask mask-star-2 bg-stars" />
-            <input type="radio" name="rating-2" class="mask mask-star-2 bg-stars" />
+                name="rating-2"
+                type="radio"/>
+            <input class="mask mask-star-2 bg-stars" name="rating-2" type="radio"/>
+            <input class="mask mask-star-2 bg-stars" name="rating-2" type="radio"/>
+            <input class="mask mask-star-2 bg-stars" name="rating-2" type="radio"/>
           </div>
 
         </div>
@@ -34,7 +35,8 @@ import LessonCard from "@/components/organization_page/LessonCard.vue";
         </div>
 
       </div>
-      <div class="text-primary-content flex flex-col gap-2 w-full h-auto bg-clear_white p-5 m-3 border-2 border-base-100 rounded-lg">
+      <div
+          class="text-primary-content flex flex-col gap-2 w-full h-auto bg-clear_white p-5 m-3 border-2 border-base-100 rounded-lg">
         <p class="text-2xl">Контакты</p>
         <p>Телефон: 89992344455</p>
         <p>Почта: company@gmail.com</p>

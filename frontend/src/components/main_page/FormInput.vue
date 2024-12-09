@@ -3,34 +3,35 @@
     <label :for="id" class="block text-lg font-medium text-gray-700 mb-1">
       {{ label }}
     </label>
-    <input :type="type" class="input input-bordered w-full max-w-xs bg-form_grey border-main_green border-2" :placeholder="placeholder" />
+    <input :placeholder="placeholder" :type="type"
+           class="input input-bordered w-full max-w-xs bg-form_grey border-main_green border-2"/>
   </div>
 </template>
 
-<script setup lang="js">
+<script lang="js" setup>
 
-  defineProps({
-    label: {
-      type: String,
-      required: true
-    },
-    id: {
-      type: String,
-      default: () => `input-${Math.random().toString(36).substr(2, 9)}`
-    },
-    type: {
-      type: String,
-      default: 'text'
-    },
-    placeholder: {
-      type: String,
-      default: 'text'
-    },
-    inputAttrs: {
-      type: Object,
-      default: () => ({})
-    }
-  })
+defineProps({
+  label: {
+    type: String,
+    required: true
+  },
+  id: {
+    type: String,
+    default: () => `input-${Math.random().toString(36).substr(2, 9)}`
+  },
+  type: {
+    type: String,
+    default: 'text'
+  },
+  placeholder: {
+    type: String,
+    default: 'text'
+  },
+  inputAttrs: {
+    type: Object,
+    default: () => ({})
+  }
+})
 
 
 </script>
