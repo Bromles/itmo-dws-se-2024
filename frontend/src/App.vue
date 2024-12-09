@@ -5,8 +5,18 @@ import AuthProvider from "@/components/AuthProvider.ts";
 
 <template>
   <AuthProvider>
-    <NavBar/>
-    <RouterView/>
+    <Suspense>
+      <template #default>
+        <div>
+          <NavBar/>
+          <RouterView/>
+        </div>
+      </template>
+
+      <template #fallback>
+        Loading...
+      </template>
+    </Suspense>
   </AuthProvider>
 </template>
 

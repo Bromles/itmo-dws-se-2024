@@ -1,14 +1,17 @@
-<script setup lang="ts">
-import {inject, onBeforeMount} from "vue";
+<script lang="ts" setup>
+import {onBeforeMount} from "vue";
 import {useRouter} from "vue-router";
-import {AuthService} from "@/services/authService.ts";
+import {useAuth} from "@/utils/composables.ts";
+import {useAuthStore} from "@/stores/authStore.ts";
 
-const authService = inject<AuthService>('authService')!
+const auth = useAuth()
 const router = useRouter()
+const store = useAuthStore()
 
 onBeforeMount(() => {
-  authService.userManager.signinCallback().finally(() => {
+  auth.userManager.signinCallback().finally(() => {
     router.push('/')
+    store.login(auth)
   })
 })
 </script>

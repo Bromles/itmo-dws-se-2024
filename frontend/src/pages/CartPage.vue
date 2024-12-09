@@ -1,16 +1,19 @@
-<script setup lang="ts">
+<script lang="ts" setup>
 import CartCard from "@/components/basket_page/CartCard.vue";
-import axiosAgregator from "@/server/axiosAgregator";
+import axiosAgregator from "@/api/axiosAgregator.ts";
 import {onMounted, ref} from "vue";
-import SectionCard from "@/components/main_page/SectionCard.vue";
+import {useAuth} from "@/utils/composables.ts";
 
+const auth = useAuth()
+const token = await auth.getToken()
+const isLoading = ref(true)
 const bookings = ref([])
+const error = ref<unknown>(null)
 
 
 const fetchSections = async () => {
   try {
-    const response = (await axiosAgregator.sendGet('/api/v1/basket/', {
-    })).data;
+    const response = (await axiosAgregator.sendGet('/api/v1/basket/', token!)).data;
     bookings.value = response.bookings;
     console.log(bookings.value);
 
@@ -25,8 +28,7 @@ const fetchSections = async () => {
 const payAll = async () => {
   try {
     console.log("sdfsdfs")
-    const response = (await axiosAgregator.sendPost('/api/v1/basket/pay-all', {
-    })).data;
+    const response = (await axiosAgregator.sendPost('/api/v1/basket/pay-all', {}, token!)).data;
     location.reload();
     if (response) {
 

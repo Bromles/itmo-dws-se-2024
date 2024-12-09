@@ -1,16 +1,19 @@
-<script setup lang="ts">
+<script lang="ts" setup>
 import SectionCardExtended from "@/components/user_page/SectionCardExtended.vue";
-import axiosAgregator from "@/server/axiosAgregator";
+import axiosAgregator from "@/api/axiosAgregator.ts";
 import {onMounted, ref} from "vue";
-import CartCard from "@/components/basket_page/CartCard.vue";
-
+import {useAuth} from "@/utils/composables.ts";
 
 const cards = ref([]);
 const isLoading = ref(true);
+const error = ref<unknown>(null)
+
+const auth = useAuth()
+const token = await auth.getToken()
 
 const fetchSections = async () => {
   try {
-    const response = await axiosAgregator.sendGet('/api/v1/users/sections');
+    const response = await axiosAgregator.sendGet('/api/v1/users/sections', token!);
     cards.value = response.data.data;
     console.log(cards.value[0].section);
   } catch (err) {
@@ -28,7 +31,7 @@ onMounted(fetchSections);
   <div class="flex flex-row my-5 gap-2 h-dvh">
     <div class="flex flex-col items-center bg-form_grey px-7 py-5 overflow-y-auto">
       <div class="h-32 w-32 mb-2 border-2 rounded-full">
-        <img class="" src="@/assets/person_icon.svg" alt="User avatar"/>
+        <img alt="User avatar" class="" src="@/assets/person_icon.svg"/>
       </div>
       <div class="text-primary-content p-7 m-3 border-2 border-base-100 rounded-lg">
         <p class="text-xl">Личная информация</p>
