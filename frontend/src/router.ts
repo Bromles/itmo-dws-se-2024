@@ -3,6 +3,7 @@ import CartPage from "@/pages/CartPage.vue";
 import UserPage from "@/pages/UserPage.vue";
 import SectionPage from "@/pages/SectionPage.vue";
 import MainPage from "@/pages/MainPage.vue";
+import SectionInfo from "@/pages/SectionInfo.vue";
 import OrganizationPage from "@/pages/OrganizationPage.vue";
 // import AuthPage from "@/pages/AuthPage.vue";
 
@@ -43,6 +44,11 @@ const routes = [
         path: "/",
         name: "Main page",
         component: MainPage
+    },
+    {
+        path: '/sections/:id',
+        component: SectionInfo,
+        name: 'SectionInfo'
     },
     // {
     //     path: "/register",

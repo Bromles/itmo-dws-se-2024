@@ -1,5 +1,5 @@
 <template>
-  <Sidebar/>
+  <Sidebar />
   <div class="user-profile">
     <div class="button-container">
       <button class="btn-subscriptions" @click="handleButtonClick('action1')">Ваши абонементы</button>
@@ -12,36 +12,34 @@
   </div>
 </template>
 
-
 <script>
+import { ref, onMounted } from 'vue';
 import Card from "@/components/card/Card.vue";
-import Sidebar from "@/components/navigation/Sidebar.vue"; // Убедитесь, что путь к компоненту Card правильный
+import Sidebar from "@/components/navigation/Sidebar.vue";
+import axiosAgregator from "@/server/axiosAgregator.js";
 
 export default {
   name: 'UserProfile',
-  components: {Sidebar, Card },
-  data() {
-    return {
-      cards: [
-        { id: 1, title: 'Карточка 1', content: 'Содержимое карточки 1' },
-        { id: 2, title: 'Карточка 2', content: 'Содержимое карточки 2' },
-        { id: 3, title: 'Карточка 3', content: 'Содержимое карточки 3' },
-        { id: 1, title: 'Карточка 1', content: 'Содержимое карточки 1' },
-        { id: 2, title: 'Карточка 2', content: 'Содержимое карточки 2' },
-        { id: 3, title: 'Карточка 3', content: 'Содержимое карточки 3' },
-        { id: 1, title: 'Карточка 1', content: 'Содержимое карточки 1' },
-        { id: 2, title: 'Карточка 2', content: 'Содержимое карточки 2' },
-        { id: 3, title: 'Карточка 3', content: 'Содержимое карточки 3' },
-        // Добавьте больше карточек по необходимости
-      ],
-    };
-  },
-  methods: {
-    handleButtonClick(action) {
+  components: { Sidebar, Card },
+
+  setup() {
+    const cards = ref([]);
+    const isLoading = ref(true);
+    const error = ref(null);
+
+    const handleButtonClick = (action) => {
       console.log(`Кнопка ${action} нажата`);
-      // Здесь можно добавить логику для обработки нажатий кнопок
-    },
-  },
+    };
+
+
+
+    return {
+      cards,
+      handleButtonClick,
+      isLoading,
+      error
+    };
+  }
 };
 </script>
 
@@ -77,16 +75,9 @@ export default {
   margin: 10px; /* Добавляем отступы между карточками */
 }
 
-.btn-subscriptions {
-  background-color: #267873; /* Синий цвет */
-}
-
-.btn-classes {
-  background-color: #267873; /* Оранжевый цвет */
-}
-
+.btn-subscriptions,
+.btn-classes,
 .btn-watchlist {
-  background-color: #267873; /* Красный цвет */
+  background-color: #267873; /* Цвет кнопок */
 }
 </style>
-
