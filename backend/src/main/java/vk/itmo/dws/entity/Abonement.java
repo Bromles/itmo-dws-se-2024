@@ -20,13 +20,17 @@ public class Abonement extends CRUDEntity{
     @Column(name = "duration", nullable = false)
     private Period duration;
 
+    @Column(name = "classes_count", nullable = false)
+    private Long classesCount;
+
     @ManyToOne
     @JoinColumn(name = "section_id", nullable = false)
     private Section section;
 
-    @Column(name = "activationDate", nullable = false)
-    private LocalDateTime activationDate;
-
     @Column(name = "price", nullable = false)
     private Double price;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
 }

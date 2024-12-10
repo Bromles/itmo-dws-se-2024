@@ -1,11 +1,7 @@
 package vk.itmo.dws.service;
 
 import lombok.RequiredArgsConstructor;
-import org.modelmapper.ModelMapper;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
-import vk.itmo.dws.dto.request.basket.AddToBasketRequest;
-import vk.itmo.dws.dto.request.basket.RemoveFromBasketRequest;
 import vk.itmo.dws.entity.*;
 import vk.itmo.dws.entity.Class;
 import vk.itmo.dws.enums.BookingStateEnum;
