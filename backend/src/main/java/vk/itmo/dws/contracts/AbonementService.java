@@ -1,6 +1,7 @@
 package vk.itmo.dws.contracts;
 
 
+import vk.itmo.dws.dto.request.abonement.AbonementCreateRequest;
 import vk.itmo.dws.entity.Abonement;
 import vk.itmo.dws.entity.AbonementUsage;
 
@@ -17,4 +18,5 @@ public interface AbonementService extends SearchService<Abonement> {
     void increaseClassesPassed(AbonementUsage abonementUsage);
     Abonement subscribeToAbonement(Long abonementId);
     void deleteAbonement(Abonement task);
+    Abonement create(AbonementCreateRequest abonementData);
 }

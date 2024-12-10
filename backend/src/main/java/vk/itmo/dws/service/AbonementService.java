@@ -1,7 +1,9 @@
 package vk.itmo.dws.service;
 
 import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
+import vk.itmo.dws.dto.request.abonement.AbonementCreateRequest;
 import vk.itmo.dws.entity.*;
 import vk.itmo.dws.entity.Class;
 import vk.itmo.dws.enums.BookingStateEnum;
@@ -21,12 +23,16 @@ public class AbonementService implements vk.itmo.dws.contracts.AbonementService 
     private final UserRepository userRepository;
     private final AbonementRepository abonementRepository;
     private final AbonemenUsageRepository abonementUsageRepository;
-
+    protected ModelMapper mapper = new ModelMapper();
 
 
     @Override
     public Collection<Abonement> findAllOwned(Map<String, String> filter) {
         return abonementRepository.findByUser_Id(3L).stream().toList();
+    }
+
+    public Abonement create(AbonementCreateRequest abonementData) {
+        return mapper.map(abonementData, Abonement.class);
     }
 
     public Collection<User> findAllSubscribers(Map<String, String> filter) {

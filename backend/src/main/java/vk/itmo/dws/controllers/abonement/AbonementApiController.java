@@ -12,6 +12,7 @@ import vk.itmo.dws.dto.account.UserResponseDto;
 import vk.itmo.dws.dto.account.UserSetEmailRequestDto;
 import vk.itmo.dws.dto.account.UserSetPasswordRequestDto;
 import vk.itmo.dws.dto.account.UserSetPhoneRequestDto;
+import vk.itmo.dws.dto.request.abonement.AbonementCreateRequest;
 import vk.itmo.dws.dto.response.ListResponse;
 import vk.itmo.dws.dto.response.abonement.AbonementResponse;
 import vk.itmo.dws.dto.response.abonement.AbonementUsageResponse;
@@ -47,6 +48,12 @@ public class AbonementApiController extends BaseController implements AbonementA
     private final AbonementService abonementService;
 
     @Override
+    public ResponseEntity<AbonementResponse> createAbonement(AbonementCreateRequest abonementData) {
+        abonementService.create(abonementData);
+        return ResponseEntity.ok(new AbonementResponse());
+    }
+
+    @Override
     public ResponseEntity<ListResponse<AbonementResponse>> getOwnedAbonements() {
         List<Abonement> abonements = (List<Abonement>) abonementService.findAllOwned(Collections.emptyMap());
         return ResponseEntity.ok(new ListResponse<>(abonements.stream().map(AbonementResponse::new).toList()));
@@ -62,4 +69,6 @@ public class AbonementApiController extends BaseController implements AbonementA
     public ResponseEntity<ListResponse<User>> getSubscribers() {
         return null;
     }
+
+
 }
