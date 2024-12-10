@@ -36,7 +36,6 @@ public class AbonementService implements vk.itmo.dws.contracts.AbonementService 
     }
 
     public Collection<User> findAllSubscribers(Map<String, String> filter) {
-       // return this.findAll(filter).stream().map();
         return null;
     }
 

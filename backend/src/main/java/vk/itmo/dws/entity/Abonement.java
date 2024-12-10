@@ -5,6 +5,7 @@ import lombok.Data;
 
 import java.time.LocalDateTime;
 import java.time.Period;
+import java.util.List;
 
 @Entity
 @Data
@@ -33,4 +34,7 @@ public class Abonement extends CRUDEntity{
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
+
+    @OneToMany(mappedBy = "abonement", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<AbonementUsage> usages;
 }
