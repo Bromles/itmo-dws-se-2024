@@ -4,7 +4,7 @@
 
 <template>
   <div class="flex flex-row h-80 w-full rounded-lg overflow-hidden border-2 border-main_green">
-    <div class="bg-white basis-4/12 flex flex-row items-center justify-center">
+    <div class="bg-clear_white basis-4/12 flex flex-row items-center justify-center">
       <img class="rounded-md" src="@assets/lesson_card.png"/>
     </div>
     <div class="flex basis-8/12 flex-col gap-2 bg-main_green h-auto">
