@@ -1,4 +1,4 @@
-package vk.itmo.dws.service;
+package vk.itmo.dws.contracts;
 
 import vk.itmo.dws.entity.EntityType;
 
