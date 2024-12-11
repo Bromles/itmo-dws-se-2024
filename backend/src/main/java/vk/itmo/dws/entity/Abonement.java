@@ -31,10 +31,6 @@ public class Abonement extends CRUDEntity{
     @Column(name = "price", nullable = false)
     private Double price;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", nullable = false)
-    private User user;
-
     @OneToMany(mappedBy = "abonement", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<AbonementUsage> usages;
 }

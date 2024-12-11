@@ -28,7 +28,7 @@ public class AbonementService implements vk.itmo.dws.contracts.AbonementService 
 
     @Override
     public Collection<Abonement> findAllOwned(Map<String, String> filter) {
-        return abonementRepository.findByUser_Id(3L).stream().toList();
+        return abonementRepository.findByUserId("sd").stream().toList();
     }
 
     public Abonement create(AbonementCreateRequest abonementData) {
@@ -42,7 +42,7 @@ public class AbonementService implements vk.itmo.dws.contracts.AbonementService 
 
 
     public Collection<AbonementUsage> findAllSubscribed(Map<String, String> filter) {
-        return abonementUsageRepository.findByUser_Id(1L);//TODO get user id
+        return abonementUsageRepository.findByUserId("1L");//TODO get user id
     }
 
     public boolean isAbonementActive(AbonementUsage abonementUsage) {
@@ -58,13 +58,12 @@ public class AbonementService implements vk.itmo.dws.contracts.AbonementService 
         Abonement abonement = abonementRepository.findById(abonementId).orElseThrow();
         AbonementUsage abonementUsage = new AbonementUsage();
         abonementUsage.setAbonement(abonement);
-        abonementUsage.setUser(userRepository.findById(1L).orElseThrow());//TODO get user id
         abonementUsageRepository.save(abonementUsage);
         return abonement;
     }
 
     public void unsubscribeAbonement(AbonementUsage abonementUsage) {
-        abonementUsage.setUser(null);
+        abonementUsage.setUserId(null);
         abonementUsageRepository.save(abonementUsage);
     }
 

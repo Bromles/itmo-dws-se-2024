@@ -10,6 +10,7 @@ import org.springframework.data.annotation.LastModifiedDate;
 import vk.itmo.dws.listeners.BaseEntityListener;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 @MappedSuperclass
 @Getter
@@ -32,4 +33,6 @@ public abstract class CRUDEntity {
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
+    @Column(name = "user_id", columnDefinition = "text")
+    private String userId;
 }

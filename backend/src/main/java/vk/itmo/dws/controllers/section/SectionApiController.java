@@ -4,6 +4,9 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.web.bind.annotation.*;
 import vk.itmo.dws.contracts.SectionService;
 import vk.itmo.dws.controllers.BaseController;
@@ -32,7 +35,8 @@ public class SectionApiController  extends BaseController {
 
 
     @PostMapping
-    public ResponseEntity<SectionShortResponse> createSection(@Valid @RequestBody SectionCreateRequest request){
+    @PreAuthorize("hasRole('client')")
+    public ResponseEntity<SectionShortResponse> createSection(@AuthenticationPrincipal Jwt principal, @Valid @RequestBody SectionCreateRequest request){
         Section result = sectionService.createSection(request);
         return ResponseEntity.ok(mapper.map(result, SectionShortResponse.class));
     }
@@ -48,6 +52,7 @@ public class SectionApiController  extends BaseController {
 
     @GetMapping()
     public ResponseEntity<ListResponse<SectionCardResponse>> getAllSections(
+            @AuthenticationPrincipal Jwt principal,
             @RequestParam Map<String, String> filter,
             HttpServletRequest request
     ) {

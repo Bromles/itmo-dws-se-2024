@@ -2,10 +2,12 @@ package vk.itmo.dws.service;
 
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import vk.itmo.dws.dto.request.section.SectionCreateRequest;
 import vk.itmo.dws.dto.request.section.SectionUpdateRequest;
 import vk.itmo.dws.entity.Section;
+import vk.itmo.dws.entity.User;
 import vk.itmo.dws.repository.SectionRepository;
 
 import java.util.Collection;
@@ -20,6 +22,7 @@ public class SectionService implements vk.itmo.dws.contracts.SectionService {
 
     @Override
     public Collection<Section> findAll(Map<String, String> filter) {
+        var t = SecurityContextHolder.getContext().getAuthentication().isAuthenticated();
         return sectionRepository.findAll();
     }
 
@@ -31,7 +34,7 @@ public class SectionService implements vk.itmo.dws.contracts.SectionService {
     @Override
     public Section createSection(SectionCreateRequest sectionData) {
         Section section = mapper.map(sectionData, Section.class);
-        //sectionRepository.save(section);
+        sectionRepository.save(section);
         return section;
     }
 

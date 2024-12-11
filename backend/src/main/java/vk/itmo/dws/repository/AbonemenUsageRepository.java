@@ -11,5 +11,5 @@ import java.util.List;
 public interface AbonemenUsageRepository extends JpaRepository<AbonementUsage, Long> {
 
 
-    List<AbonementUsage> findByUser_Id(Long id);
+    List<AbonementUsage> findByUserId(String userId);
 }

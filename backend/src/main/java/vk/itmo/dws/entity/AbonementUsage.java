@@ -3,6 +3,7 @@ package vk.itmo.dws.entity;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.Getter;
+import lombok.Setter;
 
 import java.time.LocalDateTime;
 import java.time.Period;
@@ -11,6 +12,7 @@ import java.time.Period;
 @Data
 @Table(name = "abonement_usage")
 @Getter
+@Setter
 public class AbonementUsage extends CRUDEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,7 +31,4 @@ public class AbonementUsage extends CRUDEntity {
     @Column(name = "classes_passed", nullable = false)
     private Long classesPassed;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", nullable = false)
-    private User user;
 }

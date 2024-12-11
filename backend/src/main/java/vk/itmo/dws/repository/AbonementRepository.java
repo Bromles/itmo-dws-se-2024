@@ -11,5 +11,5 @@ import java.util.List;
 public interface AbonementRepository extends JpaRepository<Abonement, Long> {
 
 
-    List<Abonement> findByUser_Id(Long id);
+    List<Abonement> findByUserId(String userId);
 }

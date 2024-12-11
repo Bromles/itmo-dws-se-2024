@@ -13,5 +13,4 @@ public class Basket extends CRUDEntity{
     @OneToMany(mappedBy = "basket", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Booking> bookings;
 
-    private Long userId;
 }
