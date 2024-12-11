@@ -13,14 +13,12 @@ const error = ref<unknown>(null)
 
 const fetchSections = async () => {
   try {
-    const response = (await axiosAgregator.sendGet('/api/v1/basket/', token!)).data;
+    const response = (await axiosAgregator.sendGet('/api/v1/basket/', token)).data;
     bookings.value = response.bookings;
-    console.log(bookings.value);
 
     isLoading.value = false;
   } catch (err) {
     error.value = err;
-
     isLoading.value = false;
   }
 }
@@ -28,12 +26,7 @@ const fetchSections = async () => {
 const payAll = async () => {
   try {
     console.log("sdfsdfs")
-    const response = (await axiosAgregator.sendPost('/api/v1/basket/pay-all', {}, token!)).data;
-    location.reload();
-    if (response) {
-
-
-    }
+    const response = (await axiosAgregator.sendPost('/api/v1/basket/pay-all', {}, token));
   } catch (error) {
 
   }

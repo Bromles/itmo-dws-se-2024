@@ -6,7 +6,7 @@ import ClassCard from "@/components/class/ClassCard.vue";
 import {useAuth} from "@/utils/composables.ts";
 
 const section = ref({});
-const sectionClasses = ref([]); // Добавляем переменную для классов секции
+const sectionClasses = ref([]);
 
 const route = useRoute();
 const id = route.params.id;
@@ -15,17 +15,17 @@ const auth = useAuth()
 const token = await auth.getToken()
 
 const showInfo = ref(false);
-const isLoading = ref(true); // Добавляем переменную для отслеживания загрузки
+const isLoading = ref(true);
 
 const fetchSection = async () => {
   try {
-    section.value = (await axiosAgregator.sendGet(`/api/v1/sections/${id}`, token!)).data;
-    sectionClasses.value = section.value.classes; // Предполагаем, что классы приходят в ответе
-    console.log(section.value);
+    console.log(token);
+    section.value = (await axiosAgregator.sendGet(`/api/v1/sections/${id}`, token)).data;
+    sectionClasses.value = section.value.classes;
   } catch (err) {
     console.log(err);
   } finally {
-    isLoading.value = false; // Устанавливаем состояние загрузки в false в любом случае
+    isLoading.value = false;
   }
 };
 

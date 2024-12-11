@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import axiosAgregator from "@/api/axiosAgregator.ts";
 import {ref} from "vue";
+import {useAuth} from "@/utils/composables.ts";
 
 const props = defineProps<{
   classInfo: {
@@ -16,11 +17,15 @@ const showSuccessNotification = ref(false);
 const showErrorNotification = ref(false);
 const errorMessage = ref('');
 
+const auth = useAuth()
+const token = await auth.getToken()
+
 const addToBasket = async () => {
   try {
+    console.log(token)
     const response = (await axiosAgregator.sendPost('/api/v1/basket/add', {
       "classId": props.classInfo.id
-    })).data;
+    }, token)).data;
 
     if (response.bookings) {
       showSuccessNotification.value = true;
