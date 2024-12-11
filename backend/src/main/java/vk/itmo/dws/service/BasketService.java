@@ -31,21 +31,20 @@ public class BasketService implements vk.itmo.dws.contracts.BasketService {
         return basketRepository.findById(1L);
     }
 
-    public Optional<Basket> findByUserId(Long id) {
-        return basketRepository.findByUserId("1L");
+    public Optional<Basket> findByUserId(String id) {
+        return basketRepository.findByUserId(id);
     }
 
     @Override
     public Basket addToBasket(Long classId) {
-        Basket basket = this.findByUserId(1L).orElseThrow();
+        Basket basket = this.findByUserId(SecurityWorkspace.getAuthUserId()).orElseThrow();
 
         Class aClass = classesRepository.findById(classId).orElseThrow();
 
         boolean classAlreadyAdded = basket.getBookings().stream()
                 .anyMatch(booking -> booking.getAClass().getId().equals(aClass.getId()));
-        User user = userRepository.findById(1L).orElseThrow();
 
-        if(user.getClasses().contains(aClass)) {
+        if(classesRepository.findByUserId(SecurityWorkspace.getAuthUserId()).contains(aClass)) {
             throw new IllegalArgumentException("Вы уже записаны на это занятие.");
         }
         if (classAlreadyAdded) {
@@ -71,7 +70,7 @@ public class BasketService implements vk.itmo.dws.contracts.BasketService {
 
     @Override
     public Basket removeFromBasket(Long bookingId) {
-        Basket basket = this.findByUserId(1L).orElseThrow();
+        Basket basket = this.findByUserId(SecurityWorkspace.getAuthUserId()).orElseThrow();
         List<Booking> bookings  = basket.getBookings();
         Booking booking = bookingRepository.findById(bookingId).orElseThrow();
         if(bookings.contains(booking)) {
@@ -86,9 +85,9 @@ public class BasketService implements vk.itmo.dws.contracts.BasketService {
 
     @Override
     public void payAllBasket() {
-        Basket basket = this.findByUserId(1L).orElseThrow();
+        Basket basket = this.findByUserId(SecurityWorkspace.getAuthUserId()).orElseThrow();
         List<Booking> bookings = basket.getBookings();
-        User user = userRepository.findById(1L).orElseThrow();
+        User user = userRepository.findById(SecurityWorkspace.getAuthUserId()).orElseThrow();
         List<Class> allClasses = user.getClasses();
         for (Booking booking : bookings) {
             allClasses.add(booking.getAClass());

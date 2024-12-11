@@ -19,7 +19,7 @@ public class SecurityWorkspace {
     public static User getAuthUser(){
         Jwt token  = (Jwt) SecurityContextHolder.getContext().getAuthentication().getCredentials();
         User user = new User();
-        user.setId(Long.valueOf(token.getSubject()));
+        user.setId(token.getSubject());
         return user;
     }
 }

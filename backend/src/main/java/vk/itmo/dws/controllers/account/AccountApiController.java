@@ -14,6 +14,7 @@ import vk.itmo.dws.entity.Class;
 import vk.itmo.dws.entity.Section;
 import vk.itmo.dws.exceptions.account.PasswordsMismatchException;
 import vk.itmo.dws.repository.UserRepository;
+import vk.itmo.dws.service.SecurityWorkspace;
 
 import java.time.Instant;
 import java.util.Collection;
@@ -76,7 +77,7 @@ public class AccountApiController extends BaseController implements AccountApi {
 
     @Override
     public ResponseEntity<ListResponse<ClassResponse>> getSections() {
-        List<Class> classes = userRepository.findById(1L).orElseThrow().getClasses();
+        List<Class> classes = userRepository.findById(SecurityWorkspace.getAuthUserId()).orElseThrow().getClasses();
         List<ClassResponse> classResponses;
         if (classes != null) {
             classResponses = classes.stream()
