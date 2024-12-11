@@ -1,8 +1,10 @@
 package vk.itmo.dws.contracts;
 
 
+import vk.itmo.dws.dto.request.classes.ClassUpdateRequest;
 import vk.itmo.dws.dto.request.section.SectionCreateRequest;
 import vk.itmo.dws.dto.request.section.SectionUpdateRequest;
+import vk.itmo.dws.entity.Class;
 import vk.itmo.dws.entity.Section;
 
 import java.util.Collection;
@@ -20,4 +22,10 @@ public interface SectionService extends SearchService<Section> {
 
     void deleteSection(Section task);
     Collection<Section> findAllOwned(Map<String, String> filter);
+
+    Class createClass(Long sectionId, String title);
+
+    Class editClass(Long classId, ClassUpdateRequest classUpdateRequest);
+
+    void deleteClass(Long classId);
 }

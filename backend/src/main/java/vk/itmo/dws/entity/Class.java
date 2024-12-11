@@ -3,6 +3,8 @@ package vk.itmo.dws.entity;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.util.List;
+
 @Entity
 @Data
 @Table(name = "classes")
@@ -17,4 +19,7 @@ public class Class extends CRUDEntity {
     @ManyToOne
     @JoinColumn(name = "section_id", nullable = false)
     private Section section;
+
+    @ManyToMany(mappedBy = "classes")
+    private List<User> users;
 }
