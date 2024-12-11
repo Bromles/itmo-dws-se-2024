@@ -1,11 +1,11 @@
-<script setup lang="ts">
+<script lang="ts" setup>
 
 </script>
 
 <template>
   <div class="flex flex-row mt-10 bg-white">
     <div class="mt-10 ml-10 w-[50%]">
-      <img class="w-[95%] h-[95%] rounded-md" src="@assets/volleyball.jpg" alt="section poster"/>
+      <img alt="section poster" class="w-[95%] h-[95%] rounded-md" src="@assets/volleyball.jpg"/>
     </div>
     <div class="mt-10 w-[50%] mr-10">
       <p class="text-3xl text-primary-content">

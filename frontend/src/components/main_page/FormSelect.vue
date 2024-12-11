@@ -4,9 +4,9 @@
       {{ label }}
     </label>
     <select
-          :id="id"
-          v-bind="selectAttrs"
-          class="select select-bordered bg-form_grey border-2 border-main_green">
+        :id="id"
+        class="select select-bordered bg-form_grey border-2 border-main_green"
+        v-bind="selectAttrs">
       <option v-for="(option, index) in options" :key="index" :value="option.value">
         {{ option.text }}
       </option>
@@ -14,38 +14,38 @@
   </div>
 </template>
 
-<script setup lang="js">
-  defineProps({
-    label: {
-      type: String,
-      required: true
-    },
-    id: {
-      type: String,
-      default: () => `input-${Math.random().toString(36).substr(2, 9)}`
-    },
-    type: {
-      type: String,
-      default: 'text'
-    },
-    placeholder: {
-      type: String,
-      default: 'text'
-    },
-    inputAttrs: {
-      type: Object,
-      default: () => ({})
-    },
-    options: {
-      type: Array,
-      required: true,
-      default: () => []
-    },
-    selectAttrs: {
-      type: Object,
-      default: () => ({})
-    }
-  })
+<script lang="js" setup>
+defineProps({
+  label: {
+    type: String,
+    required: true
+  },
+  id: {
+    type: String,
+    default: () => `input-${Math.random().toString(36).substr(2, 9)}`
+  },
+  type: {
+    type: String,
+    default: 'text'
+  },
+  placeholder: {
+    type: String,
+    default: 'text'
+  },
+  inputAttrs: {
+    type: Object,
+    default: () => ({})
+  },
+  options: {
+    type: Array,
+    required: true,
+    default: () => []
+  },
+  selectAttrs: {
+    type: Object,
+    default: () => ({})
+  }
+})
 </script>
 
 <style scoped>

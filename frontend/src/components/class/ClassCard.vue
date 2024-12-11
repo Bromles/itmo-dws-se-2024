@@ -1,6 +1,6 @@
-<script setup lang="ts">
-import { defineProps, ref } from 'vue';
-import axiosAgregator from "@/server/axiosAgregator";
+<script lang="ts" setup>
+import axiosAgregator from "@/api/axiosAgregator.ts";
+import {ref} from "vue";
 
 const props = defineProps<{
   classInfo: {
@@ -68,7 +68,8 @@ const addToBasket = async () => {
 
     <!-- Уведомления -->
     <transition name="fade">
-      <div v-if="showSuccessNotification" class="fixed top-5 right-5 bg-[#a7f3d0] text-neutral-500 p-4 rounded shadow-lg">
+      <div v-if="showSuccessNotification"
+           class="fixed top-5 right-5 bg-[#a7f3d0] text-neutral-500 p-4 rounded shadow-lg">
         Занятие успешно добавлено в корзину!
       </div>
     </transition>

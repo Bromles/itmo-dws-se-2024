@@ -1,5 +1,17 @@
+<script setup lang="ts">
+import {ref} from 'vue';
+import Card from "@/components/card/Card.vue";
+import Sidebar from "@/components/navigation/Sidebar.vue";
+
+const cards = ref([]);
+
+const handleButtonClick = (action: string) => {
+  console.log(`Кнопка ${action} нажата`);
+};
+</script>
+
 <template>
-  <Sidebar />
+  <Sidebar/>
   <div class="user-profile">
     <div class="button-container">
       <button class="btn-subscriptions" @click="handleButtonClick('action1')">Ваши абонементы</button>
@@ -7,41 +19,10 @@
       <button class="btn-watchlist" @click="handleButtonClick('action3')">Список наблюдения</button>
     </div>
     <div class="card-list">
-      <Card v-for="card in cards" :key="card.id" :title="card.title" :content="card.content" />
+      <Card v-for="card in cards" :key="card.id" :content="card.content" :title="card.title"/>
     </div>
   </div>
 </template>
-
-<script>
-import { ref, onMounted } from 'vue';
-import Card from "@/components/card/Card.vue";
-import Sidebar from "@/components/navigation/Sidebar.vue";
-import axiosAgregator from "@/server/axiosAgregator.js";
-
-export default {
-  name: 'UserProfile',
-  components: { Sidebar, Card },
-
-  setup() {
-    const cards = ref([]);
-    const isLoading = ref(true);
-    const error = ref(null);
-
-    const handleButtonClick = (action) => {
-      console.log(`Кнопка ${action} нажата`);
-    };
-
-
-
-    return {
-      cards,
-      handleButtonClick,
-      isLoading,
-      error
-    };
-  }
-};
-</script>
 
 <style scoped>
 .user-profile {

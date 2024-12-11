@@ -1,6 +1,5 @@
-<script setup lang="ts">
+<script lang="ts" setup>
 import {onMounted} from 'vue';
-import { useRouter } from 'vue-router';
 import router from "@/router.ts";
 
 
@@ -18,14 +17,14 @@ onMounted(() => {
 });
 const navigateToDetails = () => {
   // Замените '/details' на нужный вам маршрут
-  router.push({ name: 'SectionInfo', params: { id : props.id } });
+  router.push({name: 'SectionInfo', params: {id: props.id}});
 };
 </script>
 
 <template>
   <div class="flex flex-col h-auto rounded-lg overflow-hidden border-2 border-main_green">
     <div class="h-50 bg-white flex flex-row items-center justify-center">
-      <img class="w-[95%] h-[95%] rounded-md" src="@assets/icons/main_page/volleyball.jpg" alt=""/>
+      <img alt="" class="w-[95%] h-[95%] rounded-md" src="@assets/icons/main_page/volleyball.jpg"/>
     </div>
     <div class="flex flex-col items-center justify-center w-full bg-main_green h-auto">
       <div class="bg-main_green flex flex-col w-[95%] mx-auto py-4 text-sm">
@@ -33,8 +32,8 @@ const navigateToDetails = () => {
       </div>
       <button
           class="btn btn-wide btn-sm mb-2 bg-clear_white text-main_green hover:bg-form_grey"
-          @click="navigateToDetails" >
-      Просмотреть
+          @click="navigateToDetails">
+        Просмотреть
       </button>
     </div>
   </div>
