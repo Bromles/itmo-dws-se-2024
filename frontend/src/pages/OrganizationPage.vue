@@ -1,6 +1,21 @@
 <script setup lang="ts">
 import LessonCard from "@/components/organization_page/LessonCard.vue";
 import ClientCard from "@/components/organization_page/ClientCard.vue";
+import axiosAgregator from "@/api/axiosAgregator.ts";
+
+const fetchClients = async () => {
+  try {
+    const response = (await axiosAgregator.sendGet('/api/v1/clients/', token!)).data;
+    clients.value = response.clients;
+    console.log(bookings.value);
+
+    isLoading.value = false;
+  } catch (err) {
+    error.value = err;
+
+    isLoading.value = false;
+  }
+}
 </script>
 
 <template>
