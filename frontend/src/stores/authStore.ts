@@ -6,11 +6,14 @@ export const useAuthStore = defineStore(
     'storeAuth',
     () => {
         const authenticated = ref(false)
+        const userRole = ref("")
         const user = ref({})
 
         const login = async (auth: AuthService) => {
             const user = await auth.getUser()
+            const role = await auth.getUserRole()
             authenticated.value = !!user;
+            userRole.value = role;
         }
 
         const logout = (auth: AuthService) => {
@@ -22,7 +25,8 @@ export const useAuthStore = defineStore(
             authenticated,
             user,
             login,
-            logout
+            logout,
+            userRole
         }
     },
     {

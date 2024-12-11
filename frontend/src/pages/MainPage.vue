@@ -5,16 +5,23 @@ import SectionCard from "@/components/main_page/SectionCard.vue";
 import FormInput from "@/components/main_page/FormInput.vue";
 import FormSelect from "@/components/main_page/FormSelect.vue";
 import {useAuth} from "@/utils/composables.ts";
+import {useAuthStore} from "@/stores/authStore.ts";
+import router from "@/router.ts";
 
 const sections = ref([])
 const isLoading = ref(true)
 const error = ref(null)
 const auth = useAuth()
 const token = await auth.getToken()
+const store = useAuthStore()
 
 const fetchSections = async () => {
   try {
+    if(store.userRole === 'employee'){
+      router.push('/org')
+    }
     const response = (await axiosAgregator.sendGet('/api/v1/sections', token)).data;
+
     sections.value = response.data;
     isLoading.value = false;
   } catch (err) {
