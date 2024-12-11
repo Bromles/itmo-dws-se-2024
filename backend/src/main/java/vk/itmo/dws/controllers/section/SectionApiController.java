@@ -35,7 +35,7 @@ public class SectionApiController  extends BaseController {
 
 
     @PostMapping
-    @PreAuthorize("hasRole('client')")
+    @PreAuthorize("hasRole('ROLE_EMPLOYEE')")
     public ResponseEntity<SectionShortResponse> createSection(@AuthenticationPrincipal Jwt principal, @Valid @RequestBody SectionCreateRequest request){
         Section result = sectionService.createSection(request);
         return ResponseEntity.ok(mapper.map(result, SectionShortResponse.class));

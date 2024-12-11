@@ -19,4 +19,5 @@ public interface SectionService extends SearchService<Section> {
     Section updateSection(Section task, SectionUpdateRequest taskData);
 
     void deleteSection(Section task);
+    Collection<Section> findAllOwned(Map<String, String> filter);
 }

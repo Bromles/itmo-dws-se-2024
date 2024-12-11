@@ -22,8 +22,11 @@ public class SectionService implements vk.itmo.dws.contracts.SectionService {
 
     @Override
     public Collection<Section> findAll(Map<String, String> filter) {
-        var t = SecurityContextHolder.getContext().getAuthentication().isAuthenticated();
         return sectionRepository.findAll();
+    }
+
+   public Collection<Section> findAllOwned(Map<String, String> filter) {
+        return sectionRepository.findByUserId(SecurityWorkspace.getAuthUserId());
     }
 
     @Override
