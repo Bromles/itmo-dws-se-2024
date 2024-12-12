@@ -18,12 +18,12 @@ const store = useAuthStore()
 const fetchSections = async () => {
   try {
     if(store.userRole === 'employee'){
-      router.push('/org')
+      await router.push('/org')
+    }else {
+      const response = (await axiosAgregator.sendGet('/api/v1/sections', token)).data;
+      sections.value = response.data;
+      isLoading.value = false;
     }
-    const response = (await axiosAgregator.sendGet('/api/v1/sections', token)).data;
-
-    sections.value = response.data;
-    isLoading.value = false;
   } catch (err) {
     error.value = err;
     isLoading.value = false;
