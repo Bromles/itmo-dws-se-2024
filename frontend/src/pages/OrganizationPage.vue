@@ -4,10 +4,13 @@ import ClientCard from "@/components/organization_page/ClientCard.vue";
 import axiosAgregator from "@/api/axiosAgregator.ts";
 import {useAuth} from "@/utils/composables.ts";
 import {onMounted, ref} from "vue";
+import {useAuthStore} from "@/stores/authStore.ts";
 
 const auth = useAuth()
 const token = await auth.getToken()
 const error = ref(null);
+const store = useAuthStore()
+const role = store.userRole
 const isLoading = ref(true);
 const clients = ref([])
 
@@ -63,7 +66,7 @@ onMounted(fetchClients)
     </div>
 
     <!-- Clients Section -->
-    <div class="flex px-4 pb-2 flex-col h-[100%] basis-9/12 gap-2 w-[100%] bg-cover bg-main_background overflow-y-auto">
+    <div v-if="role == 'employee'" class="flex px-4 pb-2 flex-col h-[100%] basis-9/12 gap-2 w-[100%] bg-cover bg-main_background overflow-y-auto">
       <!-- Clients Title -->
       <div class="flex flex-row">
         <p class="flex w-[95%] text-main_green flex-row text-center mt-4 text-4xl rounded-lg">Клиенты:</p>

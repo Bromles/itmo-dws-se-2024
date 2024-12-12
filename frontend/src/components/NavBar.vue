@@ -6,6 +6,7 @@ import {useAuthStore} from "@/stores/authStore.ts";
 const router = useRouter()
 const auth = useAuth()
 const store = useAuthStore()
+const role = store.userRole
 </script>
 
 <template>
@@ -17,7 +18,16 @@ const store = useAuthStore()
     <div class="flex justify-between gap-3 items-center">
       <RouterLink class="hover:underline text-2xl" to="">О компании</RouterLink>
       <RouterLink class="hover:underline text-2xl" to="">Отзывы</RouterLink>
-      <RouterLink class="hover:underline text-2xl" to="">Связаться</RouterLink>
+      <button
+          v-if="role === 'employee'"
+          class="hover:underline text-2xl"
+          @click="router.push('/admin')">Админ панель
+      </button>
+      <RouterLink
+          v-else
+          class="hover:underline text-2xl"
+          to="">Связаться
+      </RouterLink>
     </div>
     <div class="flex justify-between gap-3 mr-3">
       <button class="btn btn-circle btn-primary">
@@ -26,7 +36,7 @@ const store = useAuthStore()
       <button class="btn btn-circle btn-primary" @click="router.push('/user')">
         <img alt="person icon" class="h-6 w-6" src="@/assets/person_icon.svg"/>
       </button>
-      <button class="btn btn-circle btn-primary" @click="router.push('/cart')">
+      <button v-if="role !== 'employee'" class="btn btn-circle btn-primary" @click="router.push('/cart')">
         <img alt="cart icon" class="h-6 w-6" src="@/assets/cart_icon.svg"/>
       </button>
     </div>
