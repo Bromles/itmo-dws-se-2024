@@ -70,6 +70,24 @@ public class SectionApiController  extends BaseController  implements SectionApi
         return ResponseEntity.ok(new ListResponse<>(sections));
     }
 
+    @GetMapping("/owned")
+    public ResponseEntity<ListResponse<SectionCardResponse>> getAllOwnedSections(
+            @RequestParam Map<String, String> filter
+    ) {
+        List<SectionCardResponse> sections;
+        Collection<Section> sectionList = sectionService.findAllOwned(filter);
+        if (sectionList != null) {
+            sections = sectionList.stream()
+                    .map(SectionCardResponse::new)
+                    .toList();
+        } else {
+            sections = Collections.emptyList();
+        }
+
+        return ResponseEntity.ok(new ListResponse<>(sections));
+    }
+
+
     @Override
     public List<SectionShortResponse> getAllSectionsClasses(Long id) {
         return null;

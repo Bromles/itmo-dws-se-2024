@@ -20,6 +20,9 @@ public class SecurityWorkspace {
         Jwt token  = (Jwt) SecurityContextHolder.getContext().getAuthentication().getCredentials();
         User user = new User();
         user.setId(token.getSubject());
+        user.setUsername(token.getClaims().get("preferred_username").toString());
+        user.setLogin(token.getClaims().get("preferred_username").toString());
+        user.setPassword("123123");
         return user;
     }
 }

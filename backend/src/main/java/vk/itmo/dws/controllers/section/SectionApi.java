@@ -23,6 +23,10 @@ public interface SectionApi {
     @Operation(summary = "Get all sections")
     @GetMapping("")
     public ResponseEntity<ListResponse<SectionCardResponse>> getAllSections(@RequestParam Map<String, String> filter);
+
+    @Operation(summary = "Get all owned sections")
+    @GetMapping("/owned")
+    public ResponseEntity<ListResponse<SectionCardResponse>> getAllOwnedSections(@RequestParam Map<String, String> filter);
     @Operation(summary = "Create new section")
     @PostMapping("")
     public ResponseEntity<SectionShortResponse> createSection(@Valid @RequestBody SectionCreateRequest request);
