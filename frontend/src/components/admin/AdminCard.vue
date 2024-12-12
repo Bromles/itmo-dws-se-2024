@@ -1,10 +1,10 @@
 <script setup lang="ts">
-
 const props = defineProps<{
   adminCardInfo: {
     id: number;
     name: string
   }
+
 
 }>();
 

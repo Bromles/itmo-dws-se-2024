@@ -9,7 +9,7 @@ const props = defineProps<{
 }>();
 
 onMounted(() => {
-  fetchClient();
+
 });
 </script>
 
