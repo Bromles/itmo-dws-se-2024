@@ -1,4 +1,4 @@
-package vk.itmo.dws.controller;
+package vk.itmo.dws.controllers.review;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

@@ -6,6 +6,7 @@ import MainPage from "@/pages/MainPage.vue";
 import SectionInfo from "@/pages/SectionInfo.vue";
 import OrganizationPage from "@/pages/OrganizationPage.vue";
 import SigninCallback from "@/components/SigninCallback.vue";
+import AdminPanel from "@/pages/AdminOrganizationPage.vue";
 // import AuthPage from "@/pages/AuthPage.vue";
 
 const filterPath = (to: any, _from: any, next: any) => {
@@ -55,6 +56,11 @@ const routes = [
         path: '/sections/:id',
         component: SectionInfo,
         name: 'SectionInfo'
+    },
+    {
+        path: '/admin',
+        component: AdminPanel,
+        name: 'AdminPanel'
     },
     // {
     //     path: "/register",
