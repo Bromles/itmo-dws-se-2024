@@ -17,7 +17,8 @@ public class BasketService implements vk.itmo.dws.contracts.BasketService {
     private final BasketRepository basketRepository;
     private final BookingRepository bookingRepository;
     private final ClassesRepository classesRepository;
-    private final UserRepository userRepository;
+    private final UserService userService;
+
 
 
 
@@ -85,15 +86,19 @@ public class BasketService implements vk.itmo.dws.contracts.BasketService {
 
     @Override
     public void payAllBasket() {
-        Basket basket = this.findByUserId(SecurityWorkspace.getAuthUserId()).orElseThrow();
+        Optional<User> userOptional = userService.findById(SecurityWorkspace.getAuthUserId());
+        User user;
+
+        user = userOptional.orElseGet(() -> userService.editUser(SecurityWorkspace.getAuthUser()));
+
+        Basket basket = this.findByUserId(user.getId()).orElseThrow();
         List<Booking> bookings = basket.getBookings();
-        User user = userRepository.findById(SecurityWorkspace.getAuthUserId()).orElseThrow();
-        List<Class> allClasses = user.getClasses();
+
+        List<Class> classes = user.getClasses();
         for (Booking booking : bookings) {
-            allClasses.add(booking.getAClass());
+            classes.add(booking.getAClass());
         }
-        user.setClasses(allClasses);
-        userRepository.save(user);
+        userService.editUser(user);
         bookings.forEach(booking -> this.removeFromBasket(booking.getId()));
     }
 
