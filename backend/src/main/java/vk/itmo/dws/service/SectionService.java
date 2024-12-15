@@ -2,14 +2,13 @@ package vk.itmo.dws.service;
 
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import vk.itmo.dws.dto.request.classes.ClassUpdateRequest;
 import vk.itmo.dws.dto.request.section.SectionCreateRequest;
 import vk.itmo.dws.dto.request.section.SectionUpdateRequest;
 import vk.itmo.dws.entity.Class;
+import vk.itmo.dws.entity.Classification;
 import vk.itmo.dws.entity.Section;
-import vk.itmo.dws.entity.User;
 import vk.itmo.dws.repository.ClassesRepository;
 import vk.itmo.dws.repository.SectionRepository;
 
@@ -29,7 +28,7 @@ public class SectionService implements vk.itmo.dws.contracts.SectionService {
         return sectionRepository.findAll();
     }
 
-   public Collection<Section> findAllOwned(Map<String, String> filter) {
+    public Collection<Section> findAllOwned(Map<String, String> filter) {
         return sectionRepository.findByUserId(SecurityWorkspace.getAuthUserId());
     }
 
@@ -51,6 +50,12 @@ public class SectionService implements vk.itmo.dws.contracts.SectionService {
     public void deleteClass(Long classId) {
         Class newClass = classesRepository.findById(classId).orElseThrow();
         classesRepository.delete(newClass);
+    }
+
+    public void addClassification(Long classId, Classification classification) {
+        Class activity = classesRepository.findById(classId).orElseThrow();
+        activity.getClassifications().add(classification);
+        classesRepository.save(activity);
     }
 
     @Override

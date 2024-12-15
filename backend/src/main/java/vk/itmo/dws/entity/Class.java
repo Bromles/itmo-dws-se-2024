@@ -22,4 +22,13 @@ public class Class extends CRUDEntity {
 
     @ManyToMany(mappedBy = "classes")
     private List<User> users;
+
+    @ManyToMany
+    @JoinTable(
+            name = "class_classification",
+            joinColumns = @JoinColumn(name = "class_id"),
+            inverseJoinColumns = @JoinColumn(name = "classification_id")
+    )
+    private List<Classification> classifications;
+
 }
