@@ -14,7 +14,6 @@ export const useAuthStore = defineStore(
             const role = await auth.getUserRole()
             authenticated.value = !!user;
             userRole.value = role;
-            console.log(user?.profile);
         }
 
         const logout = (auth: AuthService) => {

@@ -57,6 +57,8 @@ const lessonForm = ref({
   description: '',
 });
 
+
+
 const addLesson = async () => {
   try {
     const id = route.params.id;
@@ -71,16 +73,16 @@ const addLesson = async () => {
 </script>
 
 <template>
-  <div class="flex min-h-screen bg-gray-100">
+  <div class="flex min-h-screen bg-clear_white">
     <!-- Кнопка "Назад" -->
     <div class="absolute top-25 right-4">
-      <button @click="router.back()" class="btn btn-secondary">
+      <button @click="router.back()" class="btn btn-secondary bg-main_green text-neutral-50">
         Назад
       </button>
     </div>
 
     <!-- Секция редактирования -->
-    <div class="w-1/3 p-6 bg-white rounded-lg shadow-md">
+    <div class="w-1/3 ml-5 mt-5 p-6 bg-white rounded-lg shadow-md bg-main_green">
       <h2 class="mb-4 text-2xl font-bold text-center">Редактировать карточку</h2>
       <form @submit.prevent="onSubmit">
         <div class="mb-4">

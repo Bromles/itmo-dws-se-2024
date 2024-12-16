@@ -3,6 +3,8 @@ import { ref, onMounted } from "vue";
 import AdminSectionCard from "@/components/admin/AdminCard.vue";
 import axiosAgregator from "@/api/axiosAgregator.ts";
 import { useAuth } from "@/utils/composables.ts";
+import AbonementCard from "@/components/abonement/AbonementCard.vue";
+import AdminAbonementCard from "@/components/admin/AdminAbonementCard.vue";
 
 // Ссылка на компоненты
 const modalTitle = ref<string>('');  // Для заголовка модального окна
@@ -10,13 +12,18 @@ const modalInputField = ref<string>('');  // Для содержимого мо�
 const placeholderInput = ref<string>('');  // Для содержимого модального окна
 const flag = ref(false);  // Использует ref для создания реактивной переменной
 const sections = ref([]);
+const abonements = ref([]);
 const isLoading = ref(true);
 const error = ref(null);
 const token = await useAuth().getToken();
+const selectedSectionId = ref<string | null>(null); // Новая переменная для хранения ID выбранной секции
 
 // Функция для изменения флага отображения секций/абонементов
 const changeFlag = (newFlag: boolean) => {
   flag.value = newFlag;
+  if (newFlag) {
+    selectedSectionId.value = null; // Сбрасываем выбранную секцию при переключении на абонементы
+  }
 };
 
 const form = ref({
@@ -26,14 +33,12 @@ const form = ref({
 
 const handleSubmit = async () => {
   try {
-    console.log(token)
-    console.log("Сейчас отправлю")
     if (token != null) {
-      const response = (await axiosAgregator.sendPost('/api/v1/sections', form.value, token)).data.data;
+      const response = (await axiosAgregator.sendPost('/api/v1/abonements', { ...form.value, section_id: selectedSectionId.value }, token)).data.data;
       const modal = document.getElementById("my_modal_2") as HTMLDialogElement;
       modal?.close();
       await fetchSections();
-      console.log('Данные успешно отправлены:', response.data);
+      console.log('Данные успешно отправлены:', response);
     }
   } catch (error) {
     console.error('Ошибка при отправке данных:', error);
@@ -45,7 +50,18 @@ const fetchSections = async () => {
   try {
     if (token != null) {
       sections.value = (await axiosAgregator.sendGet('/api/v1/sections/owned', token)).data.data;
-      console.log(sections.value)
+      isLoading.value = false;
+    }
+  } catch (err) {
+    error.value = err;
+    isLoading.value = false;
+  }
+};
+
+const fetchAbonements = async () => {
+  try {
+    if (token != null) {
+      abonements.value = (await axiosAgregator.sendGet('/api/v1/abonements/owned', token)).data.data;
       isLoading.value = false;
     }
   } catch (err) {
@@ -59,11 +75,15 @@ const openModalFromParent = (title: string, field: string, placeholder: string) 
   modalTitle.value = title;
   modalInputField.value = field;
   placeholderInput.value = placeholder;
+  selectedSectionId.value = null; // Сбрасываем выбранную секцию при открытии модалки
   const modal = document.getElementById("my_modal_2") as HTMLDialogElement;
   modal?.showModal();  // Открываем модальное окно
 };
 
-onMounted(fetchSections);
+onMounted(() => {
+  fetchSections();
+  fetchAbonements()
+});
 </script>
 
 <template>
@@ -94,7 +114,7 @@ onMounted(fetchSections);
 
     <div v-if="flag" class="basis-9/12 mb-4 p-4 flex gap-4 flex-col min-h-screen h-auto bg-clear_white">
       <div class="w-full text-2xl p-2 rounded-lg text-center text-clear_white bg-main_green">Абонементы</div>
-      <AdminSectionCard v-for="n in 10" :key="'subscription-' + n" :fetch-sections="fetchSections" :admin-card-info="{ id: n, title: 'Абонемент по волейболу'}" />
+      <AdminAbonementCard v-for="abonement in abonements" :key="'subscription-' + n" :fetch-sections="fetchSections" :admin-abonement-info="abonement"/>
     </div>
 
     <!-- Модальное окно -->
@@ -102,7 +122,17 @@ onMounted(fetchSections);
       <div class="modal-box flex flex-col gap-4 justify-center items-center">
         <h3 class="text-clear_white text-xl font-bold">{{ modalTitle }}</h3>
         <label class="text-clear_white text-xl">Наименование {{ modalInputField }}</label>
-        <input  v-model="form.title" type="text" v-bind:placeholder="`${placeholderInput} волейболу`" class="input input-bordered w-full bg-clear_white max-w-xs text-main_green" />
+        <input v-model="form.title" type="text" v-bind:placeholder="`${placeholderInput} волейболу`" class="input input-bordered w-full bg-clear_white max-w-xs text-main_green" />
+
+        <div v-if="flag">
+        <!-- Выпадающий список для выбора секции -->
+          <label class="text-clear_white text-xl">Выберите секцию</label>
+          <select v-model="selectedSectionId" class="input input-bordered w-full bg-clear_white max-w-xs text-main_green">
+            <option value="" disabled>Выберите секцию</option>
+            <option v-for="section in sections" :key="'section-select-' + section.id" :value="section.id">{{ section.title }}</option>
+          </select>
+        </div>
+
         <label class="text-clear_white text-xl">Прайс {{ modalInputField }}</label>
         <input v-model="form.price" type="number" placeholder="1000" class="input input-bordered w-full bg-clear_white max-w-xs text-main_green" />
         <button @click="handleSubmit()" class="btn btn-wide mt-4 border-2 bg-clear_white text-main_green hover:bg-form_grey">Добавить</button>
@@ -113,6 +143,7 @@ onMounted(fetchSections);
     </dialog>
   </div>
 </template>
+
 
 <style scoped>
 
