@@ -1,5 +1,6 @@
 package vk.itmo.dws.entity;
 
+import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -18,9 +19,11 @@ public class Abonement extends CRUDEntity{
     @Column(name = "title", nullable = false)
     private String title;
 
+    @Nullable
     @Column(name = "duration", nullable = false)
     private Period duration;
 
+    @Nullable
     @Column(name = "classes_count", nullable = false)
     private Long classesCount;
 
@@ -33,4 +36,13 @@ public class Abonement extends CRUDEntity{
 
     @OneToMany(mappedBy = "abonement", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<AbonementUsage> usages;
+
+    @ManyToMany
+    @JoinTable(
+            name = "abonement_classes",
+            joinColumns = @JoinColumn(name = "abonement_id"),
+            inverseJoinColumns = @JoinColumn(name = "class_id")
+    )
+    private List<Class> classes;
+
 }

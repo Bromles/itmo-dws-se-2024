@@ -17,9 +17,10 @@ import java.util.*;
 @Service
 @RequiredArgsConstructor
 public class AbonementService implements vk.itmo.dws.contracts.AbonementService {
-    private final UserRepository userRepository;
+    private final UserService userService;
     private final AbonementRepository abonementRepository;
     private final AbonemenUsageRepository abonementUsageRepository;
+    private final SectionRepository sectionRepository;
     protected ModelMapper mapper = new ModelMapper();
 
 
@@ -30,7 +31,17 @@ public class AbonementService implements vk.itmo.dws.contracts.AbonementService 
     }
 
     public Abonement create(AbonementCreateRequest abonementData) {
-        return mapper.map(abonementData, Abonement.class);
+        Optional<User> userOptional = userService.findById(SecurityWorkspace.getAuthUserId());
+        User user;
+        user = userOptional.orElseGet(() -> userService.editUser(SecurityWorkspace.getAuthUser()));
+
+        Section section = sectionRepository.findById(abonementData.getSectionId()).orElseThrow();
+        if(!section.getUserId().equals(SecurityWorkspace.getAuthUserId())){
+            throw new IllegalArgumentException("You don't have access to this section");
+        }
+        Abonement abonement = mapper.map(abonementData, Abonement.class);
+        abonementRepository.save(abonement);
+        return abonement;
     }
 
     public Collection<User> findAllSubscribers(Map<String, String> filter) {

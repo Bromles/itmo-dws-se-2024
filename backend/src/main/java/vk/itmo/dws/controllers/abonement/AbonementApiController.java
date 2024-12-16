@@ -2,10 +2,7 @@ package vk.itmo.dws.controllers.abonement;
 
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import vk.itmo.dws.contracts.AbonementService;
 import vk.itmo.dws.controllers.BaseController;
 import vk.itmo.dws.dto.account.UserResponseDto;
@@ -48,9 +45,9 @@ public class AbonementApiController extends BaseController implements AbonementA
     private final AbonementService abonementService;
 
     @Override
-    public ResponseEntity<AbonementResponse> createAbonement(AbonementCreateRequest abonementData) {
-        abonementService.create(abonementData);
-        return ResponseEntity.ok(new AbonementResponse());
+    @PostMapping("")
+    public ResponseEntity<AbonementResponse> createAbonement(@RequestBody AbonementCreateRequest abonementData) {
+        return ResponseEntity.ok(new AbonementResponse(abonementService.create(abonementData)));
     }
 
     @Override

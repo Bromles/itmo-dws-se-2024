@@ -1,6 +1,8 @@
 
 package vk.itmo.dws.dto.request.abonement;
 
+import com.fasterxml.jackson.annotation.JsonAlias;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.annotation.Nullable;
 import lombok.Data;
 
@@ -14,6 +16,7 @@ public class AbonementCreateRequest {
     private Period duration;
     @Nullable
     private Long classesCount;
+    @JsonProperty("section_id")
     private Long sectionId;
     private Double price;
 

@@ -1,9 +1,12 @@
 package vk.itmo.dws.entity;
 
+import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
+import org.modelmapper.internal.bytebuddy.implementation.bind.annotation.Default;
 
 import java.time.LocalDateTime;
 import java.time.Period;
@@ -28,7 +31,10 @@ public class AbonementUsage extends CRUDEntity {
     @Column(name = "disable_date", nullable = false)
     private LocalDateTime disableDate;
 
+    @Nullable
     @Column(name = "classes_passed", nullable = false)
     private Long classesPassed;
+
+
 
 }

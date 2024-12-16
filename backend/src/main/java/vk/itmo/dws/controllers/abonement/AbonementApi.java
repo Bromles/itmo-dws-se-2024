@@ -5,6 +5,8 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import vk.itmo.dws.dto.request.abonement.AbonementCreateRequest;
 import vk.itmo.dws.dto.response.ListResponse;
 import vk.itmo.dws.dto.response.abonement.AbonementResponse;
@@ -16,8 +18,8 @@ import vk.itmo.dws.entity.User;
 public interface AbonementApi {
 
     @Operation(summary = "Get ownedAbonements")
-    @PostMapping("/create")
-    public ResponseEntity<AbonementResponse> createAbonement(AbonementCreateRequest abonementData);
+    @PostMapping("")
+    public ResponseEntity<AbonementResponse> createAbonement(@RequestBody AbonementCreateRequest abonementData);
 
     @Operation(summary = "Get ownedAbonements")
     @GetMapping("/owned")
