@@ -20,7 +20,7 @@ public interface SectionService extends SearchService<Section> {
 
     Section updateSection(Section task, SectionUpdateRequest taskData);
 
-    void deleteSection(Section task);
+    void deleteSection(Long sectionId);
     Collection<Section> findAllOwned(Map<String, String> filter);
 
     Class createClass(Long sectionId, String title);

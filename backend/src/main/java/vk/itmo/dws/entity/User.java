@@ -19,9 +19,11 @@ import java.util.UUID;
 @Accessors(chain = true)
 @Table(name = "users")
 public class User implements UserDetails {
+
     @Id
-    @Column(name = "id", nullable = false)
-    private String id;
+    @Column(updatable = false, nullable = false)
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private UUID id;
 
     @Column(name = "login", unique = true, nullable = false)
     private String login;

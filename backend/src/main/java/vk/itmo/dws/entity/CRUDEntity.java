@@ -33,6 +33,6 @@ public abstract class CRUDEntity {
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
-    @Column(name = "user_id", columnDefinition = "text")
-    private String userId;
+    @Column(name = "user_id")
+    private UUID userId;
 }

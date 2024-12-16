@@ -7,9 +7,10 @@ import vk.itmo.dws.entity.Review;
 import vk.itmo.dws.entity.Section;
 
 import java.util.List;
+import java.util.UUID;
 
 @Repository
 public interface SectionRepository extends JpaRepository<Section, Long> {
 
-    List<Section> findByUserId(String userId);
+    List<Section> findByUserId(UUID userId);
 }

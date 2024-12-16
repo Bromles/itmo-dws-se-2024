@@ -38,7 +38,7 @@ public class SectionApiController  extends BaseController  implements SectionApi
     private final SectionService sectionService;
 
     @PostMapping
-    @PreAuthorize("hasRole('ROLE_EMPLOYEE')")
+//    @PreAuthorize("hasRole('ROLE_EMPLOYEE')")
     public ResponseEntity<SectionShortResponse> createSection(@Valid @RequestBody SectionCreateRequest request){
         Section result = sectionService.createSection(request);
         return ResponseEntity.ok(mapper.map(result, SectionShortResponse.class));
@@ -68,6 +68,12 @@ public class SectionApiController  extends BaseController  implements SectionApi
         }
 
         return ResponseEntity.ok(new ListResponse<>(sections));
+    }
+
+    @DeleteMapping("/{sectionId}")
+    public ResponseEntity<ClassResponse> deleteSectionClass(@PathVariable Long sectionId) {
+        sectionService.deleteSection(sectionId);
+        return ResponseEntity.ok(null);
     }
 
     @GetMapping("/owned")
@@ -103,4 +109,5 @@ public class SectionApiController  extends BaseController  implements SectionApi
     public ResponseEntity<ClassResponse> updateSectionClass(Long sectionId, Long classId, SectionUpdateRequest merchantCreateRequestDto) {
         return null;
     }
+
 }

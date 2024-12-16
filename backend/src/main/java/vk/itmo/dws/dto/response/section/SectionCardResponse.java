@@ -13,11 +13,11 @@ import java.util.List;
 @NoArgsConstructor
 public class SectionCardResponse extends SectionShortResponse{
     protected List<ClassResponse> classes;
-    protected String description;
+    protected Long price;
 
     public SectionCardResponse(Section section){
         super(section);
         this.classes = section.getClasses().stream().map(ClassResponse::new).toList();
-        this.description = section.getDescription();
+        this.price = section.getPrice()/100;
     }
 }

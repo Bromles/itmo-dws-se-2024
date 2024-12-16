@@ -65,6 +65,7 @@ public class SectionService implements vk.itmo.dws.contracts.SectionService {
 
     @Override
     public Section createSection(SectionCreateRequest sectionData) {
+        sectionData.setPrice(sectionData.getPrice()*100);
         Section section = mapper.map(sectionData, Section.class);
         sectionRepository.save(section);
         return section;
@@ -77,7 +78,8 @@ public class SectionService implements vk.itmo.dws.contracts.SectionService {
     }
 
     @Override
-    public void deleteSection(Section section) {
-
+    public void deleteSection(Long sectionId) {
+        sectionRepository.deleteById(sectionId);
     }
+
 }

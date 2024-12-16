@@ -11,15 +11,15 @@ import java.util.UUID;
 @Service
 @RequiredArgsConstructor
 public class SecurityWorkspace {
-    public static String getAuthUserId(){
+    public static UUID getAuthUserId(){
         Jwt token  = (Jwt) SecurityContextHolder.getContext().getAuthentication().getCredentials();
-        return token.getSubject();
+        return UUID.fromString(token.getSubject());
     }
 
     public static User getAuthUser(){
         Jwt token  = (Jwt) SecurityContextHolder.getContext().getAuthentication().getCredentials();
         User user = new User();
-        user.setId(token.getSubject());
+        user.setId(UUID.fromString(token.getSubject()));
         user.setUsername(token.getClaims().get("preferred_username").toString());
         user.setLogin(token.getClaims().get("preferred_username").toString());
         user.setPassword("123123");

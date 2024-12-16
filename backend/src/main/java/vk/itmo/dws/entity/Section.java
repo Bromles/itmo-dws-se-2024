@@ -21,8 +21,8 @@ public class Section extends CRUDEntity{
     @Column(name = "title", nullable = false)
     private String title;
 
-    @Column(name = "description", nullable = false, columnDefinition = "TEXT")
-    private String description;
+    @Column(name = "price", nullable = false)
+    private Long price;
 
     @OneToMany(mappedBy = "section", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Class> classes;

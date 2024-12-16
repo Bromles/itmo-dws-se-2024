@@ -32,7 +32,7 @@ public class BasketService implements vk.itmo.dws.contracts.BasketService {
         return basketRepository.findById(1L);
     }
 
-    public Optional<Basket> findByUserId(String id) {
+    public Optional<Basket> findByUserId(UUID id) {
         return basketRepository.findByUserId(id);
     }
 

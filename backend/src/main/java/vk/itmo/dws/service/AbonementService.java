@@ -12,10 +12,7 @@ import vk.itmo.dws.repository.*;
 
 import java.time.LocalDateTime;
 import java.time.Period;
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
@@ -28,7 +25,8 @@ public class AbonementService implements vk.itmo.dws.contracts.AbonementService 
 
     @Override
     public Collection<Abonement> findAllOwned(Map<String, String> filter) {
-        return abonementRepository.findByUserId("sd").stream().toList();
+//        return abonementRepository.findByUserId("sd").stream().toList();
+        return new ArrayList<>();
     }
 
     public Abonement create(AbonementCreateRequest abonementData) {
@@ -42,7 +40,8 @@ public class AbonementService implements vk.itmo.dws.contracts.AbonementService 
 
 
     public Collection<AbonementUsage> findAllSubscribed(Map<String, String> filter) {
-        return abonementUsageRepository.findByUserId("1L");//TODO get user id
+//        return abonementUsageRepository.findByUserId("1L");//TODO get user id
+        return new ArrayList<>();
     }
 
     public boolean isAbonementActive(AbonementUsage abonementUsage) {

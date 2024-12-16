@@ -2,7 +2,7 @@ package vk.itmo.dws.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
-import vk.itmo.dws.service.Reviewable;
+import vk.itmo.dws.contracts.Reviewable;
 
 @Entity
 @Data

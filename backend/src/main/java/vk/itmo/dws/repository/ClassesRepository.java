@@ -6,10 +6,11 @@ import vk.itmo.dws.entity.Booking;
 import vk.itmo.dws.entity.Class;
 
 import java.util.List;
+import java.util.UUID;
 
 @Repository
 public interface ClassesRepository extends JpaRepository<Class, Long> {
 
 
-    List<Class> findByUserId(String userId);
+    List<Class> findByUserId(UUID userId);
 }
