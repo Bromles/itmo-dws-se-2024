@@ -48,7 +48,7 @@ public class SectionApiController  extends BaseController  implements SectionApi
     public ResponseEntity<SectionCardResponse> getSection(
             @PathVariable Long sectionId
     ) {
-        Section section = sectionService.findById(sectionId).orElseThrow();
+         Section section = sectionService.findById(sectionId).orElseThrow();
 
         return ResponseEntity.ok(mapper.map(section, SectionCardResponse.class));
     }
@@ -95,12 +95,16 @@ public class SectionApiController  extends BaseController  implements SectionApi
 
 
     @Override
-    public List<SectionShortResponse> getAllSectionsClasses(Long id) {
-        return null;
+    @GetMapping("/{sectionId}/classes")
+    public ResponseEntity<SectionCardResponse> getAllSectionsClasses(@PathVariable Long sectionId) {
+        List<SectionCardResponse> classes;
+        Section section = sectionService.findById(sectionId).orElseThrow();
+        return ResponseEntity.ok(mapper.map(section, SectionCardResponse.class));
     }
 
     @Override
-    public ResponseEntity<ClassResponse> createSectionClass(Long sectionId, ClassCreateRequest classCreateRequest) {
+    @PostMapping("/{sectionId}/classes")
+    public ResponseEntity<ClassResponse> createSectionClass(@PathVariable Long sectionId, @RequestBody ClassCreateRequest classCreateRequest) {
         Class Aclass = sectionService.createClass(sectionId, classCreateRequest.getTitle());
         return ResponseEntity.ok(mapper.map(Aclass, ClassResponse.class));
     }

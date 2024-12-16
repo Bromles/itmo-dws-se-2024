@@ -27,4 +27,6 @@ public class Section extends CRUDEntity{
     @OneToMany(mappedBy = "section", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Class> classes;
 
+    @OneToMany(mappedBy = "section", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Abonement> abonements;
 }

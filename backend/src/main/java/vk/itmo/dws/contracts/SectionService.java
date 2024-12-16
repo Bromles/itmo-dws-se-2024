@@ -8,6 +8,7 @@ import vk.itmo.dws.entity.Class;
 import vk.itmo.dws.entity.Section;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -28,4 +29,6 @@ public interface SectionService extends SearchService<Section> {
     Class editClass(Long classId, ClassUpdateRequest classUpdateRequest);
 
     void deleteClass(Long classId);
+
+    List<Class> sectionClasses(Long sectionId);
 }

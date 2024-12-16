@@ -33,7 +33,7 @@ public interface SectionApi {
 
     @Operation(summary = "Get all sections classes")
     @GetMapping("/{sectionId}/classes")
-    public List<SectionShortResponse> getAllSectionsClasses(@PathVariable Long sectionId);
+    public ResponseEntity<SectionCardResponse> getAllSectionsClasses(@PathVariable Long sectionId);
 
     @Operation(summary = "Create new section class")
     @PostMapping("/{sectionId}/classes")

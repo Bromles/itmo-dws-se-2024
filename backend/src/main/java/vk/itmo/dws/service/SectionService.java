@@ -9,10 +9,12 @@ import vk.itmo.dws.dto.request.section.SectionUpdateRequest;
 import vk.itmo.dws.entity.Class;
 import vk.itmo.dws.entity.Classification;
 import vk.itmo.dws.entity.Section;
+import vk.itmo.dws.entity.User;
 import vk.itmo.dws.repository.ClassesRepository;
 import vk.itmo.dws.repository.SectionRepository;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -22,6 +24,7 @@ public class SectionService implements vk.itmo.dws.contracts.SectionService {
     private final SectionRepository sectionRepository;
     private final ClassesRepository classesRepository;
     protected ModelMapper mapper = new ModelMapper();
+    private final UserService userService;
 
     @Override
     public Collection<Section> findAll(Map<String, String> filter) {
@@ -30,6 +33,11 @@ public class SectionService implements vk.itmo.dws.contracts.SectionService {
 
     public Collection<Section> findAllOwned(Map<String, String> filter) {
         return sectionRepository.findByUserId(SecurityWorkspace.getAuthUserId());
+    }
+
+    public List<Class> sectionClasses(Long sectionId){
+        Section section = sectionRepository.findById(sectionId).orElseThrow();
+        return section.getClasses();
     }
 
     public Class createClass(Long sectionId, String title) {
@@ -65,8 +73,13 @@ public class SectionService implements vk.itmo.dws.contracts.SectionService {
 
     @Override
     public Section createSection(SectionCreateRequest sectionData) {
+        Optional<User> userOptional = userService.findById(SecurityWorkspace.getAuthUserId());
+        User user;
+        user = userOptional.orElseGet(() -> userService.editUser(SecurityWorkspace.getAuthUser()));
+
         sectionData.setPrice(sectionData.getPrice()*100);
         Section section = mapper.map(sectionData, Section.class);
+        section.setUserId(user.getId());
         sectionRepository.save(section);
         return section;
     }
