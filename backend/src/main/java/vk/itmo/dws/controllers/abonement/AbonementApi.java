@@ -26,6 +26,10 @@ public interface AbonementApi {
     @DeleteMapping("/{abonementId}")
     public ResponseEntity<AbonementResponse> deleteAbonement(@PathVariable Long abonementId);
 
+    @Operation(summary = "Get abonement")
+    @GetMapping("/{abonementId}")
+    public ResponseEntity<AbonementResponse> getAbonement(@PathVariable Long abonementId);
+
     @Operation(summary = "subscribed abonement")
     @PostMapping("/subscribe/{abonementId}")
     public ResponseEntity<AbonementResponse> subscribeAbonement(@PathVariable Long abonementId);

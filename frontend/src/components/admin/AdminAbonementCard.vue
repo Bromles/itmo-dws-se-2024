@@ -41,7 +41,7 @@ onMounted(() => {
   <p>{{ props.adminAbonementInfo.title }}</p>
   <p>{{ props.adminAbonementInfo.price}}</p>
   <router-link
-      :to="{ name: 'EditAdminCard', params: { id: props.adminAbonementInfo.id } }"
+      :to="{ name: 'EditAdminAbonement', params: { id: props.adminAbonementInfo.id } }"
       class="btn btn-wide border-2 bg-clear_white text-main_green hover:bg-form_grey">
     Изменить
   </router-link>

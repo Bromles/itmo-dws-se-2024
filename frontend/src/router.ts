@@ -8,6 +8,7 @@ import OrganizationPage from "@/pages/OrganizationPage.vue";
 import SigninCallback from "@/components/SigninCallback.vue";
 import AdminPanel from "@/pages/AdminOrganizationPage.vue";
 import EditAdminCard from "@/components/admin/EditAdminCard.vue";
+import EditAdminAbonement from "@/components/admin/EditAdminAbonement.vue";
 // import AuthPage from "@/pages/AuthPage.vue";
 
 const filterPath = (to: any, _from: any, next: any) => {
@@ -67,6 +68,11 @@ const routes = [
         path: '/admin/edit/card/:id',
         name: 'EditAdminCard',
         component: EditAdminCard,
+    },
+    {
+        path: '/admin/edit/abonement/:id',
+        name: 'EditAdminAbonement',
+        component: EditAdminAbonement,
     },
     // {
     //     path: "/register",

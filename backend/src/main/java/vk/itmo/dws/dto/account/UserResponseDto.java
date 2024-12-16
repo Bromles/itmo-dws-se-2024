@@ -30,13 +30,4 @@ public class UserResponseDto {
     @Schema(example = "false")
     private boolean totp;
 
-//    public UserResponseDto(User user) {
-//        this.id = String.valueOf(user.getId());
-//        this.email = user.getEmail();
-//        this.emailVerified = user.isEmailVerified();
-//        this.createdTimestamp = user.getCreatedTimestamp();
-//        this.enabled = user.isEnabled();
-//        this.totp = user.isTotp();
-//    }
-
 }

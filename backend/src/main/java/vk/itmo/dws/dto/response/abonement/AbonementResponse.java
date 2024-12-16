@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import vk.itmo.dws.dto.account.UserResponseDto;
 import vk.itmo.dws.dto.response.booking.BookingResponse;
 import vk.itmo.dws.dto.response.section.SectionShortResponse;
+import vk.itmo.dws.dto.response.users.ShortUserResponse;
 import vk.itmo.dws.entity.Abonement;
 import vk.itmo.dws.entity.AbonementUsage;
 import vk.itmo.dws.entity.Basket;
@@ -25,8 +26,7 @@ public class AbonementResponse {
     private Long classesCount;
     private SectionShortResponse section;
     private Double price;
-    private List<UserResponseDto> users;
-
+    private List<AbonementUsageResponse> usages;
 
     public AbonementResponse(Abonement abonement) {
         this.id = abonement.getId();
@@ -35,6 +35,6 @@ public class AbonementResponse {
         this.classesCount = abonement.getClassesCount();
         this.section = new SectionShortResponse(abonement.getSection());
         this.price = abonement.getPrice();
-       // this.users = abonement.getUsages().stream().map((abonementUsage) -> new UserResponseDto(abonementUsage.getUser())).toList();
+        this.usages = abonement.getUsages().stream().map(AbonementUsageResponse::new).toList();
     }
 }
