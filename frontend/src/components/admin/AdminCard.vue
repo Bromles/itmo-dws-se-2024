@@ -36,9 +36,11 @@ const deleteSubmit = async (id: number) => {
   <p>{{ props.adminCardInfo.title }}</p>
   <p>{{ props.adminCardInfo.price}}</p>
   <p>Дата пуб. 10.10.2024</p>
-  <button class="btn btn-wide border-2 bg-clear_white text-main_green hover:bg-form_grey">
+  <router-link
+      :to="{ name: 'EditAdminCard', params: { id: props.adminCardInfo.id } }"
+      class="btn btn-wide border-2 bg-clear_white text-main_green hover:bg-form_grey">
     Изменить
-  </button>
+  </router-link>
   <button @click="deleteSubmit(props.adminCardInfo.id)" class="btn btn-wide border-2 bg-clear_white text-main_green hover:bg-form_grey">
     Удалить
   </button>

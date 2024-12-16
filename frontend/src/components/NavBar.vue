@@ -1,12 +1,12 @@
 <script lang="ts" setup>
-import {useRouter} from "vue-router";
-import {useAuth} from "@/utils/composables.ts";
-import {useAuthStore} from "@/stores/authStore.ts";
+import { useRouter } from "vue-router";
+import { useAuth } from "@/utils/composables.ts";
+import { useAuthStore } from "@/stores/authStore.ts";
 
-const router = useRouter()
-const auth = useAuth()
-const store = useAuthStore()
-const role = store.userRole
+const router = useRouter();
+const auth = useAuth();
+const store = useAuthStore();
+const role = store.userRole;
 </script>
 
 <template>
@@ -21,7 +21,12 @@ const role = store.userRole
       <button
           v-if="role === 'employee'"
           class="hover:underline text-2xl"
-          @click="router.push('/admin')">Админ панель
+          @click="router.push('/admin')">Организация
+      </button>
+      <button
+          v-else-if="role === 'client'"
+          class="hover:underline text-2xl"
+          @click="router.push('/user')">Пользователь
       </button>
       <RouterLink
           v-else
@@ -33,9 +38,12 @@ const role = store.userRole
       <button class="btn btn-circle btn-primary">
         <img alt="calendar icon" class="h-6 w-6" src="@/assets/calendar_icon.svg"/>
       </button>
-      <button class="btn btn-circle btn-primary" @click="router.push('/user')">
+      <router-link v-if="role === 'client'" class="btn btn-circle btn-primary" :to="{ path: '/user' }">
         <img alt="person icon" class="h-6 w-6" src="@/assets/person_icon.svg"/>
-      </button>
+      </router-link>
+      <router-link v-else class="btn btn-circle btn-secondary" :to="{ path: '/org' }">
+        <img alt="client icon" class="h-6 w-6" src="@/assets/person_icon.svg"/>
+      </router-link>
       <button v-if="role !== 'employee'" class="btn btn-circle btn-primary" @click="router.push('/cart')">
         <img alt="cart icon" class="h-6 w-6" src="@/assets/cart_icon.svg"/>
       </button>

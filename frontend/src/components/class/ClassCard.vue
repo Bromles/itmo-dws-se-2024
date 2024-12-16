@@ -19,6 +19,7 @@ const errorMessage = ref('');
 
 const auth = useAuth()
 const token = await auth.getToken()
+const role = await auth.getUserRole()
 
 const addToBasket = async () => {
   try {
@@ -66,8 +67,16 @@ const addToBasket = async () => {
       <p class="text-xl text-primary-content mt-5">Возраст: {{ props.classInfo.ageRange }}</p>
       <p class="text-xl text-primary-content">Преподаватель: {{ props.classInfo.teacher }}</p>
       <p class="text-xl text-primary-content">Время: {{ props.classInfo.time }}</p>
-      <button class="btn btn-secondary btn-base-100 rounded-md text-center w-[40%] mt-5" @click="addToBasket">
+      <button v-if="role === 'client'"
+              class="btn btn-secondary btn-base-100 rounded-md text-center w-[40%] mt-5"
+              @click="addToBasket">
         Добавить в корзину
+      </button>
+
+      <button v-if="role === 'employee'"
+              class="btn btn-danger btn-base-100 rounded-md text-center w-[40%] mt-5"
+              @click="removeClass">
+        Удалить урок
       </button>
     </div>
 

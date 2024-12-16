@@ -50,6 +50,7 @@ const toggleInfo = () => {
       <h3 class="text-clear_white">Занятия в секции:</h3>
       <ul>
         <li v-for="(classItem, index) in sectionClasses" :key="index">
+
           <ClassCard :class-info="classItem"/>
         </li>
       </ul>
