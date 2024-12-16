@@ -38,18 +38,28 @@ public class BasketService implements vk.itmo.dws.contracts.BasketService {
 
     @Override
     public Basket addToBasket(Long classId) {
+        var t =  SecurityWorkspace.getAuthUserId();
+        Optional<User> userOptional = userService.findById(SecurityWorkspace.getAuthUserId());
+        User user;
+        if(userOptional.isEmpty()){
+            user = userService.editUser(SecurityWorkspace.getAuthUser());
+        }
+
         Basket basket = this.findByUserId(SecurityWorkspace.getAuthUserId()).orElseThrow();
 
         Class aClass = classesRepository.findById(classId).orElseThrow();
 
-        boolean classAlreadyAdded = basket.getBookings().stream()
-                .anyMatch(booking -> booking.getAClass().getId().equals(aClass.getId()));
+        List<Booking> exisingBookings = basket.getBookings();
+        if(exisingBookings != null) {
+            boolean classAlreadyAdded = exisingBookings.stream()
+                    .anyMatch(booking -> booking.getAClass().getId().equals(aClass.getId()));
 
-        if(classesRepository.findByUserId(SecurityWorkspace.getAuthUserId()).contains(aClass)) {
-            throw new IllegalArgumentException("Вы уже записаны на это занятие.");
-        }
-        if (classAlreadyAdded) {
-            throw new ClassAlreadyBoughtException("Этот класс уже добавлен в корзину.");
+            if (classesRepository.findByUserId(SecurityWorkspace.getAuthUserId()).contains(aClass)) {
+                throw new IllegalArgumentException("Вы уже записаны на это занятие.");
+            }
+            if (classAlreadyAdded) {
+                throw new ClassAlreadyBoughtException("Этот класс уже добавлен в корзину.");
+            }
         }
 
         Booking booking = new Booking();
@@ -88,7 +98,6 @@ public class BasketService implements vk.itmo.dws.contracts.BasketService {
     public void payAllBasket() {
         Optional<User> userOptional = userService.findById(SecurityWorkspace.getAuthUserId());
         User user;
-
         user = userOptional.orElseGet(() -> userService.editUser(SecurityWorkspace.getAuthUser()));
 
         Basket basket = this.findByUserId(user.getId()).orElseThrow();

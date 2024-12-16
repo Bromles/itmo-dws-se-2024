@@ -50,7 +50,7 @@ public class SectionApiController  extends BaseController  implements SectionApi
     ) {
          Section section = sectionService.findById(sectionId).orElseThrow();
 
-        return ResponseEntity.ok(mapper.map(section, SectionCardResponse.class));
+        return ResponseEntity.ok(new SectionCardResponse(section));
     }
 
     @GetMapping()

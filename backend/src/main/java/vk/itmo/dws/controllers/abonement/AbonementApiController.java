@@ -1,5 +1,6 @@
 package vk.itmo.dws.controllers.abonement;
 
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -30,7 +31,7 @@ import java.util.logging.Logger;
 
 
 /**
- * Котроллер-затычка для взаимодействия с записью пользователя в keycloak
+ * Котроллер-затычка для взаимодействия с абонементами
  */
 //TODO добавить в мут для security
 
@@ -48,6 +49,24 @@ public class AbonementApiController extends BaseController implements AbonementA
     @PostMapping("")
     public ResponseEntity<AbonementResponse> createAbonement(@RequestBody AbonementCreateRequest abonementData) {
         return ResponseEntity.ok(new AbonementResponse(abonementService.create(abonementData)));
+    }
+
+    @Override
+    @PutMapping("/{abonementId}")
+    public ResponseEntity<AbonementResponse> editAbonement(@PathVariable Long abonementId, @RequestBody AbonementCreateRequest abonementData) {
+        return ResponseEntity.ok(new AbonementResponse(abonementService.edit(abonementId,abonementData)));
+    }
+
+    @Override
+    @DeleteMapping("/{abonementId}")
+    public ResponseEntity<AbonementResponse> deleteAbonement(@PathVariable Long abonementId){
+        return ResponseEntity.ok(new AbonementResponse(abonementService.delete(abonementId)));
+    }
+
+    @Override
+    @PostMapping("/subscribe/{abonementId}")
+    public ResponseEntity<AbonementResponse> subscribeAbonement(@PathVariable Long abonementId) {
+        return ResponseEntity.ok(new AbonementResponse(abonementService.subscribeToAbonement(abonementId)));
     }
 
     @Override

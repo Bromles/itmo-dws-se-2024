@@ -20,7 +20,11 @@ import java.util.Map;
 @Tag(name = "Section API", description = "API for acquiring transactions")
 public interface SectionApi {
 
-    @Operation(summary = "Get all sections")
+    @Operation(summary = "Get section")
+    @GetMapping("/{sectionId}")
+    public ResponseEntity<SectionCardResponse> getSection(@PathVariable Long sectionId);
+
+            @Operation(summary = "Get all sections")
     @GetMapping("")
     public ResponseEntity<ListResponse<SectionCardResponse>> getAllSections(@RequestParam Map<String, String> filter);
 

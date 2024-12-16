@@ -10,6 +10,7 @@ import vk.itmo.dws.entity.Abonement;
 import vk.itmo.dws.entity.AbonementUsage;
 import vk.itmo.dws.entity.Basket;
 import vk.itmo.dws.entity.User;
+import vk.itmo.dws.utils.PeriodFormatterService;
 
 import java.time.Period;
 import java.util.List;
@@ -18,8 +19,9 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class AbonementResponse {
+    private Long id;
     private String title;
-    private Period duration;
+    private String duration;
     private Long classesCount;
     private SectionShortResponse section;
     private Double price;
@@ -27,8 +29,9 @@ public class AbonementResponse {
 
 
     public AbonementResponse(Abonement abonement) {
+        this.id = abonement.getId();
         this.title = abonement.getTitle();
-        this.duration = abonement.getDuration();
+        this.duration = PeriodFormatterService.formatPeriod(abonement.getDuration());
         this.classesCount = abonement.getClassesCount();
         this.section = new SectionShortResponse(abonement.getSection());
         this.price = abonement.getPrice();

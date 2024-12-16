@@ -22,7 +22,6 @@ public class User implements UserDetails {
 
     @Id
     @Column(updatable = false, nullable = false)
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
 
     @Column(name = "login", unique = true, nullable = false)

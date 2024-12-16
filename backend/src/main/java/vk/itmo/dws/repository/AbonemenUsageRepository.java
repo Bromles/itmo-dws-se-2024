@@ -6,6 +6,7 @@ import vk.itmo.dws.entity.Abonement;
 import vk.itmo.dws.entity.AbonementUsage;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
  @Repository
@@ -13,4 +14,6 @@ public interface AbonemenUsageRepository extends JpaRepository<AbonementUsage, L
 
 
     List<AbonementUsage> findByUserId(UUID userId);
-}
+
+     Optional<AbonementUsage> findByIdAndUserId(Long id, UUID userId);
+ }

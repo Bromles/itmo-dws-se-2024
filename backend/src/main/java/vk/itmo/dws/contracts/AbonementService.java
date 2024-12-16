@@ -19,4 +19,6 @@ public interface AbonementService extends SearchService<Abonement> {
     Abonement subscribeToAbonement(Long abonementId);
     void deleteAbonement(Abonement task);
     Abonement create(AbonementCreateRequest abonementData);
+    Abonement edit(Long abonementId, AbonementCreateRequest abonementData);
+    Abonement delete(Long abonementId);
 }
