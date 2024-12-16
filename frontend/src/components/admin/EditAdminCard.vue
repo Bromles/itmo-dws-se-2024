@@ -98,6 +98,9 @@ const addLesson = async () => {
         </button>
       </form>
 
+      <!-- Разделитель -->
+      <hr class="my-6 border-gray-300"/>
+
       <!-- Секция для добавления новых уроков -->
       <h2 class="mt-8 mb-4 text-2xl font-bold text-center">Добавить новый урок</h2>
       <form @submit.prevent="addLesson">
@@ -155,6 +158,14 @@ const addLesson = async () => {
     </div>
   </div>
 </template>
+
+<style scoped>
+/* Опционально: стили для улучшения внешнего вида */
+.overflow-y-auto {
+  max-height: calc(100vh - 2rem); /* Настройте высоту по необходимости */
+}
+</style>
+
 
 
 
