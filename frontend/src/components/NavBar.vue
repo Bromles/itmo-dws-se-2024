@@ -2,21 +2,16 @@
 import { useRouter } from "vue-router";
 import { useAuth } from "@/utils/composables.ts";
 import { useAuthStore } from "@/stores/authStore.ts";
-import {YandexMap} from "vue-yandex-maps";
+import {YandexMap, YandexMapDefaultSchemeLayer} from "vue-yandex-maps";
+import {shallowRef} from "vue";
+import type { YMap } from '@yandex/ymaps3-types';
+
 
 const router = useRouter();
 const auth = useAuth();
 const store = useAuthStore();
 const role = store.userRole;
-
-const settings = {
-  apiKey: 'df9055b8-bd7c-48bc-983c-129946e6e5ce', // Замените на ваш ключ API
-  lang: 'ru_RU', // Язык карты
-  coordorder: 'latlong', // Координаты в порядке [широта, долгота]
-  version: '2.1', // Версия API Яндекс.Карт
-  debug: true, // Опционально: для отладки
-  initializeOnMount: true, // Инициализация карты при монтирован
-};
+const map = shallowRef<null | YMap>(null);
 
 </script>
 
@@ -49,9 +44,9 @@ const settings = {
       <button class="btn btn-circle btn-primary">
         <img alt="calendar icon" class="h-6 w-6" src="@/assets/calendar_icon.svg"/>
       </button>
-      <div onclick="my_modal_2.showModal()" class="btn btn-circle btn-primary">
-        <img alt="person icon" class="h-6 w-6" src="@/assets/map.png"/>
-      </div>
+<!--      <div onclick="my_modal_2.showModal()" class="btn btn-circle btn-primary">-->
+<!--        <img alt="person icon" class="h-6 w-6" src="@/assets/map.png"/>-->
+<!--      </div>-->
       <router-link v-if="role === 'client'" class="btn btn-circle btn-primary" :to="{ path: '/user' }">
         <img alt="person icon" class="h-6 w-6" src="@/assets/person_icon.svg"/>
       </router-link>
@@ -63,19 +58,29 @@ const settings = {
       </button>
     </div>
   </nav>
-  <dialog id="my_modal_2" class="modal">
-    <div class="modal-box flex-col flex items-center">
-      <h3 class="text-lg font-bold">Ваши секции</h3>
-      <div class="map-container w-[400px] h-[500px]">
-        <YandexMap :settings="settings" :coordinates="[32, 50]">
-
-        </YandexMap>
-      </div>
-    </div>
-    <form method="dialog" class="modal-backdrop">
-      <button>close</button>
-    </form>
-  </dialog>
+<!--  <dialog id="my_modal_2" class="modal">-->
+<!--    <div class="modal-box flex-col flex items-center">-->
+<!--      <h3 class="text-lg font-bold">Ваши секции</h3>-->
+<!--      <div class="map-container w-[400px] h-[500px]">-->
+<!--        <yandex-map-->
+<!--            v-model="map"-->
+<!--            :settings="{-->
+<!--        location: {-->
+<!--          center: [37.617644, 55.755819],-->
+<!--          zoom: 9,-->
+<!--        },-->
+<!--      }"-->
+<!--            width="100%"-->
+<!--            height="500px"-->
+<!--        >-->
+<!--          <yandex-map-default-scheme-layer/>-->
+<!--        </yandex-map>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--    <form method="dialog" class="modal-backdrop">-->
+<!--      <button>close</button>-->
+<!--    </form>-->
+<!--  </dialog>-->
 </template>
 
 <style scoped>
