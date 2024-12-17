@@ -72,6 +72,7 @@ public class AbonementService implements vk.itmo.dws.contracts.AbonementService 
     }
 
 
+
     public Collection<AbonementUsage> findAllSubscribed(Map<String, String> filter) {
 //        return abonementUsageRepository.findByUserId("1L");//TODO get user id
         return new ArrayList<>();
@@ -99,19 +100,18 @@ public class AbonementService implements vk.itmo.dws.contracts.AbonementService 
         abonementUsage.setActivationDate(LocalDateTime.now());
         assert abonement.getDuration() != null;
         abonementUsage.setDisableDate(LocalDateTime.now().plus(abonement.getDuration()));
-        abonementUsage.setUser(SecurityWorkspace.getAuthUser());
         abonementUsageRepository.save(abonementUsage);
         return abonement;
     }
 
     public void unsubscribeAbonement(AbonementUsage abonementUsage) {
-        abonementUsage.setUser(null);
+        abonementUsage.setUserId(null);
         abonementUsageRepository.save(abonementUsage);
     }
 
     @Override
     public Optional<Abonement> findById(Long id) {
-        return abonementRepository.findById(id);
+        return abonementRepository.findById(1L);//TODO get user id
     }
 
     @Override

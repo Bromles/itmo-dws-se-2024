@@ -23,7 +23,9 @@ const role = await auth.getUserRole()
 
 const addToBasket = async () => {
   try {
+
     const response = (await axiosAgregator.sendPost(`/api/v1/abonements/subscribe/${props.abonementInfo.id}`, {
+      "classId": props.classInfo.id
     }, token)).data;
 
     if (response.bookings) {

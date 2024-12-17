@@ -37,6 +37,6 @@ public class AbonementUsageResponse {
     }
 
     private String formatDate(LocalDateTime date) {
-        return date != null ? date.format(formatter) : "е указана";
+        return date != null ? date.format(formatter) : "пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ";
     }
 }

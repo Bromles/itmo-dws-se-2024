@@ -58,12 +58,6 @@ public class AbonementApiController extends BaseController implements AbonementA
     }
 
     @Override
-    @GetMapping("/{abonementId}")
-    public ResponseEntity<AbonementResponse> getAbonement(@PathVariable Long abonementId) {
-        return ResponseEntity.ok(new AbonementResponse(abonementService.findById(abonementId).orElseThrow()));
-    }
-
-    @Override
     @DeleteMapping("/{abonementId}")
     public ResponseEntity<AbonementResponse> deleteAbonement(@PathVariable Long abonementId){
         return ResponseEntity.ok(new AbonementResponse(abonementService.delete(abonementId)));
