@@ -17,13 +17,19 @@ const isLoading = ref(true);
 const error = ref(null);
 const token = await useAuth().getToken();
 const selectedSectionId = ref<string | null>(null); // Новая переменная для хранения ID выбранной секции
+const abonements_path = "/api/v1/abonements";
+const sections_path = "/api/v1/sections";
+let current_path: string = sections_path;
 
 // Функция для изменения флага отображения секций/абонементов
 const changeFlag = (newFlag: boolean) => {
   flag.value = newFlag;
   if (newFlag) {
-    selectedSectionId.value = null; // Сбрасываем выбранную секцию при переключении на абонементы
+    current_path = abonements_path
+  } else {
+    current_path = sections_path
   }
+  selectedSectionId.value = null; // Сбрасываем выбранную секцию при переключении на абонементы
 };
 
 const form = ref({
@@ -34,10 +40,15 @@ const form = ref({
 const handleSubmit = async () => {
   try {
     if (token != null) {
-      const response = (await axiosAgregator.sendPost('/api/v1/abonements', { ...form.value, section_id: selectedSectionId.value }, token)).data.data;
+      console.log(current_path)
+      const response = (await axiosAgregator.sendPost(current_path, { ...form.value, section_id: selectedSectionId.value }, token)).data.data;
       const modal = document.getElementById("my_modal_2") as HTMLDialogElement;
       modal?.close();
-      await fetchSections();
+      if (!flag) {
+        await fetchAbonements();
+      } else {
+        await fetchSections()
+      }
       console.log('Данные успешно отправлены:', response);
     }
   } catch (error) {
@@ -124,7 +135,7 @@ onMounted(() => {
         <label class="text-clear_white text-xl">Наименование {{ modalInputField }}</label>
         <input v-model="form.title" type="text" v-bind:placeholder="`${placeholderInput} волейболу`" class="input input-bordered w-full bg-clear_white max-w-xs text-main_green" />
 
-        <div v-if="flag">
+        <div v-if="flag" class="flex flex-col gap-4 items-center w-full justify-center">
         <!-- Выпадающий список для выбора секции -->
           <label class="text-clear_white text-xl">Выберите секцию</label>
           <select v-model="selectedSectionId" class="input input-bordered w-full bg-clear_white max-w-xs text-main_green">

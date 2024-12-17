@@ -31,7 +31,7 @@ const navigateToDetails = () => {
         <p class="text-clear_white">{{ props.title }}</p>
       </div>
       <button
-          class="btn btn-wide btn-sm mb-2 bg-clear_white text-main_green hover:bg-form_grey"
+          class="btn btn-[80%] rounded-lg min-w-2 btn-sm mb-2 bg-clear_white text-main_green hover:bg-form_grey"
           @click="navigateToDetails">
         Просмотреть
       </button>

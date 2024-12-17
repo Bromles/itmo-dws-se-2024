@@ -7,7 +7,6 @@ import router from "@/router.ts";
 
 const pinia = createPinia();
 pinia.use(piniaPluginPersistedstate);
-
 const renderApp = () => {
     const app = createApp(App);
     app.use(pinia)

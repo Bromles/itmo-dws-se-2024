@@ -58,8 +58,8 @@ const addToBasket = async () => {
 </script>
 
 <template>
-  <div class="flex flex-row mt-10 bg-white  ">
-    <div class="mt-5 w-[90%] mr-5 bg-base-200 rounded-lg p-5  bg-main_green">
+  <div class="flex flex-row items-center justify-center bg-white w-[90%] h-auto">
+    <div class="rounded-lg bg-main_green w-full  p-6">
       <p class="text-3xl text-neutral-50">
         {{ props.classInfo.title }}
       </p>

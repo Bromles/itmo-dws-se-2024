@@ -38,10 +38,10 @@ const deleteSubmit = async (id: number) => {
   <p>Дата пуб. 10.10.2024</p>
   <router-link
       :to="{ name: 'EditAdminCard', params: { id: props.adminCardInfo.id } }"
-      class="btn btn-wide border-2 bg-clear_white text-main_green hover:bg-form_grey">
+      class="btn 2xl:btn-wide xl:btn-md border-2 bg-clear_white text-main_green hover:bg-form_grey">
     Изменить
   </router-link>
-  <button @click="deleteSubmit(props.adminCardInfo.id)" class="btn btn-wide border-2 bg-clear_white text-main_green hover:bg-form_grey">
+  <button @click="deleteSubmit(props.adminCardInfo.id)" class="btn 2xl:btn-wide xl:btn-md border-2 bg-clear_white text-main_green hover:bg-form_grey">
     Удалить
   </button>
 </div>

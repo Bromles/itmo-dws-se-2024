@@ -42,10 +42,10 @@ onMounted(() => {
   <p>{{ props.adminAbonementInfo.price}}</p>
   <router-link
       :to="{ name: 'EditAdminAbonement', params: { id: props.adminAbonementInfo.id } }"
-      class="btn btn-wide border-2 bg-clear_white text-main_green hover:bg-form_grey">
+      class="btn btn-xs sm:btn-sm border-2 bg-clear_white text-main_green hover:bg-form_grey">
     Изменить
   </router-link>
-  <button @click="deleteSubmit(props.adminAbonementInfo.id)" class="btn btn-wide border-2 bg-clear_white text-main_green hover:bg-form_grey">
+  <button @click="deleteSubmit(props.adminAbonementInfo.id)" class="btn w-[30%] border-2 bg-clear_white text-main_green hover:bg-form_grey">
     Удалить
   </button>
 </div>

@@ -75,23 +75,23 @@ const addLesson = async () => {
 <template>
   <div class="flex min-h-screen bg-clear_white">
     <!-- Кнопка "Назад" -->
-    <div class="absolute top-25 right-4">
-      <button @click="router.back()" class="btn btn-secondary bg-main_green text-neutral-50">
+    <div class="absolute top-[31px] left-[120px]">
+      <button @click="router.back()" class="btn btn-secondary text-main_green bg-clear_white">
         Назад
       </button>
     </div>
 
     <!-- Секция редактирования -->
-    <div class="w-1/3 ml-5 mt-5 p-6 bg-white rounded-lg shadow-md bg-main_green">
+    <div class="w-1/3 ml-5 mt-6 mb-6 p-6 bg-white rounded-lg shadow-md bg-main_green">
       <h2 class="mb-4 text-2xl font-bold text-center">Редактировать карточку</h2>
       <form @submit.prevent="onSubmit">
         <div class="mb-4">
           <label for="title" class="block text-sm font-medium text-gray-700">Название</label>
-          <input v-model="form.title" type="text" id="title" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-main_green" required />
+          <input v-model="form.title" type="text" id="title" class="mt-1 block w-full border border-gray-300 text-main_green rounded-md shadow-sm focus:ring focus:ring-main_green" required />
         </div>
         <div class="mb-4">
           <label for="price" class="block text-sm font-medium text-gray-700">Цена</label>
-          <input v-model.number="form.price" type="number" id="price" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-main_green" required />
+          <input v-model.number="form.price" type="number" id="price" class="mt-1 text-main_green block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-main_green" required />
         </div>
         <button type="submit" class="w-full btn btn-primary">
           Сохранить изменения
@@ -106,17 +106,17 @@ const addLesson = async () => {
       <form @submit.prevent="addLesson">
         <div class="mb-4">
           <label for="lessonTitle" class="block text-sm font-medium text-gray-700">Название урока</label>
-          <input v-model="lessonForm.title" type="text" id="lessonTitle" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-main_green" required />
+          <input v-model="lessonForm.title" type="text" id="lessonTitle" class="mt-1 text-main_green block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-main_green" required />
         </div>
         <div class="mb-4">
           <label for="lessonContent" class="block text-sm font-medium text-gray-700">Содержание урока</label>
-          <textarea v-model="lessonForm.description" id="lessonContent" rows="3" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-main_green" required></textarea>
+          <textarea v-model="lessonForm.description" id="lessonContent" rows="3" class="mt-1 text-main_green block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-main_green" required></textarea>
         </div>
 
         <!-- Выбор возрастной группы -->
         <div class="mb-4">
           <label for="ageGroup" class="block text-sm font-medium text-gray-700">Возрастная группа</label>
-          <select v-model="lessonForm.ageGroup" id="ageGroup" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-main_green">
+          <select v-model="lessonForm.ageGroup" id="ageGroup" class="mt-1 text-main_green block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-main_green">
             <option value="" disabled selected>Выберите возрастную группу</option>
             <option value="0-6">0-6 лет</option>
             <option value="7-12">7-12 лет</option>
@@ -128,7 +128,7 @@ const addLesson = async () => {
         <!-- Выбор пола -->
         <div class="mb-4">
           <label for="gender" class="block text-sm font-medium text-gray-700">Пол</label>
-          <select v-model="lessonForm.gender" id="gender" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-main_green">
+          <select v-model="lessonForm.gender" id="gender" class="mt-1 text-main_green block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-main_green">
             <option value="" disabled selected>Выберите пол</option>
             <option value="male">Мужской</option>
             <option value="female">Женский</option>
@@ -148,10 +148,10 @@ const addLesson = async () => {
     </div>
 
     <!-- Прокручиваемая секция с уроками -->
-    <div class="w-2/3 p-6 overflow-y-auto bg-gray-200">
+    <div class="w-2/3 overflow-y-auto bg-gray-200 items-center flex flex-col justify-start h-auto mt-6 mb-6">
       <!-- Отображение загруженных уроков -->
-      <ul v-if="lessonsLoaded && lessons.length > 0">
-        <li v-for="lesson in lessons" :key="lesson.id">
+      <ul v-if="lessonsLoaded && lessons.length > 0" class="w-full h-auto">
+        <li v-for="lesson in lessons" :key="lesson.id" class="w-full h-auto flex flex-row items-center justify-center">
           <ClassCard :class-info="lesson" />
         </li>
       </ul>
