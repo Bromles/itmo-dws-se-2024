@@ -12,6 +12,7 @@ const token = await useAuth().getToken();
 const form = ref({
   title: '',
   price: 0,
+  avatar: 'https://lh3.googleusercontent.com/5igosursCqkb708efkXZvf5ydce78ajkgiDnZjzqwthTxJUaap__6w8Tx_4DUdZ2jDKuXNQYOosF8JDJxw-dxgKDwXS8zPDD2P8phV7bHA=s2500-rw'
 });
 
 const lessons = ref([]);
@@ -85,6 +86,9 @@ const addLesson = async () => {
     <div class="w-1/3 ml-5 mt-5 p-6 bg-white rounded-lg shadow-md bg-main_green">
       <h2 class="mb-4 text-2xl font-bold text-center">Редактировать карточку</h2>
       <form @submit.prevent="onSubmit">
+        <div  v-if="form.avatar"  class="h-30 bg-white flex flex-row items-center justify-center">
+          <img alt="" class="w-[95%] h-[95%] rounded-md" :src="form.avatar"/>
+        </div>
         <div class="mb-4">
           <label for="title" class="block text-sm font-medium text-gray-700">Название</label>
           <input v-model="form.title" type="text" id="title" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-main_green" required />
@@ -93,6 +97,12 @@ const addLesson = async () => {
           <label for="price" class="block text-sm font-medium text-gray-700">Цена</label>
           <input v-model.number="form.price" type="number" id="price" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-main_green" required />
         </div>
+        <div class="mb-4">
+          <label for="avatar" class="block text-sm font-medium text-gray-700">Аватар</label>
+          <input type="file" id="avatar" @change="onAvatarChange" accept="image/*" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-main_green" />
+        </div>
+
+
         <button type="submit" class="w-full btn btn-primary">
           Сохранить изменения
         </button>
