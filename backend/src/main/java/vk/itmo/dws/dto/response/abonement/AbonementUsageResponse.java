@@ -5,7 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import vk.itmo.dws.dto.response.section.SectionShortResponse;
-import vk.itmo.dws.dto.response.users.ShortUserResponse;
+import vk.itmo.dws.dto.response.users.UserResponse;
 import vk.itmo.dws.entity.Abonement;
 import vk.itmo.dws.entity.AbonementUsage;
 
@@ -22,7 +22,7 @@ public class AbonementUsageResponse {
     private String activationDate;
     private String disableDate;
     private Long classesPassed;
-    private ShortUserResponse user;
+    //private UserResponse user;
     private SectionShortResponse section;
 
     private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
@@ -32,7 +32,7 @@ public class AbonementUsageResponse {
         this.activationDate = formatDate(abonementUsage.getActivationDate());
         this.disableDate = formatDate(abonementUsage.getDisableDate());
         this.classesPassed = abonementUsage.getClassesPassed();
-        this.user = new ShortUserResponse(abonementUsage.getUser());
+       // this.user = new UserResponse(abonementUsage.get());
         this.section = new SectionShortResponse(abonementUsage.getAbonement().getSection());
     }
 
