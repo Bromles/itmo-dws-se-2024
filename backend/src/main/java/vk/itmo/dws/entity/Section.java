@@ -29,4 +29,8 @@ public class Section extends CRUDEntity{
 
     @OneToMany(mappedBy = "section", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Abonement> abonements;
+
+    @Column(name = "avatar", nullable = false, columnDefinition = "TEXT")
+    private String avatar;
+
 }
