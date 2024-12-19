@@ -93,6 +93,7 @@ onMounted(fetchSections)
             v-for="section in sections"
             :id="section.id"
             :title="section.title"
+            :avatar="section.avatar"
         />
       </div>
 

@@ -11,9 +11,11 @@ const props = defineProps({
   id: {
     type: Number,
     required: true
-  }
+  },
+  avatar: String
 });
 onMounted(() => {
+  console.log(props.avatar);
 });
 const navigateToDetails = () => {
   // Замените '/details' на нужный вам маршрут
@@ -24,7 +26,7 @@ const navigateToDetails = () => {
 <template>
   <div class="flex flex-col h-auto rounded-lg overflow-hidden border-2 border-main_green">
     <div class="h-50 bg-white flex flex-row items-center justify-center">
-      <img alt="" class="w-[95%] h-[95%] rounded-md" src="@assets/icons/main_page/volleyball.jpg"/>
+      <img alt="Avatar" class="w-[95%] h-[95%] rounded-md" :src="props.avatar"/>
     </div>
     <div class="flex flex-col items-center justify-center w-full bg-main_green h-auto">
       <div class="bg-main_green flex flex-col w-[95%] mx-auto py-4 text-sm">
