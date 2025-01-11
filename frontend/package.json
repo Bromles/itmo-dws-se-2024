@@ -9,14 +9,16 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "2gis-maps": "^3.7.4",
+    "axios": "^1.7.8",
     "cors": "^2.8.5",
     "keycloak-js": "^26.0.2",
     "oidc-client-ts": "^3.1.0",
-    "axios": "^1.7.8",
     "pinia": "^2.2.4",
     "pinia-plugin-persistedstate": "^4.1.2",
     "vue": "^3.4.37",
-    "vue-router": "^4.4.5"
+    "vue-router": "^4.4.5",
+    "vue-yandex-maps": "^2.1.6"
   },
   "devDependencies": {
     "@types/node": "^22.7.4",
