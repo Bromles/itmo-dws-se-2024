@@ -10,6 +10,11 @@
   },
   "dependencies": {
     "2gis-maps": "^3.7.4",
+    "@fullcalendar/core": "^6.1.15",
+    "@fullcalendar/daygrid": "^6.1.15",
+    "@fullcalendar/interaction": "^6.1.15",
+    "@fullcalendar/timegrid": "^6.1.15",
+    "@fullcalendar/vue3": "^6.1.15",
     "axios": "^1.7.8",
     "cors": "^2.8.5",
     "keycloak-js": "^26.0.2",

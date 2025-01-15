@@ -10,7 +10,7 @@ spring:
       ddl-auto: update
     show-sql: true
   datasource:
-    url: ${AGREGATOR_DB_URL:jdbc:postgresql://localhost:5432/backend_db}
+    url: ${AGREGATOR_DB_URL:jdbc:postgresql://localhost:5432/postgres}
     username: ${AGREGATOR_DB_USER:agregator}
     password: ${AGREGATOR_DB_PASSWORD:password}
     driver-class-name: org.postgresql.Driver
@@ -26,3 +26,6 @@ spring:
       resourceserver:
         jwt:
           jwk-set-uri: ${AGREGATOR_AUTH_JWKS_URL:http://localhost:8099/realms/agregator/protocol/openid-connect/certs}
+management:
+  server:
+    port: 8080

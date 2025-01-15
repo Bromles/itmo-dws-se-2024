@@ -36,6 +36,9 @@ public class User implements UserDetails {
     @Column(name = "avatar")
     private String avatar;
 
+    @OneToMany(mappedBy = "user")
+    private List<CalendarRecord> calendarRecords;
+
     @ManyToMany
     @JoinTable(
             name = "user_classes",

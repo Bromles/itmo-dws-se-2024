@@ -32,13 +32,13 @@ public class MapController {
     }
 
     @PutMapping("/{point_id}")
-    public void changeMapPoint(@RequestBody MapPointRequestDto mapPoint, @PathVariable long point_id) {
-        MapPoint foundMapPoint = mapPointRepository.findById(point_id).orElse(null);
+    public void changeMapPoint(@RequestBody MapPointRequestDto mapPoint, @PathVariable(value = "point_id") long pointId) {
+        MapPoint foundMapPoint = mapPointRepository.findById(pointId).orElse(null);
         if (foundMapPoint == null) {
-            throw new MapPointNotFoundException(point_id);
+            throw new MapPointNotFoundException(pointId);
         } else {
             MapPoint updatedMapPoint = modelMapper.map(mapPoint, MapPoint.class);
-            updatedMapPoint.setId(point_id);
+            updatedMapPoint.setId(pointId);
             mapPointRepository.save(updatedMapPoint);
         }
     }
