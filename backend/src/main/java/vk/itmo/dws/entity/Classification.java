@@ -32,6 +32,7 @@ public class Classification {
     @JsonManagedReference
     private List<Option> options = new ArrayList<>();
 
+    @JsonBackReference
     @ManyToMany(mappedBy = "classifications")
-    private List<Class> classes;
+    private List<Section> sections;
 }
