@@ -14,21 +14,90 @@ const error = ref(null)
 const auth = useAuth()
 const token = await auth.getToken()
 const store = useAuthStore()
+const minAge = ref(null);
+const maxAge = ref(null);
+const gender = ref(null);
 
 const fetchSections = async () => {
   try {
-    if(store.userRole === 'employee'){
-      await router.push('/org')
-    }else {
+    if (store.userRole === 'employee') {
+      await router.push('/org');
+    } else {
       const response = (await axiosAgregator.sendGet('/api/v1/sections', token)).data;
-      sections.value = response.data;
+      const allSections = response.data;
+
+
+      // Фильтрация секций по options
+      sections.value = allSections.filter(section => {
+        // Проверка наличия нужных ключей в options
+        const hasAgeFilter = section.classifications.some(classification =>
+            classification.options.some(option => option.key === "Возраст")
+        );
+        const hasGenderFilter = section.classifications.some(classification =>
+            classification.options.some(option => option.key === "Пол")
+        );
+
+        // Если отсутствуют нужные поля, секция не проходит фильтрацию
+        if ((minAge.value || maxAge.value) && !hasAgeFilter) return false;
+
+        // Фильтрация по возрасту
+        const ageFilter = (option) => {
+          if (option.key === "Возраст") {
+            const value = parseInt(option.value);
+            const operator = option.operator;
+            console.log(minAge.value)
+            if (operator === ">") {
+              if (minAge.value && value >= minAge.value) return false;
+            } else if (operator === "<") {
+              if (maxAge.value && value >= maxAge.value) return false;
+            } else if (operator === ">=") {
+              if (minAge.value && value < minAge.value) return false;
+            } else if (operator === "<=") {
+              if (maxAge.value && value > maxAge.value) return false;
+            } else if (operator === "=") {
+              if (minAge.value && value < minAge.value) return false;
+              if (maxAge.value && value > maxAge.value) return false;
+            }
+          }
+          return true;
+        };
+
+
+        // Фильтрация по полу
+        const genderFilter = (option) => {
+          if (option.key === "Пол" && gender.value) {
+            if (option.value !== gender.value) return false;
+          }
+          return true;
+        };
+
+        // Проверяем все options для секци
+
+        return section.classifications.every(classification =>
+            classification.options.every(option =>
+                ageFilter(option) && genderFilter(option)
+            )
+        );
+      });
+
+      sections.value = sections.value.map(section => {
+        const allOptions = section.classifications.flatMap(classification =>
+            classification.options.map(option => {
+              const { operator, ...rest } = option; // Извлекаем оператор отдельно
+              return { ...rest, operator }; // Добавляем оператор обратно в опцию
+            })
+        );
+        return { ...section, allOptions }; // Добавляем новый ключ allOptions
+      });
+
+
       isLoading.value = false;
     }
   } catch (err) {
     error.value = err;
     isLoading.value = false;
   }
-}
+};
 
 onMounted(fetchSections)
 </script>
@@ -57,6 +126,44 @@ onMounted(fetchSections)
               { value: 'volleyball', text: 'Волейбол' },
               { value: 'football', text: 'Футбол' },
             ]" label="Вид спорта" placeholder="Волейбол"/>
+      </div>
+      <div class="mb-4 mt-4 w-[95%] flex flex-col text-main_green items-center rounded-md bg-clear_white border-2 border-main_green">
+        <div class="text-2xl">Возраст</div>
+        <div class="mb-4 flex flex-col w-[90%]">
+          <label :for="minAge" class="block text-lg font-medium text-gray-700 mb-1">
+            От
+          </label>
+          <input v-model="minAge"
+                 :placeholder="18"
+                 class="input input-bordered w-full max-w-xs bg-form_grey border-main_green border-2"/>
+        </div>
+        <div class="mb-4 flex flex-col w-[90%]">
+          <label :for="maxAge" class="block text-lg font-medium text-gray-700 mb-1">
+            До
+          </label>
+          <input v-model="maxAge"
+                 :placeholder="99"
+                 class="input input-bordered w-full max-w-xs bg-form_grey border-main_green border-2"/>
+        </div>
+
+      </div>
+
+      <div class="mb-4 mt-4 w-[95%] flex flex-col text-main_green items-center rounded-md bg-clear_white border-2 border-main_green">
+        <div class="text-2xl">Пол</div>
+        <div class="mb-4 flex flex-col w-[90%]">
+          <label for="gender" class="block text-lg font-medium text-gray-700 mb-1">Пол</label>
+          <select
+              id="gender"
+              v-model="gender"
+              class="select select-bordered bg-form_grey border-2 border-main_green">
+            <option v-for="(option, index) in [
+                  { value: 'Мужской', text: 'Мужской' },
+                  { value: 'Женский', text: 'Женский' }
+                ]" :key="index" :value="option.value">
+              {{ option.text }}
+            </option>
+          </select>
+        </div>
       </div>
 
       <div
@@ -94,6 +201,7 @@ onMounted(fetchSections)
             :id="section.id"
             :title="section.title"
             :avatar="section.avatar"
+            :options="section.allOptions"
         />
       </div>
 

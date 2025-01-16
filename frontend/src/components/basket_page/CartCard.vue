@@ -4,6 +4,8 @@ import axiosAgregator from "@/api/axiosAgregator.ts";
 
 const router = useRouter()
 
+const avatar = 'https://lh3.googleusercontent.com/5igosursCqkb708efkXZvf5ydce78ajkgiDnZjzqwthTxJUaap__6w8Tx_4DUdZ2jDKuXNQYOosF8JDJxw-dxgKDwXS8zPDD2P8phV7bHA=s2500-rw';
+
 const props = defineProps<{
   bookingInfo: {
     id: string;
@@ -14,7 +16,8 @@ const props = defineProps<{
     aclass: {
       id: Number,
       title: String
-    }
+    };
+    avatar: String
   }
 
 }>();
@@ -37,7 +40,7 @@ const handleDelete = async () => {
   <div class="flex flex-col items-center gap-5">
     <div class="flex flex-col h-auto rounded-lg overflow-hidden border-2 border-base-100">
       <div class="h-40 bg-white flex flex-row items-center justify-center">
-        <img alt="section poster" class="w-[95%] h-[95%] rounded-md" src="../../assets/volleyball.jpg"/>
+        <img alt="section poster" class="w-[95%] h-[95%] rounded-md" :src="avatar"/>
       </div>
       <div class="flex flex-col items-center justify-center w-full bg-main_green h-auto">
         <div class="bg-base-100 flex flex-col mx-auto px-2 py-4 text-sm">
@@ -47,8 +50,8 @@ const handleDelete = async () => {
           <p class="text-3xl text-primary-content">
             {{ props.bookingInfo.aclass.title }} <!-- Отображение title -->
           </p>
-          <p>Возраст: 7-14 лет</p>
-          <p>Улица: Варшавская 110</p>
+          <p>Возраст: 18+ лет</p>
+          <p>Кантемировская ул., 2</p>
           <div class="flex flex-row items-center justify-center gap-2">
             <button class="btn btn-primary rounded-md text-center w-[40%] mt-2" @click="router.push('/section')">
               Просмотреть
