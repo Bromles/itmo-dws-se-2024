@@ -5,6 +5,7 @@ plugins {
     id("org.springframework.boot") version "3.3.4"
     id("io.spring.dependency-management") version "1.1.6"
     id("org.liquibase.gradle") version "2.0.4"
+    id("io.gatling.gradle") version "3.13.1.2"
 }
 
 //плагин для миграции - ./gradlew update
