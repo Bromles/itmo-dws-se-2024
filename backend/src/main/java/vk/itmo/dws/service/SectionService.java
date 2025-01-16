@@ -1,22 +1,22 @@
 package vk.itmo.dws.service;
 
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.criteria.*;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import vk.itmo.dws.dto.request.classes.ClassUpdateRequest;
 import vk.itmo.dws.dto.request.section.SectionCreateRequest;
 import vk.itmo.dws.dto.request.section.SectionUpdateRequest;
+import vk.itmo.dws.entity.*;
 import vk.itmo.dws.entity.Class;
-import vk.itmo.dws.entity.Classification;
-import vk.itmo.dws.entity.Section;
-import vk.itmo.dws.entity.User;
+import vk.itmo.dws.enums.ComparisonOperator;
 import vk.itmo.dws.repository.ClassesRepository;
 import vk.itmo.dws.repository.SectionRepository;
 
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
@@ -25,12 +25,12 @@ public class SectionService implements vk.itmo.dws.contracts.SectionService {
     private final ClassesRepository classesRepository;
     protected ModelMapper mapper = new ModelMapper();
     private final UserService userService;
+    private final EntityManager entityManager;
 
-    @Override
-    public Collection<Section> findAll(Map<String, String> filter) {
+
+    public List<Section> findAll(Map<String, String> filter) {
         return sectionRepository.findAll();
     }
-
     public Collection<Section> findAllOwned(Map<String, String> filter) {
         return sectionRepository.findByUserId(SecurityWorkspace.getAuthUserId());
     }
@@ -61,9 +61,9 @@ public class SectionService implements vk.itmo.dws.contracts.SectionService {
     }
 
     public void addClassification(Long classId, Classification classification) {
-        Class activity = classesRepository.findById(classId).orElseThrow();
-        activity.getClassifications().add(classification);
-        classesRepository.save(activity);
+        Section section = sectionRepository.findById(classId).orElseThrow();
+        section.getClassifications().add(classification);
+        sectionRepository.save(section);
     }
 
     @Override
