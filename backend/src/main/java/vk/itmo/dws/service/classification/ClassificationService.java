@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import vk.itmo.dws.entity.Classification;
 import vk.itmo.dws.entity.Option;
+import vk.itmo.dws.enums.ComparisonOperator;
 import vk.itmo.dws.repository.ClassificationRepository;
 import vk.itmo.dws.service.SectionService;
 
@@ -38,6 +39,7 @@ public class ClassificationService {
         option.setKey(key);
         option.setValue(value);
         option.setClassification(classification);
+        option.setOperator(ComparisonOperator.EQUALS);
 
         classification.getOptions().add(option);
         repository.save(classification);
