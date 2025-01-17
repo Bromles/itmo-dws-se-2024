@@ -19,7 +19,7 @@ const lessonsLoaded = ref(false);
 
 const loadCardData = async () => {
   const id = route.params.id;
-  const response = await axiosAgregator.sendGet(`/api/v1/sections/${id}`, token);
+  const response = await axiosAgregator.sendGet(`/api/v1/abonements/${id}`, token);
   form.value.title = response.data.title;
   form.value.price = response.data.price;
 

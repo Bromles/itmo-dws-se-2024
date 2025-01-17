@@ -125,7 +125,7 @@ onMounted(() => {
 
     <div v-if="flag" class="basis-9/12 mb-4 p-4 flex gap-4 flex-col min-h-screen h-auto bg-clear_white">
       <div class="w-full text-2xl p-2 rounded-lg text-center text-clear_white bg-main_green">Абонементы</div>
-      <AdminAbonementCard v-for="abonement in abonements" :key="'subscription-' + n" :fetch-sections="fetchSections" :admin-abonement-info="abonement"/>
+      <AdminAbonementCard v-for="abonement in abonements" :key="'subscription-' + n" :fetch-sections="fetchAbonements" :admin-abonement-info="abonement"/>
     </div>
 
     <!-- Модальное окно -->
