@@ -8,6 +8,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
+import vk.itmo.dws.entity.User;
 
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 @Getter
@@ -28,5 +29,14 @@ public class UserResponseDto {
     private boolean enabled;
     @Schema(example = "false")
     private boolean totp;
+
+//    public UserResponseDto(User user) {
+//        this.id = String.valueOf(user.getId());
+//        this.email = user.getEmail();
+//        this.emailVerified = user.isEmailVerified();
+//        this.createdTimestamp = user.getCreatedTimestamp();
+//        this.enabled = user.isEnabled();
+//        this.totp = user.isTotp();
+//    }
 
 }

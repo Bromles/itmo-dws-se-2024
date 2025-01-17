@@ -1,12 +1,37 @@
-<script setup lang="ts">
-import SectionCardExtended from "@/components/SectionCardExtended.vue";
+<script lang="ts" setup>
+import SectionCardExtended from "@/components/user_page/SectionCardExtended.vue";
+import axiosAgregator from "@/api/axiosAgregator.ts";
+import {onMounted, ref} from "vue";
+import {useAuth} from "@/utils/composables.ts";
+
+const cards = ref([]);
+const isLoading = ref(true);
+const error = ref<unknown>(null)
+
+const auth = useAuth()
+const token = await auth.getToken()
+
+const fetchSections = async () => {
+  try {
+    const response = await axiosAgregator.sendGet('/api/v1/users/sections', token!);
+    cards.value = response.data.data;
+    console.log(cards.value[0].section);
+  } catch (err) {
+    error.value = err;
+    console.error("Ошибка при загрузке секций:", error.value);
+  } finally {
+    isLoading.value = false;
+  }
+};
+
+onMounted(fetchSections);
 </script>
 
 <template>
-  <div class="flex flex-row my-5 gap-2">
-    <div class="flex flex-col items-center bg-primary px-7 py-5">
+  <div class="flex flex-row my-5 gap-2 h-dvh">
+    <div class="flex flex-col items-center bg-form_grey px-7 py-5 overflow-y-auto">
       <div class="h-32 w-32 mb-2 border-2 rounded-full">
-        <img class="" src="@/assets/person_icon.svg" alt="User avatar"/>
+        <img alt="User avatar" class="" src="@/assets/person_icon.svg"/>
       </div>
       <div class="text-primary-content p-7 m-3 border-2 border-base-100 rounded-lg">
         <p class="text-xl">Личная информация</p>
@@ -25,16 +50,34 @@ import SectionCardExtended from "@/components/SectionCardExtended.vue";
         <button class="btn btn-secondary w-full">Изменить пароль</button>
       </div>
     </div>
-    <div class="flex flex-col gap-2 w-full">
-      <div class="flex flex-row justify-center bg-primary">
-        <p class="flex flex-row justify-center text-center m-2 px-16 py-6 text-4xl bg-base-100 rounded-lg">
+    <div class="flex flex-col gap-2 w-full bg-main_background h-[100vh] overflow-y-auto bg-cover">
+      <div class="flex flex-row justify-center">
+        <p class="flex w-[95%] flex-row justify-center text-center m-2 px-16 py-6 text-4xl bg-base-100 rounded-lg">
           Ваши секции
         </p>
       </div>
-      <div class="bg-white px-2 flex flex-col justify-center items-center">
-        <SectionCardExtended/>
-        <SectionCardExtended/>
-        <SectionCardExtended/>
+      <div class="bg-white px-2 flex flex-col items-center">
+        <div v-if="isLoading" class="w-full flex justify-center items-center">
+          Загрузка...
+        </div>
+
+        <!-- Error state -->
+        <div v-else-if="error" class="w-full flex justify-center items-center text-red-500">
+          Произошла ошибка при загрузке секций
+        </div>
+
+        <!-- Sections grid -->
+        <div v-else-if="cards.length" class="mt-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2">
+          <SectionCardExtended
+              v-for="card in cards"
+              :card="card"
+          />
+        </div>
+
+        <!-- No sections found state -->
+        <div v-else class="w-full flex justify-center items-center">
+          Корзина пуста
+        </div>
       </div>
     </div>
   </div>

@@ -11,7 +11,9 @@ import java.time.LocalDateTime;
 public class Review {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", nullable = false)
     private Long id;
+
 
     @Column(name = "entity_type", nullable = false)
     @Enumerated(EnumType.STRING)

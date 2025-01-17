@@ -2,19 +2,30 @@ spring:
   application.name: "itmo-dws-se-2024"
   liquibase:
     change-log: classpath:db/changelog/db.changelog-master.yaml
+  docker:
+    compose:
+      enabled: false
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
   datasource:
-    url: jdbc:postgresql://localhost:5432/postgres
-    username: postgres
-    password: postgres
+    url: ${AGREGATOR_DB_URL:jdbc:postgresql://localhost:5432/postgres}
+    username: ${AGREGATOR_DB_USER:agregator}
+    password: ${AGREGATOR_DB_PASSWORD:password}
     driver-class-name: org.postgresql.Driver
     hikari:
       maximum-pool-size: 10
     jpa:
-      hibernate:
-        ddl-auto: create
-      show-sql: true
       properties:
         hibernate:
           format_sql: true
           dialect: org.hibernate.dialect.PostgreSQLDialect
-
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri: ${AGREGATOR_AUTH_JWKS_URL:http://localhost:8099/realms/agregator/protocol/openid-connect/certs}
+management:
+  server:
+    port: 8080

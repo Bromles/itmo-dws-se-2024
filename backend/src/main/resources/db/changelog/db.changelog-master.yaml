@@ -6,3 +6,14 @@ databaseChangeLog:
         - sqlFile:
             path: db/changelog/review/add_review_table.sql
             relativeToChangelogFile: false
+
+#  - changeSet:
+#      id: 2
+#      author: m.sukhanov
+#      changes:
+#        - sql:
+#            dbms: postgresql
+#            sql: |
+#              ALTER TABLE abonement
+#              ALTER COLUMN user_id SET DATA TYPE UUID
+#              USING user_id::uuid;
