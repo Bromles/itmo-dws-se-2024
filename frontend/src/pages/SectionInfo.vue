@@ -21,11 +21,9 @@ const isLoading = ref(true);
 
 const fetchSection = async () => {
   try {
-    console.log(token);
     section.value = (await axiosAgregator.sendGet(`/api/v1/sections/${id}`, token)).data;
     sectionClasses.value = section.value.classes;
     abonements.value = section.value.abonements;
-    console.log(abonements.value);
 
   } catch (err) {
     console.log(err);
@@ -68,7 +66,10 @@ const toggleInfo = () => {
         <h3 class="text-main_green text-2xl font-bold mb-2">Доступные абонементы:</h3>
         <ul>
           <li v-for="(abonement, index) in abonements" :key="index">
-            <AbonementCard :abonement-info="abonement"/>
+            <AbonementCard
+                :abonement-info="abonement"
+                :sectionClasses="sectionClasses"
+                />
           </li>
         </ul>
       </div>
