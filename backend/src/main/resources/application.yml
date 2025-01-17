@@ -8,7 +8,7 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update
-    show-sql: true
+    show-sql: false
   datasource:
     url: ${AGREGATOR_DB_URL:jdbc:postgresql://localhost:5432/backend_db}
     username: ${AGREGATOR_DB_USER:agregator}
