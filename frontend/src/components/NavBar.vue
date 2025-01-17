@@ -24,7 +24,7 @@ const modal1 = ref(null)
 const modal2 = ref(null)
 const map = ref(null)
 const calendarApi = ref(null)
-const userUUID = "67f8eb69-97cc-4781-bb72-778b16e03908" //пока вручную указывать
+const userUUID = "dc955097-850c-44c7-9105-21a11d201858" //пока вручную указывать
 
 const calendarOptions = ref({
   plugins: [ dayGridPlugin, interactionPlugin ],

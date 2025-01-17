@@ -20,6 +20,7 @@ const gender = ref(null);
 
 const fetchSections = async () => {
   try {
+    console.log(store.userRole)
     if (store.userRole === 'employee') {
       await router.push('/org');
     } else {
