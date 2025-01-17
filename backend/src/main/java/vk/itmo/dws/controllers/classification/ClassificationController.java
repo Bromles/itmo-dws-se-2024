@@ -3,8 +3,10 @@ package vk.itmo.dws.controllers.classification;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import vk.itmo.dws.dto.request.classifications.OptionUpdateRequest;
 import vk.itmo.dws.dto.response.ListResponse;
 import vk.itmo.dws.dto.response.classificatons.ClassificationsResponse;
+import vk.itmo.dws.dto.response.classificatons.OptionResponse;
 import vk.itmo.dws.dto.response.section.SectionCardResponse;
 import vk.itmo.dws.entity.Class;
 import vk.itmo.dws.entity.Classification;
@@ -31,8 +33,9 @@ public class ClassificationController {
     @PostMapping("/{id}/options")
     public void addOption(@PathVariable Long id,
                           @RequestParam String key,
-                          @RequestParam String value) {
-        classificationService.addOptionToClassification(id, key, value);
+                          @RequestParam String value,
+                          @RequestParam String operator) {
+        classificationService.addOptionToClassification(id, key, value, operator);
     }
 
     @GetMapping("/test")
@@ -60,5 +63,10 @@ public class ClassificationController {
     public void assignClassificationToActivity(@PathVariable Long classificationId,
                                                @PathVariable Long classId) {
         classificationService.assignClassificationToActivity(classificationId, classId);
+    }
+
+    @PutMapping("/options/{optionId}")
+    public ResponseEntity<OptionResponse> editOption(@PathVariable Long optionId, OptionUpdateRequest optionUpdateRequest) {
+        return ResponseEntity.ok(new OptionResponse(classificationService.editOption(optionId, optionUpdateRequest)));
     }
 }

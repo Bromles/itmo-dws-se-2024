@@ -1,18 +1,14 @@
 package vk.itmo.dws.service;
 
 import jakarta.persistence.EntityManager;
-import jakarta.persistence.criteria.*;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
-import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import vk.itmo.dws.dto.request.classes.ClassUpdateRequest;
 import vk.itmo.dws.dto.request.section.SectionCreateRequest;
 import vk.itmo.dws.dto.request.section.SectionUpdateRequest;
 import vk.itmo.dws.entity.*;
 import vk.itmo.dws.entity.Class;
-import vk.itmo.dws.enums.ComparisonOperator;
 import vk.itmo.dws.repository.ClassesRepository;
 import vk.itmo.dws.repository.SectionRepository;
 

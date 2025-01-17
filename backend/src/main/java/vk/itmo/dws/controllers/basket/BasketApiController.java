@@ -10,6 +10,7 @@ import vk.itmo.dws.dto.request.basket.AddToBasketRequest;
 import vk.itmo.dws.dto.request.basket.RemoveFromBasketRequest;
 import vk.itmo.dws.dto.response.basket.BasketResponse;
 import vk.itmo.dws.entity.Basket;
+import vk.itmo.dws.service.SecurityWorkspace;
 
 import java.util.logging.Logger;
 
@@ -29,7 +30,7 @@ public class BasketApiController extends BaseController  implements BasketApi {
 
     @Override
     public ResponseEntity<BasketResponse> getBasket() {
-        Basket basket = basketService.findById(1L).orElseThrow();
+        Basket basket = basketService.findByUserId( SecurityWorkspace.getAuthUserId()).orElseThrow();
         return new ResponseEntity<>(new BasketResponse(basket), HttpStatus.OK);
     }
 

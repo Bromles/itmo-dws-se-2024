@@ -2,10 +2,12 @@ package vk.itmo.dws.service.classification;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import vk.itmo.dws.dto.request.classifications.OptionUpdateRequest;
 import vk.itmo.dws.entity.Classification;
 import vk.itmo.dws.entity.Option;
 import vk.itmo.dws.enums.ComparisonOperator;
 import vk.itmo.dws.repository.ClassificationRepository;
+import vk.itmo.dws.repository.OptionRepository;
 import vk.itmo.dws.service.SectionService;
 
 import java.util.List;
@@ -13,7 +15,7 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class ClassificationService {
-
+    private final OptionRepository optionRepository;
     private final ClassificationRepository repository;
     private final SectionService sectionService;
 
@@ -31,7 +33,7 @@ public class ClassificationService {
         return repository.save(classification);
     }
 
-    public void addOptionToClassification(Long classificationId, String key, String value) {
+    public void addOptionToClassification(Long classificationId, String key, String value, String operator) {
         Classification classification = repository.findById(classificationId)
                 .orElseThrow(() -> new IllegalArgumentException("Classification not found"));
 
@@ -39,7 +41,7 @@ public class ClassificationService {
         option.setKey(key);
         option.setValue(value);
         option.setClassification(classification);
-        option.setOperator(ComparisonOperator.EQUALS);
+        option.setOperator(operator != null ? ComparisonOperator.valueOf(operator) : ComparisonOperator.EQUALS);
 
         classification.getOptions().add(option);
         repository.save(classification);
@@ -59,4 +61,13 @@ public class ClassificationService {
         sectionService.addClassification(classId, classification);
     }
 
+    public Option editOption(Long optionId, OptionUpdateRequest optionUpdateRequest) {
+        Option option = optionRepository.findById(optionId)
+                .orElseThrow(() -> new IllegalArgumentException("Option not found"));
+        option.setKey(optionUpdateRequest.getKey());
+        option.setValue(optionUpdateRequest.getValue());
+        option.setOperator(ComparisonOperator.valueOf(optionUpdateRequest.getOperator().toUpperCase()));
+        optionRepository.save(option);
+        return option;
+    }
 }
