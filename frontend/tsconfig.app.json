@@ -28,11 +28,14 @@
       "@assets/*": [
         "./src/assets/*"
       ]
-    }
+    },
+    "allowSyntheticDefaultImports": true
   },
   "include": [
     "src/**/*.ts",
     "src/**/*.tsx",
-    "src/**/*.vue"
+    "src/**/*.vue",
+    "node_modules/@yandex/ymaps3-types/index.d.ts",
+    "node_modules/@yandex/ymaps3-types/index.d.ts"
   ]
 }

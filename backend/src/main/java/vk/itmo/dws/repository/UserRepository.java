@@ -6,8 +6,11 @@ import vk.itmo.dws.entity.Basket;
 import vk.itmo.dws.entity.User;
 
 import java.util.Optional;
+import java.util.UUID;
 
 @Repository
-public interface UserRepository extends JpaRepository<User, Long> {
+public interface UserRepository extends JpaRepository<User, String> {
+    Optional<User> findById(UUID id);
+
 
 }

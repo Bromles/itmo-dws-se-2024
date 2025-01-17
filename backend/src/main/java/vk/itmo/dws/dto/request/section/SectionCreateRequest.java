@@ -7,4 +7,6 @@ public class SectionCreateRequest {
 
     protected String title;
 
+    protected Long price;
+
 }

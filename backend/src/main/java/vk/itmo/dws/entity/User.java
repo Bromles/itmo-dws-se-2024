@@ -8,6 +8,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.UUID;
 
 @Getter
 @Setter
@@ -18,10 +19,10 @@ import java.util.List;
 @Accessors(chain = true)
 @Table(name = "users")
 public class User implements UserDetails {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
-    private Long id;
+    @Column(updatable = false, nullable = false)
+    private UUID id;
 
     @Column(name = "login", unique = true, nullable = false)
     private String login;
@@ -35,6 +36,9 @@ public class User implements UserDetails {
     @Column(name = "avatar")
     private String avatar;
 
+    @OneToMany(mappedBy = "user")
+    private List<CalendarRecord> calendarRecords;
+
     @ManyToMany
     @JoinTable(
             name = "user_classes",
@@ -42,6 +46,8 @@ public class User implements UserDetails {
             inverseJoinColumns = @JoinColumn(name = "class_id")
     )
     private List<Class> classes;
+
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return null;

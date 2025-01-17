@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import axiosAgregator from "@/api/axiosAgregator.ts";
 import {ref} from "vue";
+import {useAuth} from "@/utils/composables.ts";
 
 const props = defineProps<{
   classInfo: {
@@ -16,11 +17,15 @@ const showSuccessNotification = ref(false);
 const showErrorNotification = ref(false);
 const errorMessage = ref('');
 
+const auth = useAuth()
+const token = await auth.getToken()
+const role = await auth.getUserRole()
+
 const addToBasket = async () => {
   try {
     const response = (await axiosAgregator.sendPost('/api/v1/basket/add', {
       "classId": props.classInfo.id
-    })).data;
+    }, token)).data;
 
     if (response.bookings) {
       showSuccessNotification.value = true;
@@ -53,16 +58,24 @@ const addToBasket = async () => {
 </script>
 
 <template>
-  <div class="flex flex-row mt-10 bg-white">
-    <div class="mt-5 w-[50%] mr-5 bg-base-200 rounded-lg p-5 shadow-lg">
-      <p class="text-3xl text-primary-content">
+  <div class="flex flex-row items-center justify-center bg-white w-[90%] h-auto">
+    <div class="rounded-lg bg-main_green w-full  p-6">
+      <p class="text-3xl text-neutral-50">
         {{ props.classInfo.title }}
       </p>
-      <p class="text-xl text-primary-content mt-5">Возраст: {{ props.classInfo.ageRange }}</p>
-      <p class="text-xl text-primary-content">Преподаватель: {{ props.classInfo.teacher }}</p>
-      <p class="text-xl text-primary-content">Время: {{ props.classInfo.time }}</p>
-      <button class="btn btn-secondary btn-base-100 rounded-md text-center w-[40%] mt-5" @click="addToBasket">
+      <p class="text-xl text-neutral-50 mt-5">Возраст: {{ props.classInfo.ageRange }}</p>
+      <p class="text-xl text-neutral-50">Преподаватель: {{ props.classInfo.teacher }}</p>
+      <p class="text-xl text-neutral-50">Время: {{ props.classInfo.time }}</p>
+      <button v-if="role === 'client'"
+              class="btn btn-secondary btn-base-100 rounded-md text-center w-[40%] mt-5"
+              @click="addToBasket">
         Добавить в корзину
+      </button>
+
+      <button v-if="role === 'employee'"
+              class="btn btn-danger btn-base-100 rounded-md text-center w-[40%] mt-5 bg-clear_white text-neutral-950"
+              @click="removeClass">
+        Удалить урок
       </button>
     </div>
 

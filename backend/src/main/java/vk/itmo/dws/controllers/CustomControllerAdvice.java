@@ -10,6 +10,8 @@ import vk.itmo.dws.dto.exception.SimpleExceptionResponseDto;
 import vk.itmo.dws.dto.exception.ValidationExceptionDto;
 import vk.itmo.dws.dto.exception.ValidationResponseDto;
 import vk.itmo.dws.exception.ClassAlreadyBoughtException;
+import vk.itmo.dws.exception.UserNotFoundException;
+import vk.itmo.dws.exception.map.MapPointNotFoundException;
 import vk.itmo.dws.exceptions.account.PasswordsMismatchException;
 
 import java.util.ArrayList;
@@ -48,5 +50,10 @@ public class CustomControllerAdvice {
         return new SimpleExceptionResponseDto(request.getServletPath(), HttpStatus.BAD_REQUEST.name(), HttpStatus.BAD_REQUEST.value(), exception.getMessage());
     }
 
+    @ExceptionHandler(value = {MapPointNotFoundException.class, UserNotFoundException.class})
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public SimpleExceptionResponseDto authenticationExceptionHandler(RuntimeException exception, HttpServletRequest request){
+        return new SimpleExceptionResponseDto(request.getServletPath(), HttpStatus.NOT_FOUND.name(), HttpStatus.NOT_FOUND.value(), exception.getMessage());
+    }
 
 }

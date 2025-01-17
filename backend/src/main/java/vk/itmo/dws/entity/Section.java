@@ -1,5 +1,6 @@
 package vk.itmo.dws.entity;
 
+import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.Accessors;
@@ -21,13 +22,23 @@ public class Section extends CRUDEntity{
     @Column(name = "title", nullable = false)
     private String title;
 
-    @Column(name = "description", nullable = false, columnDefinition = "TEXT")
-    private String description;
+    @Column(name = "price", nullable = false)
+    private Long price;
 
     @OneToMany(mappedBy = "section", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Class> classes;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", nullable = false)
-    private User user;
+    @OneToMany(mappedBy = "section", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Abonement> abonements;
+
+    @Column(name = "avatar", nullable = true, columnDefinition = "TEXT")
+    private String avatar;
+
+    @ManyToMany
+    @JoinTable(
+            name = "section_classification",
+            joinColumns = @JoinColumn(name = "section_id"),
+            inverseJoinColumns = @JoinColumn(name = "classification_id")
+    )
+    private List<Classification> classifications;
 }

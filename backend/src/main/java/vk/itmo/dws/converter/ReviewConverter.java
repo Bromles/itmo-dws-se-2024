@@ -11,7 +11,7 @@ public class ReviewConverter {
         Review review = new Review();
         review.setEntityType(dto.entityType());
         review.setEntityId(dto.entityId());
-        review.setUserId(dto.userId());
+       // review.setUserId(dto.userId());
         review.setContent(dto.content());
         review.setRating(dto.rating());
         return review;

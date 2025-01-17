@@ -1,11 +1,7 @@
 package vk.itmo.dws.service;
 
 import lombok.RequiredArgsConstructor;
-import org.modelmapper.ModelMapper;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
-import vk.itmo.dws.dto.request.basket.AddToBasketRequest;
-import vk.itmo.dws.dto.request.basket.RemoveFromBasketRequest;
 import vk.itmo.dws.entity.*;
 import vk.itmo.dws.entity.Class;
 import vk.itmo.dws.enums.BookingStateEnum;
@@ -21,7 +17,8 @@ public class BasketService implements vk.itmo.dws.contracts.BasketService {
     private final BasketRepository basketRepository;
     private final BookingRepository bookingRepository;
     private final ClassesRepository classesRepository;
-    private final UserRepository userRepository;
+    private final UserService userService;
+
 
 
 
@@ -35,25 +32,34 @@ public class BasketService implements vk.itmo.dws.contracts.BasketService {
         return basketRepository.findById(1L);
     }
 
-    public Optional<Basket> findByUserId(Long id) {
-        return basketRepository.findByUserId(1L);
+    public Optional<Basket> findByUserId(UUID id) {
+        return basketRepository.findByUserId(id);
     }
 
     @Override
     public Basket addToBasket(Long classId) {
-        Basket basket = this.findByUserId(1L).orElseThrow();
+        var t =  SecurityWorkspace.getAuthUserId();
+        Optional<User> userOptional = userService.findById(SecurityWorkspace.getAuthUserId());
+        User user;
+        if(userOptional.isEmpty()){
+            user = userService.editUser(SecurityWorkspace.getAuthUser());
+        }
+
+        Basket basket = this.findByUserId(SecurityWorkspace.getAuthUserId()).orElseThrow();
 
         Class aClass = classesRepository.findById(classId).orElseThrow();
 
-        boolean classAlreadyAdded = basket.getBookings().stream()
-                .anyMatch(booking -> booking.getAClass().getId().equals(aClass.getId()));
-        User user = userRepository.findById(1L).orElseThrow();
+        List<Booking> exisingBookings = basket.getBookings();
+        if(exisingBookings != null) {
+            boolean classAlreadyAdded = exisingBookings.stream()
+                    .anyMatch(booking -> booking.getAClass().getId().equals(aClass.getId()));
 
-        if(user.getClasses().contains(aClass)) {
-            throw new IllegalArgumentException("Вы уже записаны на это занятие.");
-        }
-        if (classAlreadyAdded) {
-            throw new ClassAlreadyBoughtException("Этот класс уже добавлен в корзину.");
+            if (classesRepository.findByUserId(SecurityWorkspace.getAuthUserId()).contains(aClass)) {
+                throw new IllegalArgumentException("Вы уже записаны на это занятие.");
+            }
+            if (classAlreadyAdded) {
+                throw new ClassAlreadyBoughtException("Этот класс уже добавлен в корзину.");
+            }
         }
 
         Booking booking = new Booking();
@@ -75,7 +81,7 @@ public class BasketService implements vk.itmo.dws.contracts.BasketService {
 
     @Override
     public Basket removeFromBasket(Long bookingId) {
-        Basket basket = this.findByUserId(1L).orElseThrow();
+        Basket basket = this.findByUserId(SecurityWorkspace.getAuthUserId()).orElseThrow();
         List<Booking> bookings  = basket.getBookings();
         Booking booking = bookingRepository.findById(bookingId).orElseThrow();
         if(bookings.contains(booking)) {
@@ -90,15 +96,18 @@ public class BasketService implements vk.itmo.dws.contracts.BasketService {
 
     @Override
     public void payAllBasket() {
-        Basket basket = this.findByUserId(1L).orElseThrow();
+        Optional<User> userOptional = userService.findById(SecurityWorkspace.getAuthUserId());
+        User user;
+        user = userOptional.orElseGet(() -> userService.editUser(SecurityWorkspace.getAuthUser()));
+
+        Basket basket = this.findByUserId(user.getId()).orElseThrow();
         List<Booking> bookings = basket.getBookings();
-        User user = userRepository.findById(1L).orElseThrow();
-        List<Class> allClasses = user.getClasses();
+
+        List<Class> classes = user.getClasses();
         for (Booking booking : bookings) {
-            allClasses.add(booking.getAClass());
+            classes.add(booking.getAClass());
         }
-        user.setClasses(allClasses);
-        userRepository.save(user);
+        userService.editUser(user);
         bookings.forEach(booking -> this.removeFromBasket(booking.getId()));
     }
 

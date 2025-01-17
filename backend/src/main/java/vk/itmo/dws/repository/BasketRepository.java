@@ -8,9 +8,10 @@ import vk.itmo.dws.entity.Review;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Repository
 public interface BasketRepository extends JpaRepository<Basket, Long> {
 
-    Optional<Basket> findByUserId(Long userId);
+    Optional<Basket> findByUserId(UUID userId);
 }
