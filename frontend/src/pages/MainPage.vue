@@ -45,8 +45,8 @@ const fetchSections = async () => {
           if (option.key === "Возраст") {
             const value = parseInt(option.value);
             const operator = option.operator;
-            console.log(minAge.value)
-            if (operator === ">") {
+            console.log(operator)
+            if (operator === "GREATER_THAN") {
               if (minAge.value && value >= minAge.value) return false;
             } else if (operator === "<") {
               if (maxAge.value && value >= maxAge.value) return false;
@@ -54,7 +54,7 @@ const fetchSections = async () => {
               if (minAge.value && value < minAge.value) return false;
             } else if (operator === "<=") {
               if (maxAge.value && value > maxAge.value) return false;
-            } else if (operator === "=") {
+            } else if (operator === "EQUALS") {
               if (minAge.value && value < minAge.value) return false;
               if (maxAge.value && value > maxAge.value) return false;
             }

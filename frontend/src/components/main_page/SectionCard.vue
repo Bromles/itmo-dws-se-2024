@@ -37,7 +37,7 @@ const navigateToDetails = () => {
         <p class="text-clear_white">{{ props.title }}</p>
         <!-- Вывод опций -->
         <div v-if="props.options.length > 0" class="mt-4">
-          <p class="text-clear_white font-bold">Условия:</p>
+          <p class="text-clear_white font-bold">Ограничения:</p>
           <ul class="text-clear_white">
             <li v-for="(option, index) in props.options" :key="index">
               {{ option.key }}: {{ option.value}}
