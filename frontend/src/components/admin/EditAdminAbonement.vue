@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
-import axiosAgregator from '@/api/axiosAgregator.ts';
-import { useAuth } from '@/utils/composables.ts';
-import ClassCard from "@/components/class/ClassCard.vue";
+import axiosAgregator from "../../api/axiosAgregator";
+import { useAuth } from "../../utils/composables";
+import ClassCard from "../class/ClassCard.vue";
 
 const route = useRoute();
 const router = useRouter();
@@ -26,23 +26,41 @@ const durationTypes = [
 const lessons = ref([]);
 const lessonsLoaded = ref(false);
 
+const parseIsoDuration = (duration: string) => {
+  const matches = duration.match(/P(?:(\d+)Y)?(?:(\d+)M)?(?:(\d+)D)?/);
+  if (matches) {
+    return {
+      years: parseInt(matches[1] || '0'),
+      months: parseInt(matches[2] || '0'),
+      days: parseInt(matches[3] || '0')
+    };
+  }
+  return { years: 0, months: 0, days: 0 };
+};
+
+// Функция для формирования ISO 8601 длительности
+const formatIsoDuration = () => {
+  let duration = 'P';
+  if (form.value.years > 0) duration += `${form.value.years}Y`;
+  if (form.value.months > 0) duration += `${form.value.months}M`;
+  if (form.value.days > 0) duration += `${form.value.days}D`;
+  return duration === 'P' ? 'P0D' : duration;
+};
+
+
 const loadSubscriptionData = async () => {
   const id = route.params.id;
   try {
-    const response = await axiosAgregator.sendGet(`/api/v1/subscriptions/${id}`, token);
+    const response = await axiosAgregator.sendGet(`/api/v1/abonements/${id}`, token);
     form.value.title = response.data.title;
     form.value.price = response.data.price;
     form.value.classesCount = response.data.classesCount;
 
-    // Парсинг длительности из строки (предполагая, что duration приходит в формате "2 months")
     if (response.data.duration) {
-      const durationParts = response.data.duration.split(' ');
-      if (durationParts.length === 2) {
-        form.value.durationCount = parseInt(durationParts[0]);
-        form.value.durationType = durationParts[1].endsWith('s')
-            ? durationParts[1].slice(0, -1)
-            : durationParts[1];
-      }
+      const duration = parseIsoDuration(response.data.isoDuration);
+      form.value.years = duration.years;
+      form.value.months = duration.months;
+      form.value.days = duration.days;
     }
 
     await loadLessons(id);
@@ -53,7 +71,7 @@ const loadSubscriptionData = async () => {
 
 const loadLessons = async (id) => {
   try {
-    const response = await axiosAgregator.sendGet(`/api/v1/subscriptions/${id}/classes`, token);
+    const response = await axiosAgregator.sendGet(`/api/v1/abonements/${id}/classes`, token);
     lessons.value = response.data.classes;
     lessonsLoaded.value = true;
   } catch (error) {
@@ -67,15 +85,20 @@ onMounted(loadSubscriptionData);
 const onSubmit = async () => {
   try {
     const id = route.params.id;
-    const duration = `${form.value.durationCount} ${form.value.durationType}${form.value.durationCount > 1 ? 's' : ''}`;
+    const params = new URLSearchParams();
+    params.append('title', form.value.title);
+    params.append('price', form.value.price.toString());
+    params.append('duration', formatIsoDuration());
+    if (form.value.classesCount !== null) {
+      params.append('classesCount', form.value.classesCount.toString());
+    }
 
-    await axiosAgregator.sendPut(`/api/v1/subscriptions/${id}`, {
+    await axiosAgregator.sendPut(`/api/v1/abonements/${id}`, {
       title: form.value.title,
       price: form.value.price,
-      duration: duration,
-      classesCount: form.value.classesCount
+      duration: formatIsoDuration(),
+      classesCount: form.value.classesCount.toString()
     }, token);
-
     router.push({ name: 'YourPreviousPage' });
   } catch (error) {
     console.error('Ошибка при обновлении данных:', error);
@@ -107,24 +130,38 @@ const onSubmit = async () => {
         </div>
 
         <div class="mb-4">
-          <label for="durationCount" class="block text-sm font-medium text-gray-700">Длительность</label>
-          <div class="flex space-x-2">
-            <input
-                v-model.number="form.durationCount"
-                type="number"
-                id="durationCount"
-                min="1"
-                class="mt-1 text-main_green block w-1/3 border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-main_green"
-                required
-            />
-            <select
-                v-model="form.durationType"
-                class="mt-1 text-main_green block w-2/3 border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-main_green"
-            >
-              <option v-for="type in durationTypes" :key="type.value" :value="type.value">
-                {{ type.label }}
-              </option>
-            </select>
+          <label class="block text-sm font-medium text-gray-700">Длительность</label>
+          <div class="grid grid-cols-3 gap-2">
+            <div>
+              <label for="years" class="block text-xs text-gray-500">Годы</label>
+              <input
+                  v-model.number="form.years"
+                  type="number"
+                  id="years"
+                  min="0"
+                  class="mt-1 text-main_green block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-main_green"
+              />
+            </div>
+            <div>
+              <label for="months" class="block text-xs text-gray-500">Месяцы</label>
+              <input
+                  v-model.number="form.months"
+                  type="number"
+                  id="months"
+                  min="0"
+                  class="mt-1 text-main_green block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-main_green"
+              />
+            </div>
+            <div>
+              <label for="days" class="block text-xs text-gray-500">Дни</label>
+              <input
+                  v-model.number="form.days"
+                  type="number"
+                  id="days"
+                  min="0"
+                  class="mt-1 text-main_green block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-main_green"
+              />
+            </div>
           </div>
         </div>
 

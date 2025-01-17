@@ -38,7 +38,7 @@ export default {
     sendPut: async function (path: string, data: any, token: string) {
         let headers = {
             Authorization: `Bearer ${token}`,
-            'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
+            'Content-Type': 'application/json',
             "Access-Control-Allow-Origin": "*",
         }
         return await axios
