@@ -22,6 +22,7 @@ public class AbonementResponse {
     private Long id;
     private String title;
     private String duration;
+    private String isoDuration;
     private Long classesCount;
     private SectionShortResponse section;
     private Double price;
@@ -32,6 +33,9 @@ public class AbonementResponse {
         this.id = abonement.getId();
         this.title = abonement.getTitle();
         this.duration = PeriodFormatterService.formatPeriod(abonement.getDuration());
+        if(abonement.getDuration() != null) {
+            this.isoDuration = abonement.getDuration().toString();
+        }
         this.classesCount = abonement.getClassesCount();
         this.section = new SectionShortResponse(abonement.getSection());
         this.price = abonement.getPrice();
