@@ -17,6 +17,9 @@ const form = ref({
 const lessons = ref([]);
 const lessonsLoaded = ref(false);
 const sectionOptions = ref([]);
+const flag = ref(false)
+const flag2 = ref(false)
+const flag3 = ref(false)
 const classificationForm = ref({
   key: '',
   value: ''
@@ -26,6 +29,7 @@ const editingOption = ref(null);
 const loadCardData = async () => {
   const id = route.params.id;
   const response = await axiosAgregator.sendGet(`/api/v1/abonements/${id}`, token);
+  console.log(response.data)
   form.value.title = response.data.title;
   form.value.price = response.data.price;
 
@@ -58,6 +62,10 @@ const onSubmit = async () => {
   } catch (error) {
     console.error('Ошибка при обновлении данных:', error);
   }
+  flag.value = true
+  setTimeout(() => {
+    flag.value = false
+  }, 5000)
 };
 
 // Форма для добавления нового урока
@@ -76,6 +84,10 @@ const addLesson = async () => {
   } catch (error) {
     console.error('Ошибка при добавлении урока:', error);
   }
+  flag3.value = true
+  setTimeout(() => {
+    flag3.value = false
+  }, 5000)
 };
 
 // Метод для создания классификации
@@ -138,6 +150,10 @@ const addClassificationOption = async () => {
   } catch (error) {
     console.error('Ошибка при добавлении классификации и опций:', error);
   }
+  flag2.value = true
+  setTimeout(() => {
+    flag2.value = false
+  }, 5000)
 };
 
 const editOption = (option) => {
@@ -171,18 +187,18 @@ onMounted(loadCardData);
     </div>
 
     <!-- Секция редактирования -->
-    <div class="w-1/3 ml-5 mt-6 mb-6 p-6 bg-white rounded-lg shadow-md bg-main_green">
-      <h2 class="mb-4 text-2xl font-bold text-center">Редактировать карточку</h2>
+    <div class="w-1/3 ml-5 mt-6 mb-6 p-6 bg-white rounded-lg shadow-md max-w-[400px] bg-main_green">
+      <h2 class="mb-4 text-2xl font-bold text-center text-clear_white">Редактировать карточку</h2>
       <form @submit.prevent="onSubmit">
         <div class="mb-4">
-          <label for="title" class="block text-sm font-medium text-gray-700">Название</label>
-          <input v-model="form.title" type="text" id="title" class="mt-1 block w-full border border-gray-300 text-main_green rounded-md shadow-sm focus:ring focus:ring-main_green" required />
+          <label for="title" class="block text-clear_white text-sm font-medium text-gray-700">Название</label>
+          <input v-model="form.title" type="text" id="title" class="px-3 mt-1 h-9 block w-full h-9 border border-gray-300 text-main_green rounded-md shadow-sm focus:ring focus:ring-main_green" required />
         </div>
         <div class="mb-4">
-          <label for="price" class="block text-sm font-medium text-gray-700">Цена</label>
-          <input v-model.number="form.price" type="number" id="price" class="mt-1 text-main_green block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-main_green" required />
+          <label for="price" class="block text-clear_white text-sm font-medium text-gray-700">Цена</label>
+          <input v-model.number="form.price" type="number" id="price" class="px-3 mt-1 h-9 text-main_green block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-main_green" required />
         </div>
-        <button type="submit" class="w-full btn btn-primary">
+        <button type="submit" class="w-full mt-3  btn btn-primary">
           Сохранить изменения
         </button>
       </form>
@@ -206,14 +222,14 @@ onMounted(loadCardData);
         <h3 class="text-xl font-bold text-center">Редактировать ограничение</h3>
         <form @submit.prevent="updateOption">
           <div class="mb-4">
-            <label for="editKey" class="block text-sm font-medium text-gray-700">Ключ</label>
-            <input v-model="editingOption.key" type="text" id="editKey" class="mt-1 text-main_green block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-main_green" required />
+            <label for="editKey" class="block text-clear_white text-sm font-medium text-gray-700">Ключ</label>
+            <input v-model="editingOption.key" type="text" id="editKey" class="px-3 mt-1 h-9 text-main_green block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-main_green" required />
           </div>
           <div class="mb-4">
-            <label for="editValue" class="block text-sm font-medium text-gray-700">Значение</label>
-            <input v-model="editingOption.value" type="text" id="editValue" class="mt-1 text-main_green block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-main_green" required />
+            <label for="editValue" class="block text-clear_white text-sm font-medium text-gray-700">Значение</label>
+            <input v-model="editingOption.value" type="text" id="editValue" class="px-3 mt-1 h-9 text-main_green block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-main_green" required />
           </div>
-          <button type="submit" class="w-full btn btn-primary">
+          <button type="submit" class="w-full mt-3 btn btn-primary">
             Обновить ограничение
           </button>
         </form>
@@ -221,59 +237,105 @@ onMounted(loadCardData);
 
       <!-- Форма для добавления новой классификации и опции -->
       <div class="mt-8">
-        <h3 class="text-xl font-bold text-center">Добавить ограничение</h3>
+        <h3 class="mb-4 text-2xl text-clear_white font-bold text-center">Добавить ограничение</h3>
         <form @submit.prevent="addClassificationOption">
           <div class="mb-4">
-            <label for="key" class="block text-sm font-medium text-gray-700">Ключ</label>
-            <input v-model="classificationForm.key" type="text" id="key" class="mt-1 text-main_green block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-main_green" required />
+            <label for="key" class="block text-clear_white text-sm font-medium text-gray-700">Ключ</label>
+            <input v-model="classificationForm.key" type="text" id="key" class="px-3 mt-1 h-9 text-main_green block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-main_green" required />
           </div>
           <div class="mb-4">
-            <label for="value" class="block text-sm font-medium text-gray-700">Значение</label>
-            <input v-model="classificationForm.value" type="text" id="value" class="mt-1 text-main_green block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-main_green" required />
+            <label for="value" class="block text-clear_white text-sm font-medium text-gray-700">Значение</label>
+            <input v-model="classificationForm.value" type="text" id="value" class="px-3 mt-1 h-9 text-main_green block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-main_green" required />
           </div>
 
           <!-- Новое поле для выбора оператора -->
           <div class="mb-4">
-            <label for="operator" class="block text-sm font-medium text-gray-700">Оператор</label>
-            <select v-model="classificationForm.operator" id="operator" class="mt-1 text-main_green block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-main_green" required>
+            <label for="operator" class="block text-clear_white text-sm font-medium text-gray-700">Оператор</label>
+            <select v-model="classificationForm.operator" id="operator" class="px-3 mt-1 h-9 text-main_green block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-main_green" required>
               <option value="GREATER_THAN">Больше</option>
               <option value="LESS_THAN">Меньше</option>
               <option value="EQUALS">Равно</option>
             </select>
           </div>
 
-          <button type="submit" class="w-full btn btn-primary">
+          <button type="submit" class="mt-3 w-full btn btn-primary">
             Сохранить ограничение
           </button>
         </form>
       </div>
 
       <!-- Секция для добавления новых уроков -->
-      <h2 class="mt-8 mb-4 text-2xl font-bold text-center">Добавить новое занятие</h2>
+      <h2 class="mb-4 mt-8 text-2xl font-bold text-clear_white text-center">Добавить новое занятие</h2>
       <form @submit.prevent="addLesson">
         <div class="mb-4">
-          <label for="lessonTitle" class="block text-sm font-medium text-gray-700">Название занятия</label>
-          <input v-model="lessonForm.title" type="text" id="lessonTitle" class="mt-1 text-main_green block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-main_green" required />
+          <label for="lessonTitle" class="text-clear_white block text-sm font-medium text-gray-700">Название занятия</label>
+          <input v-model="lessonForm.title" type="text" id="lessonTitle" class="px-3 mt-1 h-9 text-main_green block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-main_green" required />
         </div>
         <div class="mb-4">
-          <label for="lessonContent" class="block text-sm font-medium text-gray-700">Содержание занятия</label>
-          <textarea v-model="lessonForm.description" id="lessonContent" rows="3" class="mt-1 text-main_green block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-main_green" required></textarea>
+          <label for="lessonContent" class="block text-clear_white text-sm font-medium text-gray-700">Содержание занятия</label>
+          <textarea v-model="lessonForm.description" id="lessonContent" rows="3" class="px-3 mt-1 h-9 text-main_green block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-main_green" required></textarea>
         </div>
 
-        <button type="submit" class="w-full btn btn-primary">
+        <button type="submit" class="w-full mt-3 btn btn-primary">
           Добавить занятие
         </button>
       </form>
     </div>
 
     <!-- Прокручиваемая секция с уроками -->
-    <div class="w-2/3 overflow-y-auto bg-gray-200 items-center flex flex-col justify-start h-auto mt-6 mb-6">
-      <ul v-if="lessonsLoaded && lessons.length > 0" class="w-full h-auto">
-        <li v-for="lesson in lessons" :key="lesson.id" class="w-full h-auto flex flex-row items-center justify-center">
+    <div class="overflow-y-auto w-full bg-gray-200 items-center flex flex-col justify-start h-auto mt-6 mb-6">
+      <ul v-if="lessonsLoaded && lessons.length > 0" class="w-full h-auto flex flex-col justify-center items-center">
+        <li v-for="lesson in lessons" :key="lesson.id" class="w-full h-auto flex flex-col items-center justify-center">
           <ClassCard :class-info="lesson" />
         </li>
       </ul>
     </div>
+
+    <div v-show="flag" role="alert" class="alert w-[30%] items-center flex justify-center alert-success absolute ml-[35%] mt-4">
+      <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="h-6 w-6 shrink-0 stroke-current"
+          fill="none"
+          viewBox="0 0 24 24">
+        <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+      </svg>
+      <span>Изменения сохранены!</span>
+    </div>
+
+    <div v-show="flag2" role="alert" class="alert w-[30%] items-center flex justify-center alert-success absolute ml-[35%] mt-4">
+      <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="h-6 w-6 shrink-0 stroke-current"
+          fill="none"
+          viewBox="0 0 24 24">
+        <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+      </svg>
+      <span>Новые ограничения сохранены!</span>
+    </div>
+
+    <div v-show="flag3" role="alert" class="alert w-[30%] items-center flex justify-center alert-success absolute ml-[35%] mt-4">
+      <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="h-6 w-6 shrink-0 stroke-current"
+          fill="none"
+          viewBox="0 0 24 24">
+        <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+      </svg>
+      <span>Новые занятия сохранены!</span>
+    </div>
+
   </div>
 </template>
 

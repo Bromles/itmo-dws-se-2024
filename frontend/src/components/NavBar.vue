@@ -79,7 +79,6 @@ onMounted(() => {
     key: "c5ebe1d7-8a2f-41d6-a678-b019f7c04ada"
   });
   DG.then(map)
-  fetchMapPointers()
 });
 
 const loadMapPointers = () => {
@@ -140,7 +139,7 @@ const loadMapPointers = () => {
       <div class="bg-clear_white modal-box size-[70%] max-w-[100%] border-r-8">
         <div ref="mapContainer" class="w-full h-full"/>
       </div>
-      <form method="dialog" class="modal-backdrop modal2">
+      <form method="dialog" class="modal-backdrop modal1">
         <button>close</button>
       </form>
     </dialog>
@@ -149,7 +148,7 @@ const loadMapPointers = () => {
       <div class="bg-clear_white modal-box size-[70%] max-w-[100%] border-r-8">
         <FullCalendar ref="calendarApi" class="w-full h-full text-main_green" v-bind:options="calendarOptions"/>
       </div>
-      <form method="dialog" class="modal-backdrop modal1">
+      <form method="dialog" class="modal-backdrop modal2">
         <button>close</button>
       </form>
     </dialog>

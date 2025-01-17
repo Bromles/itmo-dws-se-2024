@@ -106,11 +106,10 @@ onMounted(fetchSections)
   <div class="flex flex-row w-full bg-clear_white h-[100vh]">
     <div class="basis-3/12 flex flex-col items-center bg-form_grey overflow-y-auto h-lvh">
       <div
-          class="bg-main_green flex items-center justify-center w-[95%] h-10 text-2xl rounded-md mt-2 text-clear_white">
+          class="bg-main_green flex items-center justify-center w-[95%] py-3 text-3xl rounded-md mt-2 text-clear_white">
         <p>Фильтры</p>
       </div>
-      <div
-          class="mb-4 mt-4 w-[95%] flex text-main_green flex-col items-center rounded-md bg-clear_white border-2 border-main_green">
+      <div class="mb-4 mt-4 w-[95%] flex justify-center text-main_green flex-col items-center rounded-md bg-clear_white border-2 border-main_green">
         <div class="text-2xl">Локация</div>
         <FormInput id="city" label="Город" placeholder="Санкт-Петербург"/>
         <FormInput id="district" label="Район" placeholder="Московский"/>
@@ -136,7 +135,7 @@ onMounted(fetchSections)
           </label>
           <input v-model="minAge"
                  :placeholder="18"
-                 class="input input-bordered w-full max-w-xs bg-form_grey border-main_green border-2"/>
+                 class="input input-bordered w-full bg-form_grey border-main_green border-2"/>
         </div>
         <div class="mb-4 flex flex-col w-[90%]">
           <label :for="maxAge" class="block text-lg font-medium text-gray-700 mb-1">
@@ -144,7 +143,7 @@ onMounted(fetchSections)
           </label>
           <input v-model="maxAge"
                  :placeholder="99"
-                 class="input input-bordered w-full max-w-xs bg-form_grey border-main_green border-2"/>
+                 class="input input-bordered w-full bg-form_grey border-main_green border-2"/>
         </div>
 
       </div>

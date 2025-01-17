@@ -7,7 +7,7 @@ spring:
       enabled: false
   jpa:
     hibernate:
-      ddl-auto: create
+      ddl-auto: update
     show-sql: false
   datasource:
     url: ${AGREGATOR_DB_URL:jdbc:postgresql://localhost:5432/postgres}

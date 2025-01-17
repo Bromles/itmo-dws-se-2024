@@ -25,6 +25,7 @@ const durationTypes = [
 
 const lessons = ref([]);
 const lessonsLoaded = ref(false);
+const flag = ref(false);
 
 const parseIsoDuration = (duration: string) => {
   const matches = duration.match(/P(?:(\d+)Y)?(?:(\d+)M)?(?:(\d+)D)?/);
@@ -90,19 +91,22 @@ const onSubmit = async () => {
     params.append('price', form.value.price.toString());
     params.append('duration', formatIsoDuration());
     if (form.value.classesCount !== null) {
-      params.append('classesCount', form.value.classesCount.toString());
+      params.append('classesCount', form.value.classesCount);
     }
 
     await axiosAgregator.sendPut(`/api/v1/abonements/${id}`, {
       title: form.value.title,
       price: form.value.price,
       duration: formatIsoDuration(),
-      classesCount: form.value.classesCount.toString()
+      classesCount: form.value.classesCount
     }, token);
-    router.push({ name: 'YourPreviousPage' });
   } catch (error) {
     console.error('Ошибка при обновлении данных:', error);
   }
+  flag.value = true
+  setTimeout(() => {
+    flag.value = false
+  }, 5000)
 };
 </script>
 
@@ -116,67 +120,67 @@ const onSubmit = async () => {
     </div>
 
     <!-- Секция редактирования -->
-    <div class="w-1/3 ml-5 mt-6 mb-6 p-6 bg-white rounded-lg shadow-md bg-main_green">
-      <h2 class="mb-4 text-2xl font-bold text-center">Редактировать абонемент</h2>
+    <div class="w-1/3 ml-5 mt-6 mb-6 p-6 bg-white rounded-lg shadow-md bg-main_green max-w-[400px]">
+      <h2 class="mb-4 text-2xl font-bold text-center text-clear_white">Редактировать абонемент</h2>
       <form @submit.prevent="onSubmit">
         <div class="mb-4">
-          <label for="title" class="block text-sm font-medium text-gray-700">Название</label>
-          <input v-model="form.title" type="text" id="title" class="mt-1 block w-full border border-gray-300 text-main_green rounded-md shadow-sm focus:ring focus:ring-main_green" required />
+          <label for="title" class="block text-sm font-medium text-gray-700 text-clear_white">Название</label>
+          <input v-model="form.title" type="text" id="title" class="mt-1 h-9 px-3 block w-full border border-gray-300 text-main_green rounded-md shadow-sm focus:ring focus:ring-main_green" required />
         </div>
 
         <div class="mb-4">
-          <label for="price" class="block text-sm font-medium text-gray-700">Цена</label>
-          <input v-model.number="form.price" type="number" id="price" class="mt-1 text-main_green block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-main_green" required />
+          <label for="price" class="block text-sm font-medium text-gray-700 text-clear_white">Цена</label>
+          <input v-model.number="form.price" type="number" id="price" class="mt-1 h-9 px-3 text-main_green block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-main_green" required />
         </div>
 
         <div class="mb-4">
-          <label class="block text-sm font-medium text-gray-700">Длительность</label>
-          <div class="grid grid-cols-3 gap-2">
+          <label class="block text-sm font-medium text-gray-700 text-clear_white">Длительность</label>
+          <div class="grid grid-cols-3 gap-2 mt-2">
             <div>
-              <label for="years" class="block text-xs text-gray-500">Годы</label>
+              <label for="years" class="block text-xs text-gray-500 text-clear_white">Годы</label>
               <input
                   v-model.number="form.years"
                   type="number"
                   id="years"
                   min="0"
-                  class="mt-1 text-main_green block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-main_green"
+                  class="mt-1 h-9 px-3 text-main_green block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-main_green"
               />
             </div>
             <div>
-              <label for="months" class="block text-xs text-gray-500">Месяцы</label>
+              <label for="months" class="block text-xs text-gray-500 text-clear_white">Месяцы</label>
               <input
                   v-model.number="form.months"
                   type="number"
                   id="months"
                   min="0"
-                  class="mt-1 text-main_green block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-main_green"
+                  class="mt-1 h-9 px-3 text-main_green block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-main_green"
               />
             </div>
             <div>
-              <label for="days" class="block text-xs text-gray-500">Дни</label>
+              <label for="days" class="block text-xs text-gray-500 text-clear_white">Дни</label>
               <input
                   v-model.number="form.days"
                   type="number"
                   id="days"
                   min="0"
-                  class="mt-1 text-main_green block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-main_green"
+                  class="mt-1 h-9 px-3 text-main_green block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-main_green"
               />
             </div>
           </div>
         </div>
 
         <div class="mb-4">
-          <label for="classesCount" class="block text-sm font-medium text-gray-700">Количество занятий</label>
+          <label for="classesCount" class="block text-clear_white text-sm font-medium text-gray-700">Количество занятий</label>
           <input
               v-model.number="form.classesCount"
               type="number"
               id="classesCount"
               min="0"
-              class="mt-1 text-main_green block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-main_green"
+              class="mt-1 h-9 px-3 text-main_green block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-main_green"
           />
         </div>
 
-        <button type="submit" class="w-full btn btn-primary">
+        <button type="submit" class="w-full mt-3 btn btn-primary">
           Сохранить изменения
         </button>
       </form>
@@ -193,7 +197,24 @@ const onSubmit = async () => {
         Уроки не найдены.
       </div>
     </div>
+
+    <div v-show="flag" role="alert" class="alert w-[30%] items-center flex justify-center alert-success absolute ml-[35%] mt-4">
+      <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="h-6 w-6 shrink-0 stroke-current"
+          fill="none"
+          viewBox="0 0 24 24">
+        <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+      </svg>
+      <span>Изменения сохранены!</span>
+    </div>
+
   </div>
+
 </template>
 
 <style scoped>

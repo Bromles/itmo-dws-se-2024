@@ -75,8 +75,8 @@ const addToBasket = async () => {
 </script>
 
 <template>
-  <div class="flex flex-row mt-10 bg-white">
-    <div class="mt-5 w-[90%] mr-5 bg-base-200 rounded-lg p-5 shadow-lg">
+  <div class="flex flex-row bg-white">
+    <div class="mt-2 w-[90%] mr-5 bg-base-200 rounded-lg p-5 shadow-lg">
       <p class="text-3xl text-neutral-50">
         {{ props.abonementInfo.title }}
       </p>
@@ -85,12 +85,12 @@ const addToBasket = async () => {
       <p class="text-neutral-50">Подробнее: {{ props.abonementInfo.time }}</p>
 
       <!-- Выбор класса -->
-      <div v-if="props.sectionClasses.length > 0" class="mt-5">
+      <div v-if="props.sectionClasses.length > 0" class="">
         <label for="classSelect" class="text-neutral-50">Выберите занятие:</label>
         <select
             id="classSelect"
             v-model="selectedClass"
-            class="mt-2 p-2 rounded-md border"
+            class="mt-2 ml-2 p-2 rounded-md border text-main_green"
         >
           <option v-for="classItem in props.sectionClasses" :key="classItem.id" :value="classItem.id">
             {{ classItem.title }}

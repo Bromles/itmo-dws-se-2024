@@ -43,6 +43,7 @@ public class AbonementService implements vk.itmo.dws.contracts.AbonementService 
             throw new IllegalArgumentException("You don't have access to this section");
         }
         Abonement abonement = mapper.map(abonementData, Abonement.class);
+        abonement.setUserId(user.getId());
         return abonementRepository.save(abonement);
     }
 

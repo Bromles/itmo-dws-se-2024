@@ -3,8 +3,7 @@
     <label :for="id" class="block text-lg font-medium text-gray-700 mb-1">
       {{ label }}
     </label>
-    <input :placeholder="placeholder" :type="type"
-           class="input input-bordered w-full max-w-xs bg-form_grey border-main_green border-2"/>
+    <input :placeholder="placeholder" :type="type" class="input input-bordered w-full bg-form_grey border-main_green border-2"/>
   </div>
 </template>
 
