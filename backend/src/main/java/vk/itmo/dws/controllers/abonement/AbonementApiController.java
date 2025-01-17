@@ -69,6 +69,11 @@ public class AbonementApiController extends BaseController implements AbonementA
         return ResponseEntity.ok(new AbonementResponse(abonementService.subscribeToAbonement(abonementId)));
     }
 
+    @GetMapping("/{abonementId}")
+    public ResponseEntity<AbonementResponse> getAbonement(@PathVariable Long abonementId) {
+        return ResponseEntity.ok(new AbonementResponse(abonementService.findById(abonementId).orElseThrow()));
+    }
+
     @Override
     public ResponseEntity<ListResponse<AbonementResponse>> getOwnedAbonements() {
         List<Abonement> abonements = (List<Abonement>) abonementService.findAllOwned(Collections.emptyMap());

@@ -54,6 +54,7 @@ public class AbonementService implements vk.itmo.dws.contracts.AbonementService 
 
         abonement.setTitle(abonementData.getTitle());
         abonement.setDuration(abonementData.getDuration());
+        abonement.setClassesCount(abonementData.getClassesCount());
         abonementRepository.save(abonement);
         return abonement;
     }
@@ -111,7 +112,7 @@ public class AbonementService implements vk.itmo.dws.contracts.AbonementService 
 
     @Override
     public Optional<Abonement> findById(Long id) {
-        return abonementRepository.findById(1L);//TODO get user id
+        return abonementRepository.findById(id);
     }
 
     @Override
