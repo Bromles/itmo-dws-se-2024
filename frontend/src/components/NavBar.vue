@@ -24,7 +24,7 @@ const modal1 = ref(null)
 const modal2 = ref(null)
 const map = ref(null)
 const calendarApi = ref(null)
-const userUUID = "67f8eb69-97cc-4781-bb72-778b16e03908" //пока вручную указывать
+const userUUID = "dc955097-850c-44c7-9105-21a11d201858" //пока вручную указывать
 
 const calendarOptions = ref({
   plugins: [ dayGridPlugin, interactionPlugin ],
@@ -79,7 +79,6 @@ onMounted(() => {
     key: "c5ebe1d7-8a2f-41d6-a678-b019f7c04ada"
   });
   DG.then(map)
-  fetchMapPointers()
 });
 
 const loadMapPointers = () => {
@@ -140,7 +139,7 @@ const loadMapPointers = () => {
       <div class="bg-clear_white modal-box size-[70%] max-w-[100%] border-r-8">
         <div ref="mapContainer" class="w-full h-full"/>
       </div>
-      <form method="dialog" class="modal-backdrop modal2">
+      <form method="dialog" class="modal-backdrop modal1">
         <button>close</button>
       </form>
     </dialog>
@@ -149,7 +148,7 @@ const loadMapPointers = () => {
       <div class="bg-clear_white modal-box size-[70%] max-w-[100%] border-r-8">
         <FullCalendar ref="calendarApi" class="w-full h-full text-main_green" v-bind:options="calendarOptions"/>
       </div>
-      <form method="dialog" class="modal-backdrop modal1">
+      <form method="dialog" class="modal-backdrop modal2">
         <button>close</button>
       </form>
     </dialog>

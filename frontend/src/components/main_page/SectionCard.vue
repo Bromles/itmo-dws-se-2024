@@ -30,14 +30,14 @@ const navigateToDetails = () => {
 <template>
   <div class="flex flex-col h-auto rounded-lg overflow-hidden border-2 border-main_green">
     <div class="h-50 bg-white flex flex-row items-center justify-center">
-      <img alt="Avatar" class="w-[95%] h-[95%] rounded-md" :src="props.avatar" />
+      <img alt="Avatar" class="w-[95%] h-[95%] rounded-md" src="../../../public/vlb.jpg" />
     </div>
     <div class="flex flex-col items-center justify-center w-full bg-main_green h-auto">
       <div class="bg-main_green flex flex-col w-[95%] mx-auto py-4 text-sm">
         <p class="text-clear_white">{{ props.title }}</p>
         <!-- Вывод опций -->
         <div v-if="props.options.length > 0" class="mt-4">
-          <p class="text-clear_white font-bold">Условия:</p>
+          <p class="text-clear_white font-bold">Ограничения:</p>
           <ul class="text-clear_white">
             <li v-for="(option, index) in props.options" :key="index">
               {{ option.key }}: {{ option.value}}
@@ -47,9 +47,8 @@ const navigateToDetails = () => {
         </div>
       </div>
       <button
-          class="btn btn-[80%] rounded-lg min-w-2 btn-sm mb-2 bg-clear_white text-main_green hover:bg-form_grey"
-          @click="navigateToDetails"
-      >
+          class="btn w-[60%] rounded-lg min-w-2 btn-sm mb-2 text-md bg-clear_white text-main_green hover:bg-form_grey"
+          @click="navigateToDetails">
         Просмотреть
       </button>
     </div>

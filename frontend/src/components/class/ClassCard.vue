@@ -58,7 +58,7 @@ const addToBasket = async () => {
 </script>
 
 <template>
-  <div class="flex flex-row items-center justify-center bg-white w-[90%] h-auto">
+  <div class="flex flex-row items-center justify-center bg-white w-[90%] h-auto mb-5">
     <div class="rounded-lg bg-main_green w-full  p-6">
       <p class="text-3xl text-neutral-50">
         {{ props.classInfo.title }}
@@ -66,17 +66,18 @@ const addToBasket = async () => {
       <p class="text-xl text-neutral-50 mt-5">Возраст: {{ props.classInfo.ageRange }}</p>
       <p class="text-xl text-neutral-50">Преподаватель: {{ props.classInfo.teacher }}</p>
       <p class="text-xl text-neutral-50">Время: {{ props.classInfo.time }}</p>
-      <button v-if="role === 'client'"
-              class="btn btn-secondary btn-base-100 rounded-md text-center w-[40%] mt-5"
-              @click="addToBasket">
-        Добавить в корзину
-      </button>
-
-      <button v-if="role === 'employee'"
-              class="btn btn-danger btn-base-100 rounded-md text-center w-[40%] mt-5 bg-clear_white text-neutral-950"
-              @click="removeClass">
-        Удалить урок
-      </button>
+      <div class="w-full h-auto mt-5 flex flex-cow items-center justify-center">
+        <button v-if="role === 'employee'"
+                class="btn btn-danger btn-base-100 rounded-md text-center w-[40%] bg-clear_white text-neutral-950"
+                @click="removeClass">
+          Удалить урок
+        </button>
+        <button v-if="role === 'client'"
+                class="btn btn-secondary btn-base-100 rounded-md text-center w-[40%] mt-5"
+                @click="addToBasket">
+          Добавить в корзину
+        </button>
+      </div>
     </div>
 
     <!-- Уведомления -->

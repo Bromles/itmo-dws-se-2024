@@ -3,6 +3,8 @@ package vk.itmo.dws.service;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
+import vk.itmo.dws.contracts.CalendarService;
+import vk.itmo.dws.dto.calendar.CalendarRecordDto;
 import vk.itmo.dws.dto.request.abonement.AbonementCreateRequest;
 import vk.itmo.dws.entity.*;
 import vk.itmo.dws.entity.Class;
@@ -10,6 +12,7 @@ import vk.itmo.dws.enums.BookingStateEnum;
 import vk.itmo.dws.exception.ClassAlreadyBoughtException;
 import vk.itmo.dws.repository.*;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.Period;
 import java.util.*;
@@ -20,6 +23,7 @@ public class AbonementService implements vk.itmo.dws.contracts.AbonementService 
     private final UserService userService;
     private final AbonementRepository abonementRepository;
     private final AbonemenUsageRepository abonementUsageRepository;
+    private final CalendarService calendarService;
     private final SectionRepository sectionRepository;
     protected ModelMapper mapper = new ModelMapper();
 
@@ -39,6 +43,7 @@ public class AbonementService implements vk.itmo.dws.contracts.AbonementService 
             throw new IllegalArgumentException("You don't have access to this section");
         }
         Abonement abonement = mapper.map(abonementData, Abonement.class);
+        abonement.setUserId(user.getId());
         return abonementRepository.save(abonement);
     }
 
@@ -54,6 +59,7 @@ public class AbonementService implements vk.itmo.dws.contracts.AbonementService 
 
         abonement.setTitle(abonementData.getTitle());
         abonement.setDuration(abonementData.getDuration());
+        abonement.setClassesCount(abonementData.getClassesCount());
         abonementRepository.save(abonement);
         return abonement;
     }
@@ -101,6 +107,10 @@ public class AbonementService implements vk.itmo.dws.contracts.AbonementService 
         assert abonement.getDuration() != null;
         abonementUsage.setDisableDate(LocalDateTime.now().plus(abonement.getDuration()));
         abonementUsageRepository.save(abonementUsage);
+
+        CalendarRecordDto calendarRecordDto = new CalendarRecordDto(abonement.getTitle(), LocalDateTime.now(), abonementUsage.getDisableDate());
+        calendarService.createRecord(calendarRecordDto);
+
         return abonement;
     }
 
@@ -111,7 +121,7 @@ public class AbonementService implements vk.itmo.dws.contracts.AbonementService 
 
     @Override
     public Optional<Abonement> findById(Long id) {
-        return abonementRepository.findById(1L);//TODO get user id
+        return abonementRepository.findById(id);
     }
 
     @Override

@@ -36,7 +36,7 @@ onMounted(fetchSections)
 </script>
 
 <template>
-  <div class="flex flex-col gap-2 w-full mt-10 bg-clear_white">
+  <div class="flex flex-col gap-2 w-full mt-10 min-h-[100vh] bg-clear_white">
     <div class="flex flex-row items-center justify-between mr-10 mt-10 ml-10">
       <p class="text-6xl text-secondary-content">Корзина</p>
       <div class="flex gap-5">
@@ -57,7 +57,7 @@ onMounted(fetchSections)
         Произошла ошибка при загрузке секций
       </div>
 
-      <div v-else-if="bookings.length" class="mt-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2">
+      <div v-else-if="bookings.length" class= "w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
         <CartCard
             v-for="booking in bookings"
             :bookingInfo="booking"

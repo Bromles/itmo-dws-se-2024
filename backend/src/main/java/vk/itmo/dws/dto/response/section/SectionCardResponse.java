@@ -18,13 +18,11 @@ public class SectionCardResponse extends SectionShortResponse{
     protected List<ClassResponse> classes;
     protected List<AbonementResponse> abonements;
     protected Long price;
-    protected List<ClassificationsResponse> classifications;
 
     public SectionCardResponse(Section section){
         super(section);
         this.classes = section.getClasses().stream().map(ClassResponse::new).toList();
         this.price = section.getPrice()/100;
         this.abonements = section.getAbonements().stream().map(AbonementResponse::new).toList();
-        this.classifications = section.getClassifications().stream().map(ClassificationsResponse::new).toList();
     }
 }

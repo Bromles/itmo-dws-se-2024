@@ -20,11 +20,11 @@ public class Abonement extends CRUDEntity{
     private String title;
 
     @Nullable
-    @Column(name = "duration", nullable = false)
+    @Column(name = "duration")
     private Period duration;
 
     @Nullable
-    @Column(name = "classes_count", nullable = false)
+    @Column(name = "classes_count")
     private Long classesCount;
 
     @ManyToOne
